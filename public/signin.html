@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+        <title>Test My Clients</title>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+         
+        <link rel="stylesheet" href="signinstyles.css">
+    </head>
+     
+
+    <body>
+        <header>
+            <div id="brand"><a href="/">Text My Clients</a></div>
+            <nav>
+                <ul>
+                    <li><a href="/about.html">About</a></li>
+                    <li><a href="/solutions.html">Solutions</a></li>
+                    <li><a href="/pricing.html">Pricing</a></li>
+                    <li><a href="/support.html">Support</a></li>
+                    <li id="login"><a href="/signin.html" >Login</a></li>
+                    <li id="signup"><a href="/signup.html">Sign Up</a></li>
+                </ul>
+            </nav>
+
+            <div id="hamburger-icon" onclick="toggleMobileMenu(this)">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+                <ul class="mobile-menu">
+                    <li><a href="/about.html">About</a></li>
+                    <li><a href="/solutions.html">Solutions</a></li>
+                    <li><a href="/pricing.html">Pricing</a></li>
+                    <li><a href="/support.html">Support</a></li>
+                    <li id="login"><a href="/signin.html" >Login</a></li>
+                    <li id="signup"><a href="/signup.html">Sign Up</a></li>
+                </ul>
+            </div>
+        </header><br>
+
+        <div id="signinsection" class="main">
+            <h1 class="pagetitle">Text My Clients</h1>
+
+            <p class="sign">Sign In</p>
+            <form class="form1">
+               <input id="signinemail" class="un " type="text" align="center" placeholder="Email" required autofocus>
+               <input id="signinpassword" class="pass" type="password" align="center" placeholder="Password" required>
+               <!-- <a id="signinbutton" class="submit" align="center">Sign in</a> -->
+               <button id="signinbutton" class="submit">Submit</button>
+               <p id="errormessage" class="errormessage"></p>
+               <p id="forgotbutton" class="forgot" align="center"><a href="#">Forgot Password?</a>
+               <p id="noaccountlink" class="noaccountlink" align="center">Don't have an account? <a href="/signup.html">Sign up.</a></p>
+            </form>
+        </div>
+
+
+        <div id="forgotpasswordsection" class="main" style="display:none;">
+            <p class="sign">Forgot Password</p><br><br><br>
+            <form class="form1">
+               <input id="useremail" class="un " type="text" align="center" placeholder="Email" required autofocus><br><br>
+               <button id="resetpasswordbutton" class="submit" style="width:45%; float:center; margin:auto; margin-bottom:1em;">Reset Password</button><br>
+               <button id="cancelpasswordresetbutton" class="submit" type="reset" style="background-image:none; background-color:rgb(220,0,0); width:45%; float:center; margin:auto;">Cancel</button><br>
+               <p id="forgotpasswordmessage" class="errormessage"></p>
+            </form>
+        </div>
+
+
+        <script type="module">
+            // Libraries
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
+            import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-analytics.js";
+            import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js"
+
+            // Config
+            const firebaseConfig = {
+                apiKey: "AIzaSyDK3f9wKaA6-FTPx9_1DyUPJgT0peHovMA",
+                authDomain: "textproject-91e54.firebaseapp.com",
+                projectId: "textproject-91e54",
+                storageBucket: "textproject-91e54.appspot.com",
+                messagingSenderId: "992522000735",
+                appId: "1:992522000735:web:bf2a10c5cd9103e8f43eea",
+                measurementId: "G-CGRCELQCN5"
+            };
+
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+            const analytics = getAnalytics(app);
+            const auth = getAuth(app);
+
+
+            // Sign in
+            $("#signinbutton").click(function (event) {
+                event.preventDefault();
+                const email = $("#signinemail").val();
+                const password = $("#signinpassword").val();
+
+                signInWithEmailAndPassword(auth, email, password)
+                  .then((userCredential) => {
+                    const user = userCredential.user;
+                    if (user) {
+                        user.getIdToken(true).then(function(idToken) {
+                            document.location.href = "/console.html";
+                        }).catch(function(error) {
+                            $("#errormessage").text("Incorrect username or password");
+                        });
+                    }
+                    else {
+                        console.log("Error occurred during user authentication");
+                        $("#errormessage").text("Error occurred during user authentication");
+                    }
+                  }).catch((error) => {
+                        $("#signinsection").height(650);
+                        console.log("Error occurred during user authentication");
+                        $("#errormessage").text("Error occurred during user authentication");
+                  });
+            });
+
+
+            // Forgot password
+            $("#forgotbutton").click(function (event) {
+                $("#signinsection").hide();
+                $("#forgotpasswordsection").show();
+            });
+
+
+            // Reset password
+            $("#resetpasswordbutton").click(function (event) {
+                const email = $("#useremail").val();
+
+                sendPasswordResetEmail(auth, email).then(() => {
+                        $("#forgotpasswordmessage").text("Password reset email has been sent");
+                    }).catch((error) => {
+                        $("#forgotpasswordmessage").text("Error occurred while resetting password");
+                    });
+            });
+
+
+            // Cancel reset password
+            $("#cancelpasswordresetbutton").click(function (event) {
+                $("#forgotpasswordsection").hide();
+                $("#signinsection").show();
+            });
+        </script>
+
+        <script>
+            function toggleMobileMenu(menu) {
+                menu.classList.toggle('open');
+            }
+        </script>
+
+        <footer>
+            <p>&copy; 2023 Text My Clients. All rights reserved.</p>
+        </footer>
+
+    </body>
+
+</html>
+

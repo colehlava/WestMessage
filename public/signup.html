@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+        <title>Test My Followers</title>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+         
+        <link rel="stylesheet" href="signinstyles.css">
+    </head>
+
+    <body>
+        <header>
+            <div id="brand"><a href="/">Text My Clients</a></div>
+            <nav>
+                <ul>
+                    <li><a href="/about.html">About</a></li>
+                    <li><a href="/solutions.html">Solutions</a></li>
+                    <li><a href="/pricing.html">Pricing</a></li>
+                    <li><a href="/support.html">Support</a></li>
+                    <li id="login"><a href="/signin.html" >Login</a></li>
+                    <li id="signup"><a href="/signup.html">Sign Up</a></li>
+                </ul>
+            </nav>
+
+            <div id="hamburger-icon" onclick="toggleMobileMenu(this)">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+                <ul class="mobile-menu">
+                    <li><a href="/about.html">About</a></li>
+                    <li><a href="/solutions.html">Solutions</a></li>
+                    <li><a href="/pricing.html">Pricing</a></li>
+                    <li><a href="/support.html">Support</a></li>
+                    <li id="login"><a href="/signin.html" >Login</a></li>
+                    <li id="signup"><a href="/signup.html">Sign Up</a></li>
+                </ul>
+            </div>
+        </header><br>
+
+        <div class="main">
+            <br><br>
+            <p class="sign" align="center">Get Started</p>
+            <form class="form1">
+               <input id="signupemail" class="un" type="text" align="center" placeholder="Email" required>
+               <input id="signuppassword" class="pass" type="password" align="center" placeholder="Password" required>
+               <button id="signupbutton" class="submit" align="center">Sign Up</button>
+               <p id="errormessage" class="errormessage"></p>
+               <p id="existingaccountlink" class="existingaccountlink" align="center">Already have an account? <a href="/signin.html">Sign in.</a></p>
+            </form>
+            <p id="email-container" style="display:none;"></p>
+        </div>
+
+
+        <div id="setup-container" class="main">
+            <br><br>
+            <h2>Account Setup</h2>
+            <input type="text" id="fname" name="fname" class="un" placeholder="First Name" required><br>
+            <input type="text" id="lname" name="lname" class="un" placeholder="Last Name" required><br>
+            <input type="text" id="bname" name="bname" class="un" placeholder="Business Name (optional)"><br>
+            <input type="tel" id="phone" name="phone" class="un" placeholder="Phone" required><br>
+            <!--
+            <input type="text" id="email" name="email" placeholder="Email" required><br>
+            -->
+
+            <button id="submitsettingsbutton" class="submit">Submit</button>
+        </div>
+
+
+        <!-- Stripe subscription sign up pricing table -->
+        <!--
+        <div id="stripe-signup-section" style="display:none;">
+            <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
+            <stripe-pricing-table pricing-table-id="prctbl_1NrmENKF5W6IwfpPEgoq13yr"
+                publishable-key="pk_live_51NralMKF5W6IwfpPGXNiikIt6nP9w9TOllBO6GKbupQCcqCQHZbV1hG7PH7fJxIruMEG80hGGYmGi5zL05jv5DkA00B53pEeyw">
+            </stripe-pricing-table>
+        </div>
+        -->
+
+        <!-- Stripe TEST MODE pricing table -->
+        <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
+        <div id="stripe-signup-section" style="display:none;">
+            <!--
+            <stripe-pricing-table pricing-table-id="prctbl_1NrpPzKF5W6IwfpPvTXnATwW"
+                publishable-key="pk_test_51NralMKF5W6IwfpP4ylys0vqnGKCDBlLHf6d7ArF4v87rcLZpwwLZ9zsDLnqfJZygcIK24LgoyzdLs04kxCmv4Ss00k5oM3xHS"
+                client-reference-id="">
+            </stripe-pricing-table>
+            -->
+        </div>
+
+        <!--
+        <script src="https://js.stripe.com/v3/"></script>
+        <section>
+            <div class="product">
+                <img src="https://i.imgur.com/EHyR2nP.png" alt="The cover of Stubborn Attachments" />
+                <div class="description">
+                    <h3>Stubborn Attachments</h3>
+                    <h5>$20.00</h5>
+                </div>
+            </div>
+            <form action="/create-checkout-session" method="POST">
+                <button type="submit" id="checkout-button">Checkout</button>
+            </form>
+        </section>
+        -->
+
+
+        <script type="module">
+            // Libraries
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
+            import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-analytics.js";
+            import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js"
+
+            // Config
+            const firebaseConfig = {
+                apiKey: "AIzaSyDK3f9wKaA6-FTPx9_1DyUPJgT0peHovMA",
+                authDomain: "textproject-91e54.firebaseapp.com",
+                projectId: "textproject-91e54",
+                storageBucket: "textproject-91e54.appspot.com",
+                messagingSenderId: "992522000735",
+                appId: "1:992522000735:web:bf2a10c5cd9103e8f43eea",
+                measurementId: "G-CGRCELQCN5"
+            };
+
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+            const analytics = getAnalytics(app);
+            const auth = getAuth(app);
+
+            // Sign up
+            $("#signupbutton").click(function (event) {
+                event.preventDefault();
+                const email = $("#signupemail").val();
+                const password = $("#signuppassword").val();
+
+                createUserWithEmailAndPassword(auth, email, password)
+                  .then((userCredential) => {
+
+                    const user = userCredential.user;
+                    if (user) {
+                        $(".main").hide();
+                        $("#email-container").val(email);
+                        $("#setup-container").show();
+                    }
+                    else {
+                        console.log("Error occurred during account creation");
+                        $(".main").height( $(".main").height() + 50 );
+                        $("#errormessage").text("Error while creating account");
+                        $("#errormessage").show();
+                    }
+                  })
+                  .catch((error) => {
+                    const errorCode = error.code;
+                    console.log("Error occurred during account creation");
+
+                    switch (errorCode) {
+                        case 'auth/invalid-email':
+                            $("#errormessage").text("Error: please enter a valid email address");
+                            break;
+                        case 'auth/weak-password':
+                            $("#errormessage").text("Error: password must be at least 6 characters");
+                            break;
+                        default:
+                            $("#errormessage").text("Error: please try again");
+                            break;
+                    }
+                    $(".main").height( $(".main").height() + 50 );
+                    $("#errormessage").show();
+                  });
+            });
+
+
+            // Submit account settings
+            $("#submitsettingsbutton").click(function (event) {
+                event.preventDefault();
+                const user = auth.currentUser;
+
+                if (user) {
+                    user.getIdToken(true).then(function(idToken) {
+                        const firstName = sanitize($("#fname").val());
+                        const lastName = sanitize($("#lname").val());
+                        const businessName = sanitize($("#bname").val());
+                        const phone = sanitize($("#phone").val());
+                        // const email = sanitize($("#email").val());
+                        const email = sanitize($("#email-container").val());
+
+                        $.ajax({
+                          headers: {"Content-Type": "application/json"},
+                          type: "POST",
+                          url: "/setup-user",
+                          data: JSON.stringify({userIdToken: idToken, userFirstName: firstName, userLastName: lastName, userPhone: phone, userEmail: email, business: businessName}),
+                          success: function (data) {
+                                       // Configure Stripe payment table
+                                       const clientRefIdToSet = user.uid;
+                                       $("#stripe-signup-section").html(`
+                                               <h2>Membership Tier</h2>
+                                               <stripe-pricing-table pricing-table-id="prctbl_1NrpPzKF5W6IwfpPvTXnATwW"
+                                                   publishable-key="pk_test_51NralMKF5W6IwfpP4ylys0vqnGKCDBlLHf6d7ArF4v87rcLZpwwLZ9zsDLnqfJZygcIK24LgoyzdLs04kxCmv4Ss00k5oM3xHS"
+                                                   client-reference-id="${clientRefIdToSet}">
+                                               </stripe-pricing-table>
+                                                                        `);
+
+                                       $("#setup-container").hide();
+                                       $("#stripe-signup-section").show();
+                                   },
+                          error: function (errorMessage) {
+                                     alert("Error while creating user profile");
+                                 }
+                          // dataType: "json"
+                        });
+
+                    }).catch(function(error) {
+                        // Handle error
+                        console.log("Error submitting account settings request");
+                    });
+                }
+                else {
+                    console.log("Error occurred while submitting account settings");
+                    $(".main").height( $(".main").height() + 50 );
+                    $("#errormessage").text("Error while creating account");
+                    $("#errormessage").show();
+                }
+            });
+
+
+            function sanitize(userInput) {
+                if (!userInput) return "";
+                let result = userInput;
+                // result = result.replaceAll("!", "");
+                result = result.replaceAll("#", "");
+                result = result.replaceAll("$", "");
+                result = result.replaceAll("%", "");
+                result = result.replaceAll("^", "");
+                result = result.replaceAll("&", "");
+                result = result.replaceAll("*", "");
+                result = result.replaceAll("(", "");
+                result = result.replaceAll(")", "");
+                result = result.replaceAll("[", "");
+                result = result.replaceAll("]", "");
+                result = result.replaceAll("{", "");
+                result = result.replaceAll("}", "");
+                result = result.replaceAll("\\", "");
+                result = result.replaceAll("|", "");
+                result = result.replaceAll("\'", "");
+                result = result.replaceAll("\"", "");
+                result = result.replaceAll("<", "");
+                result = result.replaceAll(">", "");
+                // result = result.replaceAll("?", "");
+                return result;
+            }
+
+        </script>
+
+        <script>
+            function toggleMobileMenu(menu) {
+                menu.classList.toggle('open');
+            }
+        </script>
+
+        <footer>
+            <p>&copy; 2023 Text My Followers. All rights reserved.</p>
+        </footer>
+
+    </body>
+
+</html>
+

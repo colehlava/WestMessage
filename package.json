@@ -1,0 +1,26 @@
+{
+  "name": "westmessage",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/colehlava/WestMessage.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/colehlava/WestMessage/issues"
+  },
+  "homepage": "https://github.com/colehlava/WestMessage#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "firebase-admin": "^11.10.1",
+    "stripe": "^13.6.0",
+    "twilio": "^4.17.0"
+  }
+}

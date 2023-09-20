@@ -1,0 +1,1521 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"); */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin:0;
+    padding:0;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+}
+
+button {
+    font-size: 1.0em;
+}
+
+input[type=checkbox] {
+    transform: scale(1.0);
+}
+
+input[type=text], input[type=tel] {
+    font-size: 1.0em;
+}
+
+label {
+    font-size: 1.0em;
+}
+
+table {
+    font-size: 1.1em;
+}
+
+header {
+    background-color: black;
+    height: 70px;
+    padding: 10px;
+    /*
+    display: flex;
+    justify-content: space-between;
+     */
+}
+
+header a {
+    text-decoration: none;
+}
+
+header h3 {
+    margin-top: 25px;
+}
+
+#header-title {
+    width: auto;
+    display: inline;
+    float: left;
+    font-size: 2em;
+    padding: 0px 0px 0px 0px;
+    margin-top: 10px;
+    margin-left: 1.0em;
+}
+
+.headerbutton {
+    background-color: #74EE15;
+    color: black;
+    border: 2px solid #555;
+    font-weight: bold;
+    float: right;
+    display: inline;
+    height: 90%;
+    /* flex: 1; */
+    padding: 20px 20px 20px 20px;
+    margin-top: 0.5em;
+    margin-right: 150px;
+}
+
+.fa-icon-generic {
+    color: black;
+}
+
+/*
+#headersupportbutton {
+    background-color: white;
+    color: black;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    margin: 2px;
+    cursor: pointer;
+}
+
+#headersupportbutton:hover {
+    background-color: green;
+    color: white;
+}
+ */
+
+
+
+
+
+/* ================================== */
+/* Profile Dropdown Menu Section */
+/* ================================== */
+.action{
+  position:fixed;
+  z-index: 11;
+  top:10px;
+  right:30px;
+}
+.action .profile{
+  position:relative;
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  overflow:hidden;
+  cursor:pointer;
+}
+.action .profile img{
+  position:absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  object-fit:cover;
+}
+.action .menu{
+  position:absolute;
+  top:120px;
+  right:-10px;
+  padding:10px 20px;
+  background: #fff;
+  width:200px;
+  box-sizing: 0 5px 25px rgba(0,0,0,.1);
+  border-radius:15px;
+  transition:.5s;
+  visibility:hidden;
+  opacity:0;
+}
+.action .menu.active{
+  top:80px;
+  visibility:visible;
+  opacity:1;
+}
+.action .menu::before{
+  content:'';
+  position:absolute;
+  top:-5px;
+  right:28px;
+  width:20px;
+  height:20px;
+  background: #fff;
+  transform: rotate(45deg);
+}
+.action .menu h3{
+  width:100%;
+  text-align:center;
+  font-size: 18px;
+  padding:0px 0;
+  font-weight: 500;
+  font-size: 18px;
+  color:#555;
+  line-height: 1.2em;
+}
+.action .menu h3 span{
+  font-size: 14px;
+  color:#cecece;
+  font-weight: 400;
+}
+.action .menu ul li{
+  list-style:none;
+  padding:10px 0;
+  border-top:1px solid rgba(0,0,0,0.05);
+  display:flex;
+  align-items:center;
+}
+.action .menu ul li i{
+  font-size: 26px;
+  width:32px;
+  height: 32px;
+  margin-right: 10px;
+  opacity:.6;
+  transition:.5s;
+}
+.action .menu ul li:hover i{
+  opacity:1;
+}
+.action .menu ul li a{
+  display:inline-block;
+  text-decoration:none;
+  color:#555;
+  font-weight: 500;
+  transition:.5s;
+}
+.action .menu ul li:hover a{
+  color:#4834d4
+}
+
+
+
+
+
+
+
+footer {
+    padding: 20px;
+    margin: 0px;
+    text-align: center;
+}
+
+footer a {
+    padding: 0px 30px 0px 30px;
+}
+
+footer p {
+    padding: 30px;
+    text-align: center;
+}
+
+#signoutbutton {
+    background-color: rgb(220, 0, 0);
+}
+
+#signoutbutton:hover {
+    background-color: #555;
+}
+
+input {
+    width: 20vw;
+    height: 1vw;
+}
+
+input[type="file"] {
+    /* display: none; */
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.0em;
+    font-weight: bold;
+    padding: 1.2em 1.2em;
+    transition: 1s;
+}
+
+#filetoupload {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.0em;
+    font-weight: bold;
+}
+
+.mobileformatspan {
+    display: none;
+}
+
+.features-label {
+    color: red;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.cancel-button-class {
+    background-color: rgb(230, 29, 43);
+    color: white;
+    border: 1px solid white;
+    font-weight: bold;
+    width: 7em;
+    padding: 10px 10px 10px 10px;
+}
+
+.custom-file-upload {
+    background-color: #001EFF;
+    color: white;
+    border: 1px solid white;
+    font-weight: normal;
+    cursor: pointer;
+    display: inline-block;
+    padding: 6px 12px;
+}
+
+.custom-file-upload:hover {
+    background-color: #555;
+    color: white;
+}
+
+.remove-phone-number-class {
+    background-color: rgb(255, 0, 0);
+    color: #fff;
+    padding: 0.1rem 0.4rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.status-class {
+    color: rgb(0, 155, 0);
+    text-align: center;
+    font-size: 1.2em;
+    /* background-color: white; */
+}
+
+#newmessagelowerdiv {
+    width: 60%; /* MOBILE */
+}
+
+#newmessagelowerdiv input {
+    color: white;
+}
+
+#message {
+    width: 100%;
+    padding: 2px 0px 2px 0px;
+    color: black;
+    font-size: 1.2em;
+}
+
+/* @TODO: remove if not used */
+#logotext {
+    padding: 1px 0px;
+    font-size: 16px;
+    text-align: center;
+}
+
+#maincontainer {
+    /*
+    width: 90vw;
+    height: 90vh;
+    border: 10px orange solid;
+    background-color: rgb(0, 0, 200);
+     */
+    width: 100%;
+    height: 100vh;
+    margin-bottom: 0px;
+    background-color: lightgrey;
+    display: inline-block;
+}
+
+#setup-container {
+    margin: 0px auto;
+    width: 500px;
+    height: 375px;
+    border: 10px #333 solid;
+    background-color: rgb(0, 150, 50);
+}
+
+#uploadclientsfilediv {
+    margin: 0;
+    padding: 1em 0 0 0;
+    float: top;
+    justify-content: center;
+    text-align: center;
+    background-color: rgb(255, 255, 255);
+}
+
+#uploadclientsfilediv h2, input {
+    color: black;
+}
+
+#uploadclientsfilediv input {
+    padding-right: 0px;
+    margin-right: 0px;
+    width: 300px;
+}
+
+#selectclientgroupdiv {
+    width: 60%;
+    margin: auto;
+    float: center;
+    align-content: left;
+    text-align: left;
+}
+
+#selectclientgroupdiv h3 {
+    color: black;
+    text-align: center;
+}
+
+#selectclientgroupdiv input, label {
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+}
+
+.clientgroupradiochoice {
+    width: 10px;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+}
+
+#clientgroupname {
+    color: black;
+    width: 175px;
+}
+
+#uploadclientsmanuallydiv {
+    padding: 30px 30px 30px 30px;
+    float: bottom;
+    justify-content: center;
+    text-align: center;
+    background-color: rgb(0, 0, 0);
+}
+
+#uploadclientsmanuallydiv form {
+    padding-top: 20px;
+    justify-content: center;
+    text-align: center;
+}
+
+#uploadclientsmanuallydiv label {
+    color: white;
+}
+
+.displayclientsdiv, .displayclientgroupsdiv {
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+}
+
+.displayclientsdiv {
+    display: inline;
+}
+
+.displayclientgroupsdiv {
+    display: none;
+}
+
+#showuploadnewclientsspan {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+#showuploadnewclientsbutton {
+    background-color: #001EFF;
+    color: white;
+    border: 1px solid white;
+    font-weight: bold;
+}
+
+#showuploadnewclientsbutton,
+#createnewclientsgroupbutton,
+#canceluploadnewclientsbutton {
+    padding: 20px 20px; 
+    margin: 0 10px;
+}
+
+#canceluploadnewclientsbutton {
+    background-color: rgb(220, 0, 0);
+}
+
+#createnewclientsgroupbutton {
+    background-color: rgb(20, 160, 250);
+    color: white;
+    border: 1px solid white;
+    font-weight: bold;
+}
+
+#createnewclientsgroupbutton:hover, #showuploadnewclientsbutton:hover, #canceluploadnewclientsbutton:hover {
+    background-color: #555;
+    transform: scale(1.1);
+}
+
+.uploadclientsdiv {
+    background-color: rgb(255, 255, 255);
+    text-align: left;
+    margin: auto;
+    width: 100%;
+}
+
+/*
+#message-form {
+    background-color: mediumseagreen;
+    padding: 8px 16px;
+    text-align: left;
+}
+ */
+
+
+/* ===================================== */
+/* ===================================== */
+
+
+/* Reset some default styles */
+/*
+h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+ */
+
+body {
+  background-color: #000000;
+  color: white;
+  /* font-family: "Poppins", sans-serif; */
+}
+
+button {
+    background-color: #333;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #555;
+    color: white;
+}
+
+.above-nav-div {
+    float: top;
+    min-height: 90px;
+}
+
+#contact-sales-button {
+    background-color: rgb(255, 255, 255);
+    border: 2px solid #000;
+    color: black;
+    vertical-align: middle;
+    float: right;
+    margin: 4px 2px;
+}
+
+#login-button-landingpage {
+    border: 2px solid white;
+    color: red;
+    vertical-align: middle;
+    float: right;
+    margin: 4px 20px;
+}
+
+.logo {
+    width: 30vw;
+    height: auto;
+}
+
+.logo img {
+   width: 100%;
+   height: auto;
+   background-size: cover;
+   background-repeat: no-repeat;
+   background-position: center;
+}
+
+/*
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.nav-links li {
+    margin-right: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333333;
+    font-weight: 500;
+}
+ */
+
+/* Hero Section */
+.hero {
+    background-image: url('images/templogo.png');
+    background-size: cover;
+    background-position: center;
+    color: #ffffff;
+    text-align: center;
+    padding: 100px 0;
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-bottom: 40px;
+}
+
+.get-started-button {
+    display: inline;
+    border: 2px solid white;
+    background-color: rgba(255, 0, 0, 1.0);
+    color: white;
+    padding: 15px 30px;
+    border-radius: 5px;
+    text-decoration: none;
+    /* font-family: "Poppins", sans-serif; */
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    margin: 30px;
+}
+
+.cta-button:hover {
+    background-color: #FF8C00;
+}
+
+/* Features Section */
+.features {
+    padding: 40px 0;
+    text-align: center;
+}
+
+.feature-card {
+    background-color: #f9f9f9;
+    color: red;
+    padding: 30px;
+    border-radius: 5px;
+    margin: auto;
+    margin-bottom: 20px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    width: 50vw;
+}
+
+.feature-card p {
+    color: black;
+}
+
+.feature-icon {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.feature-card h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.services {
+    padding: 40px 0;
+    text-align: center;
+}
+
+/* About Section */
+.about {
+    background-color: white;
+    color: black;
+    padding: 80px 0;
+    text-align: center;
+}
+
+/* Contact Section */
+.contact {
+    background-color: white;
+    color: black;
+    padding: 80px 0;
+    text-align: center;
+}
+
+
+/* ================================== */
+/* Side Menu
+/* ================================== */
+.side-menu-class {
+    background-color: rgb(0, 0, 0);
+    /* background-image: linear-gradient(#535353 0%, black 100%); */
+    width: 20%;
+    height: 100%;
+    float: left;
+}
+
+.side-menu-class button {
+    background-color: black;
+    border-radius: 0px;
+    border: 1px solid white;
+    margin-top: 0px;
+    width: 100%;
+    height: 60px;
+}
+
+.side-menu-class button:hover {
+    background-color: #555;
+}
+
+/* ================================== */
+/* New Message Section */
+/* ================================== */
+#new-message-container {
+    display: block;
+    padding-bottom: 8em;
+    margin-bottom: 2em;
+}
+
+#new-message-container div, span, table, h2 {
+    text-align: center;
+    margin: auto;
+    float: center;
+}
+
+#recipientmanualinputdiv {
+    width: 60%;
+    margin-top: 30px;
+    border: 1px solid black;
+    background-color: white;
+    padding: 10px 0px 10px 0px;
+}
+
+#recipientmanualinputdiv p {
+    color: black;
+    padding: 0;
+}
+
+#showmanualrecipientinputbutton, #uploadnewclientsfromfilebutton {
+    padding: 1em 1em 1em 1em;
+    font-size: 1.0em;
+}
+
+#manualrecipientinputspan h3, label, input {
+    color: black;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+#manualrecipientinputspan input {
+    padding-left: 0.5em;
+    margin-left: 0.1em;
+}
+
+#savetomyclientsandselectbutton {
+    border: 2px solid black;
+    color: white;
+    background-color: #001EFF;
+    width: 7em;
+    font-weight: bold;
+    padding: 10px 10px 10px 10px;
+}
+
+#savetomyclientsandselectbutton:hover {
+    background-color: #555;
+    color: white;
+}
+
+#cancelsavetomyclientsandselectbutton {
+/* #savemessageclientcheckbox { */
+    margin-right: 1em;
+    color: white;
+    border: 2px solid black;
+}
+
+#sendmessagebutton {
+    width: 100px;
+    padding: 15px 20px 15px 20px;
+    background-color: #001EFF;
+    color: white;
+    border: 1px solid white;
+    font-weight: bold;
+}
+
+#sendmessagebutton:hover {
+    background-color: #555;
+    color: white;
+}
+
+#cancelmessagebutton {
+    width: 100px;
+    padding: 15px 20px 15px 20px;
+    border: 1px solid white;
+}
+
+#cancelmessagebutton:hover {
+    background-color: #555;
+}
+
+#schedulemessagedatetimeinput {
+    width: 20em;
+    background-color: white;
+}
+
+/* ================================== */
+/* Sent Messages Section */
+/* ================================== */
+.section-container {
+    /* background-color: black;
+    background-image: linear-gradient(#0000E0, #0000FF);
+    background-image: linear-gradient(to right, #0f0c29, #302b63, #24243e); */
+    background-image: linear-gradient(black 0%, lightblue 100%);
+    color: white;
+    /* border-radius: 5px; */
+    float: right;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    height: 100%;
+    display: none;
+    overflow-y: auto;
+}
+
+.section-heading {
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    color: white;
+}
+
+.sent-message-container {
+    background-image: linear-gradient(black 0%, lightblue 100%);
+    color: white;
+    align: center;
+    text-align: center;
+    justify-content: center;
+    float: right;
+    margin: auto;
+    width: 70%;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.sent-message-container-section {
+    float: center;
+    align: center;
+    text-align: center;
+    justify-content: center;
+    margin: auto;
+    padding: 1em 1em 1em 1em;
+    border: 2px solid white;
+}
+
+#sent-message-messageimage-div, #scheduled-message-messageimage-div {
+    width: 90%;
+    border: none;
+}
+
+#sent-message-timestamp, #scheduled-message-timestamp {
+    padding: 0.5em;
+}
+
+#sent-message-messagebody-div, #scheduled-message-messagebody-div {
+    width: 80%;
+    max-height: 60%;
+    overflow-y: auto;
+}
+
+#sent-message-messagebody {
+    text-align: center;
+}
+
+.sent-messages-list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    width: 100%;
+    height: 100%;
+    text-align: left;
+    align: left;
+    justify-content: left;
+    float: left;
+    /* overflow-y: auto; */
+}
+
+/*
+.sent-messages-list li {
+    display: block;
+    width: 100%;
+    margin-left: 0px;
+    float: left;
+    color: black;
+    list-style: none;
+}
+ */
+
+.sent-message-preview {
+    align: center;
+    justify-content: center;
+    float: center;
+    background-color: rgba(5, 8, 173, 1.0);
+    border: none;
+    border-radius: 0px;
+    padding: 0px;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
+    margin-bottom: 5px;
+    width: 100%;
+    height: 6em;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.sent-message-preview h3 {
+    margin: 0.6em 0.6em 0.6em 0.6em;
+    font-size: 1.0em;
+    color: white;
+}
+
+.sent-message-preview p {
+    display: none;
+}
+
+#sent-message-recipient-client-groups, #sent-message-recipients, #scheduled-message-recipient-client-groups, #scheduled-message-recipients {
+    float: center;
+    list-style: none;
+    align: center;
+    text-align: center;
+    justify-content: center;
+    width: auto;
+    color: white;
+}
+
+#sent-message-recipient-client-groups-div, #sent-message-recipients-div, #scheduled-message-recipient-client-groups-div, #scheduled-message-recipients-div {
+    width: 15%;
+    min-width: 150px;
+    max-height: 30%;
+    margin-top: 30px;
+    overflow-y: auto;
+}
+
+.sent-message-image {
+    border: 1px solid white;
+    max-width: 60%;
+    max-height: 60%;
+    margin: auto;
+    align: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.message-recipient-li {
+    text-align: center;
+}
+
+
+/* ================================== */
+/* Scrollbar */
+/* ================================== */
+.scrollbar {
+	margin-left: 0px;
+	float: left;
+    width: 30%;
+    height: 100%;
+	background: black;
+	overflow-y: scroll;
+}
+
+.force-overflow {
+    width: 100;
+	min-height: 450px;
+}
+
+#wrapper {
+	text-align: center;
+	width: 500px;
+	margin: auto;
+}
+
+.style-15::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+	background-color: lightgrey;
+	border-radius: 0px;
+}
+
+.style-15::-webkit-scrollbar {
+	width: 10px;
+	background-color: white;
+}
+
+.style-15::-webkit-scrollbar-thumb {
+	border-radius: 0px;
+	background-color: white;
+	background-image: -webkit-gradient(linear,
+									   40% 0%,
+									   75% 84%,
+									   from(#4D9C41),
+									   to(#19911D),
+									   color-stop(.6,#54DE5D))
+}
+
+
+/* ================================== */
+/* Clients */
+/* ================================== */
+.client-selection-div {
+    width: 60%; /* MOBILE */
+    height: 40%;
+    margin: auto;
+    margin-top: 0px;
+    overflow-y: scroll;
+}
+
+.client-selection-list {
+    background-color: white;
+    color: black;
+    /* margin-bottom: 30px; */
+}
+
+.client-selection-list tr:hover {
+    background-color: lightgreen;
+}
+
+/* #client-selection-list-table th { */
+.client-selection-list th {
+    color: black;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#client-selection-list-table {
+    width: 100%;
+    height: 100%;
+}
+
+#client-selection-list-table th, td {
+    color: black;
+    width: auto;
+    /* max-width: 150px; */
+    height: 1.5em;
+}
+
+.clientcheckbox, .clientgroupcheckbox {
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    justify: center;
+    align: center;
+    max-width: 10em;
+}
+
+/* #saved-client-list-table, #saved-client-group-list-table { */
+#saved-client-list-table, .group-selection-list {
+    width: 100%;
+    height: 100%;
+}
+
+.group-selection-list th, td {
+    width: auto;
+    text-align: center;
+}
+
+/*
+.group-members-table-row tr {
+    margin-left: 300px;
+}
+
+.group-members-table-row td {
+    width: 300px;
+    text-align: left;
+}
+ */
+
+.recipienttypeselectiondiv {
+    width: 60%; /* MOBILE */
+    height: 5%;
+    float: center;
+    justify-content: center;
+    margin: auto;
+    margin-bottom: 0px;
+    padding: 0px 0px 0px 0px;
+    display: flex;
+}
+
+.recipienttypeselection {
+    /* margin: 0px 0px 0px 0px; */
+    padding: 0px 0px 0px 0px;
+    height: 100%;
+    flex-grow: 1;
+    border-radius: 0px;
+    font-size: 1.6em;
+    font-weight: bold;
+}
+
+/* .showclientscontactsbutton:hover, .showclientsgroupsbutton:hover { */
+.recipienttypeselection:hover {
+    background-color: lightblue;
+}
+
+.showclientscontactsbutton {
+    background-color: lightgrey;
+    color: black;
+}
+
+.clientsearchboxdiv {
+    background-color: grey;
+    width: 60%; /* MOBILE */
+    height: 3em;
+    float: center;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.clientsearchbox {
+    width: 60%; /* MOBILE */
+    height: 80%;
+    float: center;
+    margin: auto;
+    display: block;
+}
+
+.popup {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: none;
+}
+
+.popup-content {
+    background-color: lightgrey;
+    margin: auto;
+    border: 1px solid black;
+    padding: 10em;
+    width: 30%;
+    font-weight: bolder;
+    float: center;
+    text-align: center;
+}
+
+.popup-content h3 {
+    background-color: lightgrey;
+    color: green;
+    text-align: left;
+    font-size: 1.3em;
+    padding-bottom: 2em;
+}
+
+.popup-content button {
+    display: block;
+    margin: 0 auto;
+}
+
+.show {
+    display: block;
+}
+
+
+/* ================================== */
+/* Account Section */
+/* ================================== */
+#account-info-div {
+    width: 80%;
+    float: center;
+    margin: auto;
+    text-align: center;
+}
+
+#add-account-credits-div {
+    display: flex;
+    justify-content: center;
+}
+
+.addAccountCreditsPurchaseOption {
+    padding: 9em 9em 9em 9em;
+}
+
+/* ================================== */
+/* Chat Bots Section */
+/* ================================== */
+/*
+#headerchatbotsbutton {
+}
+ */
+
+
+/* ================================== */
+/* Support Section */
+/* ================================== */
+#support-section-maindiv {
+    color: white;
+    text-align: left;
+    justify-content: left;
+    margin: auto;
+    padding-left: 30px;
+    font-size: 1.3em;
+}
+
+#support-section-maindiv h3 {
+    padding-bottom: 10px;
+}
+
+#support-section-maindiv label, p, form {
+    color: white;
+    text-align: left;
+    margin-left: 30px;
+}
+
+#support-section-maindiv input[type="radio"] {
+    width: 30px;
+}
+
+#supportcontactmethodconfirmaddressdiv p {
+    color: white;
+    padding: 0;
+}
+
+#supportcontactmethodconfirmaddressdiv input {
+    color: black;
+    margin-left: 5px;
+}
+
+#issuedescription {
+    color: black;
+    width: 65%;
+    font-size: 1.0em;
+}
+
+#support-form-status-div {
+    background-color: white;
+    margin-top: 1em;
+}
+
+/* ================================== */
+/* Mobile */
+/* ================================== */
+#brand {
+  font-weight: bold;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+}
+
+#brand a {
+  color: red;
+}
+
+/*
+ul {
+  list-style: none;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+ul a {
+  color: white;
+}
+ */
+
+ol li {
+  padding: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+/*
+ol li:hover {
+  transform: scale(1.02);
+  transition: 0.1s;
+}
+ */
+
+ul li {
+  padding: 5px;
+  margin-left: 10px;
+}
+
+ul li:hover {
+  transform: scale(1.1);
+  transition: 0.3s;
+}
+
+#login,
+#signup {
+  border-radius: 5px;
+  padding: 5px 8px;
+}
+
+#login {
+  border: 1px solid #498afb;
+}
+
+#signup {
+  border: 1px solid red;
+}
+
+#signup a {
+  color: red;
+}
+
+#login a {
+  color: #498afb;
+}
+
+#hamburger-icon {
+  margin-top: 0.0em;
+  margin-left: 0.0em;
+  display: none;
+  cursor: pointer;
+  float: left;
+}
+
+#hamburger-icon div {
+  width: 40px;
+  height: 6px;
+  background-color: red;
+  margin: 6px 6px 6px 6px;
+  transition: 0.4s;
+}
+
+.open .bar1 {
+  -webkit-transform: rotate(-45deg) translate(-8px, 8px);
+  transform: rotate(-45deg) translate(-8px, 8px);
+}
+
+.open .bar2 {
+  opacity: 0;
+}
+
+.open .bar3 {
+  -webkit-transform: rotate(45deg) translate(-8px, -8px);
+  transform: rotate(45deg) translate(-8px, -8px);
+}
+
+.open .mobile-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.mobile-menu {
+  /* background-color: rgb(255, 255, 255); */
+  background-color: black;
+  display: none;
+  position: absolute;
+  top: 10vh;
+  left: 0;
+  z-index: 10;
+  height: 110vh;
+  width: 100%;
+  list-style: none;
+}
+
+.mobile-menu li {
+  margin-top: 4px;
+}
+
+.mobile-menu a {
+  color: red;
+}
+
+.mobile-menu button {
+    width: 80vw;
+    height: 10vh;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+
+/* MOBILE */
+/* Mobile browser Responsive Styles */
+@media screen and (max-width: 1300px) {
+    button {
+        font-size: 1.0em;
+    }
+
+    input[type=checkbox] {
+        transform: scale(3.0);
+        padding: 0px 0px 0px 0px;
+        margin: 0px 0px 0px 0px;
+    }
+
+    input[type=radio] {
+        transform: scale(1.0);
+        width: 30px;
+        height: 30px;
+        padding: 0px 0px 0px 0px;
+        margin: 0px 0px 0px 0px;
+    }
+
+    #selectExistingClientGroupSpan {
+        padding: 0px 0px 0px 0px;
+        margin: 0px 0px 0px 0px;
+    }
+
+    #existinggroup {
+        float: left;
+        margin-left: 0px;
+    }
+
+    #clientgroupname {
+        width: 70%;
+    }
+
+    input[type=text], input[type=tel] {
+        font-size: 1.5em;
+        width: 80%;
+        height: 50px;
+    }
+
+    label {
+        font-size: 1.3em;
+        padding: 0px 0px 0px 0px;
+        margin: 0px 0px 0px 0px;
+    }
+
+    table {
+        font-size: 1.0em;
+    }
+
+    header {
+        height: 10vh;
+    }
+
+    #header-title {
+        font-size: 1.5em;
+        margin-top: 1px;
+    }
+
+    .headerbutton {
+        display: none;
+        /*
+        font-size: 1.0em;
+        width: 40%;
+        height: 20%;
+         */
+    }
+
+    .mobileformatspan {
+        display: block;
+    }
+
+    .selectallbutton {
+        font-size: 0.8em;
+        padding: 4px 8px 4px 8px;
+    }
+
+    .cancel-button-class, #savetomyclientsandselectbutton {
+        width: 5em;
+    }
+
+    #cancelsavetomyclientsandselectbutton {
+        margin-right: auto;
+    }
+
+    #cancelsavetomyclientsandselectbutton, #savetomyclientsandselectbutton {
+        font-size: 0.5em;
+        float: center;
+    }
+
+    .side-menu-class {
+        display: none;
+    }
+
+    #hamburger-icon {
+        display: block;
+    }
+
+    .section-container {
+        width: 100%;
+    }
+
+    .phonetd {
+        display: none;
+    }
+
+    .clientcheckbox, .clientgroupcheckbox {
+        max-width: 1em;
+    }
+
+    #newclientslabel {
+        text-align: center;
+        font-size: 1.5em;
+        padding-right: 0px;
+    }
+
+    #clientGroupNameInput {
+        float: center;
+        width: 200px;
+    }
+
+    #submitNewClientGroupButton {
+        margin-bottom: 1em;
+    }
+
+    #showmanualrecipientinputbutton, #uploadnewclientsfromfilebutton {
+        font-size: 1.0em;
+        padding: 0.5em 0.5em 0.5em 0.5em;
+    }
+
+    #newmessagebuttonspan button {
+        font-size: 2.0em;
+    }
+
+    .sent-message-container {
+        border: 2px solid black;
+        float: bottom;
+        width: 100%;
+    }
+
+    .scrollbar {
+        border: 2px solid black;
+        float: top;
+        width: 100%;
+        height: 35%;
+    }
+
+    .sent-message-preview {
+        height: 5em;
+    }
+
+    .sent-message-preview h3 {
+        font-size: 1.0em;
+    }
+
+    #sent-message-timestamp, #scheduled-message-timestamp {
+        font-size: 0.9em;
+    }
+
+    #newmessagelowerdiv,
+    #recipientmanualinputdiv,
+    .client-selection-div,
+    .recipienttypeselectiondiv,
+    .clientsearchboxdiv {
+        width: 90%;
+    }
+
+    .clientsearchboxdiv {
+        height: 4em;
+    }
+
+    .recipienttypeselectiondiv {
+        font-size: 1.0em;
+        height: 8%;
+    }
+
+    #issuedescription {
+        width: 90%;
+    }
+
+    footer {
+        display: none;
+    }
+}

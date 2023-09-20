@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <title>Text My Followers</title>
+</head>
+
+<body>
+    <header>
+        <h1>Text My Followers</h1>
+    </header>
+
+    <main>
+        <div id="maincontainer">
+            <br><br><br><br>
+            <h3 class="message-status-class">Message sent successfully</h3>
+            <br><br><br><br>
+            <button id="createmessagebutton">Send Another Message</button>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Text My Followers. All rights reserved.</p>
+    </footer>
+
+    <script>
+        /*
+        window.onload = function() {
+            setTimeout(function() {
+                document.location.href = "/console.html";
+            }, 3500);
+        }
+         */
+        $("#createmessagebutton").click(function (event) {
+            event.preventDefault();
+            document.location.href = "/create-message.html";
+        });
+    </script>
+</body>
+</html>
+

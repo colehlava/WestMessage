@@ -1,0 +1,1067 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"); */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+  margin:0;
+  padding:0;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+}
+
+header {
+    background-color: black;
+    height: 70px;
+    display: inline-block;
+    width: 100%;
+    justify-content: right;
+    float: right;
+    padding: 20px 20px 20px 20px;
+}
+
+header a {
+    float: right;
+    text-align: right;
+    margin-left: 20px;
+    margin-right: 20px;
+    display: inline;
+}
+
+/*
+header h1 {
+    float: left;
+    margin-right: 50vw;
+    margin-top: 8px;
+    padding-left: 8px;
+}
+
+header h3 {
+    margin-top: 25px;
+}
+ */
+
+.headerbutton {
+    float: right;
+    flex: 1;
+    display: inline-block;
+    margin: 5px 0px 5px 5px;
+}
+
+main {
+    color: black;
+}
+
+/*
+#headersupportbutton {
+    background-color: white;
+    color: black;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    margin: 2px;
+    cursor: pointer;
+}
+
+#headersupportbutton:hover {
+    background-color: green;
+    color: white;
+}
+ */
+
+
+
+
+
+/* ================================== */
+/* Profile Dropdown Menu Section */
+/* ================================== */
+.action{
+  position:fixed;
+  top:10px;
+  right:30px;
+}
+.action .profile{
+  position:relative;
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  overflow:hidden;
+  cursor:pointer;
+}
+.action .profile img{
+  position:absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  object-fit:cover;
+}
+.action .menu{
+  position:absolute;
+  top:120px;
+  right:-10px;
+  padding:10px 20px;
+  background: #fff;
+  width:200px;
+  box-sizing: 0 5px 25px rgba(0,0,0,.1);
+  border-radius:15px;
+  transition:.5s;
+  visibility:hidden;
+  opacity:0;
+}
+.action .menu.active{
+  top:80px;
+  visibility:visible;
+  opacity:1;
+}
+.action .menu::before{
+  content:'';
+  position:absolute;
+  top:-5px;
+  right:28px;
+  width:20px;
+  height:20px;
+  background: #fff;
+  transform: rotate(45deg);
+}
+.action .menu h3{
+  width:100%;
+  text-align:center;
+  font-size: 18px;
+  padding:20px 0;
+  font-weight: 500;
+  font-size: 18px;
+  color:#555;
+  line-height: 1.2em;
+}
+.action .menu h3 span{
+  font-size: 14px;
+  color:#cecece;
+  font-weight: 400;
+}
+.action .menu ul li{
+  list-style:none;
+  padding:10px 0;
+  border-top:1px solid rgba(0,0,0,0.05);
+  display:flex;
+  align-items:center;
+  
+}
+.action .menu ul li i{
+  font-size: 26px;
+  width:32px;
+  margin-right: 10px;
+  opacity:.6;
+  transition:.5s;
+}
+.action .menu ul li:hover i{
+  opacity:1;
+}
+.action .menu ul li a{
+  display:inline-block;
+  text-decoration:none;
+  color:#555;
+  font-weight: 500;
+  transition:.5s;
+}
+.action .menu ul li:hover a{
+  color:#4834d4
+}
+
+
+
+
+
+
+
+footer {
+    padding: 20px;
+    margin: 0px;
+    text-align: center;
+}
+
+footer a {
+    padding: 0px 30px 0px 30px;
+}
+
+footer p {
+    padding: 30px;
+    text-align: center;
+}
+
+#signoutbutton {
+    background-color: rgb(220, 0, 0);
+}
+
+#signoutbutton:hover {
+    background-color: #555;
+}
+
+input {
+    width: 20vw;
+    height: 1vw;
+}
+
+input[type="file"] {
+    /* display: none; */
+    padding: 1.2em 1.2em;
+    transition: 1s;
+}
+
+.features-label {
+    color: red;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.cancel-button-class {
+    border: 1px solid black;
+    background-color: #EE2323;
+    color: black;
+}
+
+.custom-file-upload {
+    background-color: #657E36;
+    border: 1px solid black;
+    cursor: pointer;
+    display: inline-block;
+    padding: 6px 12px;
+}
+
+.custom-file-upload:hover {
+    background-color: #555;
+    color: white;
+}
+
+.remove-phone-number-class {
+    background-color: rgb(255, 0, 0);
+    color: #fff;
+    padding: 0.1rem 0.4rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.status-class {
+    color: rgb(0, 155, 0);
+    text-align: center;
+}
+
+#newmessagelowerdiv {
+    width: 65%;
+}
+
+#newmessagelowerdiv input {
+    color: white;
+}
+
+#message {
+    width: 100%;
+    padding: 2px 0px 2px 0px;
+    color: black;
+}
+
+/* @TODO: remove if not used */
+#logotext {
+    padding: 1px 0px;
+    font-size: 16px;
+    text-align: center;
+}
+
+/*
+#createmessagebutton {
+    background-color: rgb(0, 0, 200);
+}
+ */
+
+#maincontainer {
+    /*
+    width: 90vw;
+    height: 90vh;
+    border: 10px orange solid;
+    background-color: rgb(0, 0, 200);
+     */
+    width: 100%;
+    height: 100vh;
+    margin-bottom: 0px;
+    background-color: lightgrey;
+    display: inline-block;
+}
+
+#setup-container {
+    margin: 0px auto;
+    width: 500px;
+    height: 375px;
+    border: 10px #333 solid;
+    background-color: rgb(0, 150, 50);
+}
+
+#uploadclientsfilediv {
+    margin: auto;
+    padding: 50px;
+    float: left;
+}
+
+#uploadclientsfilediv input {
+    color: white;
+}
+
+#uploadclientsmanuallydiv {
+    float: left;
+}
+
+#uploadclientsmanuallydiv label {
+    color: white;
+}
+
+#displayclientsdiv {
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    width: auto;
+    max-height: 80%;
+	overflow-y: scroll;
+}
+
+#showuploadnewclientsspan {
+    display: flex;
+    justify-content: center;
+}
+
+#showuploadnewclientsbutton {
+    background-color: #657E36;
+    padding: 20px 20px; 
+    margin: 0 10px;
+}
+
+#showuploadnewclientsbutton:hover {
+    background-color: #555;
+}
+
+.uploadclientsdiv {
+    background-color: rgb(255, 255, 255);
+    padding: 8px 16px;
+    text-align: left;
+    margin: auto;
+}
+
+/*
+#message-form {
+    background-color: mediumseagreen;
+    padding: 8px 16px;
+    text-align: left;
+}
+ */
+
+
+/* ===================================== */
+/* ===================================== */
+
+
+/* Reset some default styles */
+/*
+h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+ */
+
+body {
+  background-color: #000000;
+  color: white;
+  /* font-family: "Poppins", sans-serif; */
+}
+
+button {
+    background-color: #333;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #555;
+    color: white;
+    transform: scale(1.1);
+}
+
+.above-nav-div {
+    float: top;
+    min-height: 90px;
+}
+
+#contact-sales-button {
+    background-color: rgb(255, 255, 255);
+    border: 2px solid #000;
+    color: black;
+    vertical-align: middle;
+    float: right;
+    margin: 4px 2px;
+}
+
+#login-button {
+    background-color: rgb(0, 0, 0);
+    color: #498afb;
+    border: 1px solid #498afb;
+    vertical-align: middle;
+    float: right;
+    margin-left: 3em;
+    display: none;
+}
+
+.logo {
+    width: 30vw;
+    height: auto;
+}
+
+.logo img {
+   width: 100%;
+   height: auto;
+   background-size: cover;
+   background-repeat: no-repeat;
+   background-position: center;
+}
+
+/*
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.nav-links li {
+    margin-right: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333333;
+    font-weight: 500;
+}
+ */
+
+/* Hero Section */
+.hero {
+    background-image: url('images/templogo.png');
+    background-size: cover;
+    background-position: center;
+    color: #ffffff;
+    text-align: center;
+    padding: 100px 0;
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-bottom: 40px;
+}
+
+.get-started-button {
+    display: inline;
+    border: 2px solid white;
+    background-color: rgba(220, 0, 0, 1.0);
+    color: white;
+    padding: 15px 30px;
+    border-radius: 5px;
+    text-decoration: none;
+    /* font-family: "Poppins", sans-serif; */
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    margin: 30px;
+}
+
+.cta-button:hover {
+    background-color: #FF8C00;
+}
+
+/* Features Section */
+.features {
+    padding: 40px 0;
+    text-align: center;
+}
+
+.feature-card {
+    background-color: #f9f9f9;
+    color: red;
+    padding: 30px;
+    border-radius: 5px;
+    margin: auto;
+    margin-bottom: 20px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    width: 50vw;
+    color: green;
+}
+
+.feature-card p {
+    color: black;
+    text-align: center;
+}
+
+.feature-icon {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.feature-card h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: rgb(220, 0, 0);
+}
+
+.services {
+    padding: 40px 0;
+    text-align: center;
+}
+
+/* About Section */
+.about {
+    background-color: white;
+    color: black;
+    padding: 80px 0;
+    text-align: center;
+}
+
+/* Contact Section */
+.contact {
+    background-color: white;
+    color: black;
+    padding: 80px 0;
+    text-align: center;
+}
+
+
+/* ================================== */
+/* Side Menu
+/* ================================== */
+.side-menu-class {
+    background-color: rgb(0, 0, 0);
+    /* background-image: linear-gradient(#535353 0%, black 100%); */
+    width: 20%;
+    height: 100%;
+    float: left;
+}
+
+.side-menu-class button {
+    background-color: black;
+    border-radius: 0px;
+    border: 1px solid white;
+    margin-top: 0px;
+    width: 100%;
+    height: 60px;
+}
+
+.side-menu-class button:hover {
+    background-color: #555;
+}
+
+/* ================================== */
+/* New Message Section */
+/* ================================== */
+#new-message-container {
+    display: block;
+}
+
+#new-message-container div, span, table, h2 {
+    text-align: center;
+    margin: auto;
+    float: center;
+}
+
+#recipientmanualinputdiv {
+    margin-top: 30px;
+    border: 1px solid black;
+    background-color: white;
+    width: 65%;
+    padding: 10px 0px 10px 0px;
+}
+
+#recipientmanualinputdiv p {
+    color: black;
+    padding: 0;
+}
+
+#manualrecipientinputspan h3, label, input {
+    color: black;
+    padding: 0;
+    margin: 0;
+}
+
+#savetomyclientsandselectbutton {
+    margin-left: 20%;
+    border: 1px solid black;
+    background-color: #657E36;
+    color: black;
+}
+
+#savetomyclientsandselectbutton:hover {
+    background-color: #555;
+    color: white;
+}
+
+#sendmessagebutton {
+    width: 100px;
+    padding: 15px 20px 15px 20px;
+    background-color: #657E36;
+    border: 1px solid black;
+    color: black;
+}
+
+#sendmessagebutton:hover {
+    background-color: #555;
+    color: white;
+}
+
+#cancelmessagebutton {
+    width: 100px;
+    padding: 15px 20px 15px 20px;
+    background-color: rgb(255, 0, 0);
+}
+
+#cancelmessagebutton:hover {
+    background-color: #555;
+}
+
+/* ================================== */
+/* Sent Messages Section */
+/* ================================== */
+.section-container {
+    /* background-color: black;
+    background-image: linear-gradient(#0000E0, #0000FF);
+    background-image: linear-gradient(to right, #0f0c29, #302b63, #24243e); */
+    background-image: linear-gradient(black 0%, lightblue 100%);
+    color: white;
+    /* border-radius: 5px; */
+    float: right;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    height: 100%;
+    display: none;
+}
+
+.section-heading {
+    padding: 0;
+    padding-left: 10px;
+    margin: 0;
+    color: white;
+}
+
+.sent-message-container {
+    background-color: grey;
+    align: center;
+    text-align: center;
+    justify-content: center;
+    float: center;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    color: white;
+}
+
+.sent-message-container-section {
+    float: center;
+    align: center;
+    text-align: center;
+    justify-content: center;
+    margin: auto;
+    border: 2px solid white;
+}
+
+#sent-message-timestamp {
+    padding: 30px;
+}
+
+#sent-message-messagebody-div {
+    padding: 5px 5px 5px 5px;
+    width: 50%;
+    height: 10%;
+    overflow-y: scroll;
+}
+
+.sent-messages-list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    width: 100%;
+    height: 100%;
+    text-align: left;
+    align: left;
+    justify-content: left;
+    float: left;
+    /* overflow-y: auto; */
+}
+
+/*
+.sent-messages-list li {
+    display: block;
+    width: 100%;
+    margin-left: 0px;
+    float: left;
+    color: black;
+    list-style: none;
+}
+ */
+
+.sent-message-preview {
+    align: center;
+    justify-content: center;
+    float: center;
+    background-color: lightblue;
+    border: 2px solid white;
+    border-radius: 0px;
+    padding: 5px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    width: 95%;
+    height: 60px;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.sent-message-preview h3 {
+    font-size: 14px;
+    color: black;
+}
+
+.sent-message-preview p {
+    display: none;
+}
+
+#sent-message-recipients {
+    float: center;
+    list-style: none;
+    align: center;
+    text-align: center;
+    justify-content: center;
+    color: white;
+}
+
+#sent-message-recipients-div {
+    width: 15%;
+    min-width: 150px;
+    height: 20%;
+    margin-top: 30px;
+    overflow-y: scroll;
+}
+
+.sent-message-image {
+    max-width: 450px;
+    height: auto;
+    margin: auto;
+    align: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.message-recipient-li {
+    text-align: center;
+}
+
+
+/* ================================== */
+/* Scrollbar */
+/* ================================== */
+.scrollbar {
+	margin-left: 0px;
+	float: left;
+    width: 30%;
+    height: 100%;
+	background: white;
+	overflow-y: scroll;
+	margin-bottom: 25px;
+}
+
+.force-overflow {
+	min-height: 450px;
+}
+
+#wrapper {
+	text-align: center;
+	width: 500px;
+	margin: auto;
+}
+
+.style-15::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+	background-color: white;
+	border-radius: 0px;
+}
+
+.style-15::-webkit-scrollbar {
+	width: 10px;
+	background-color: white;
+}
+
+.style-15::-webkit-scrollbar-thumb {
+	border-radius: 0px;
+	background-color: white;
+	background-image: -webkit-gradient(linear,
+									   40% 0%,
+									   75% 84%,
+									   from(#4D9C41),
+									   to(#19911D),
+									   color-stop(.6,#54DE5D))
+}
+
+
+/* ================================== */
+/* Clients */
+/* ================================== */
+.client-selection-div {
+    width: 65%;
+    height: 30%;
+    margin: auto;
+    overflow-y: scroll;
+}
+
+.client-selection-list {
+    border: 1px solid black;
+    background-color: white;
+    color: black;
+    /* margin-bottom: 30px; */
+}
+
+/* #client-selection-list-table th { */
+.client-selection-list th {
+    color: black;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#client-selection-list-table {
+    width: 100%;
+    height: 100%;
+}
+
+#client-selection-list-table th, td {
+    color: black;
+    width: 250px;
+    /* max-width: 150px; */
+    height: auto;
+}
+
+
+/* ================================== */
+/* Support Section */
+/* ================================== */
+#support-section-maindiv {
+    color: white;
+    text-align: left;
+    justify-content: left;
+    margin: auto;
+    padding-left: 30px;
+}
+
+#support-section-maindiv h3 {
+    padding-bottom: 10px;
+}
+
+#support-section-maindiv label, p, form {
+    color: white;
+    text-align: left;
+    margin-left: 30px;
+}
+
+#support-section-maindiv input[type="radio"] {
+    width: 30px;
+}
+
+#supportcontactmethodconfirmaddressdiv p {
+    color: white;
+    padding: 0;
+}
+
+#supportcontactmethodconfirmaddressdiv input {
+    color: black;
+    margin-left: 5px;
+}
+
+#issuedescription {
+    color: black;
+    width: 65%;
+}
+
+/* ================================== */
+/* Mobile */
+/* ================================== */
+#brand {
+  font-weight: bold;
+  font-size: 28px;
+  display: inline;
+  float: left;
+  margin-left: 60px;
+}
+
+#brand a {
+  color: rgb(220, 0, 0);
+}
+
+ul {
+  list-style: none;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+}
+
+ul a {
+  color: white;
+}
+
+ul li {
+  padding: 5px 5px 5px 5px;
+  float: center;
+  text-align: center;
+}
+
+ul li:hover {
+  transform: scale(1.1);
+  transition: 0.3s;
+}
+
+#login,
+#signup {
+  border-radius: 5px;
+  padding: 10px 5px 10px 5px;
+  margin-right: 30px;
+}
+
+#login {
+  border: 1px solid #498afb;
+  margin-left: 30px;
+}
+
+#signup {
+  border: 1px solid red;
+}
+
+#signup a {
+  color: red;
+  text-decoration: none;
+}
+
+#login a {
+  color: #498afb;
+  text-decoration: none;
+}
+
+#hamburger-icon {
+  margin-top: 0px;
+  float: left;
+  padding: 0px 40px 10px 40px;
+  display: none;
+  cursor: pointer;
+}
+
+#hamburger-icon div {
+  width: 35px;
+  height: 3px;
+  background-color: red;
+  margin-top: 0px;
+  margin-bottom: 6px;
+  transition: 0.4s;
+}
+
+.open .bar1 {
+  -webkit-transform: rotate(-45deg) translate(-6px, 6px);
+  transform: rotate(-45deg) translate(-6px, 6px);
+}
+
+.open .bar2 {
+  opacity: 0;
+}
+
+.open .bar3 {
+  -webkit-transform: rotate(45deg) translate(-6px, -8px);
+  transform: rotate(45deg) translate(-6px, -8px);
+}
+
+.open .mobile-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.mobile-menu {
+  /* background-color: rgb(255, 255, 255); */
+  background-color: black;
+  display: none;
+  position: absolute;
+  top: 70px;
+  left: 0;
+  height: calc(100vh - 50px);
+  width: 100%;
+  float: center;
+  text-align: center;
+  justify-content: center;
+}
+
+.mobile-menu li {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.mobile-menu a {
+  color: red;
+}
+
+
+/* @media (min-width: 800px) { */
+/* Mobile browser Responsive Styles */
+@media screen and (max-width: 799px) {
+    h1 {
+        color: red
+    }
+
+    header nav {
+        display: none;
+    }
+
+    #mobile-menu a {
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+
+    #login, #signup {
+        padding-left: 0px;
+        padding-right: 0px;
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+    #hamburger-icon {
+        display: block;
+    }
+
+    #login-button {
+        display: block;
+    }
+
+    #brand {
+        float: right;
+        font-size: 1.0em;
+        justify-content: center;
+        text-align: center;
+    }
+
+    /*
+    .nav-links {
+        margin-top: 20px;
+    }
+
+    .hero-content {
+        padding: 0 20px;
+    }
+
+    .feature-card {
+        margin: 20px 0;
+    }
+     */
+}

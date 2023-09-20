@@ -1,0 +1,1954 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+        <title>Text My Clients</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="styles.css">
+    </head>
+
+    <body>
+        <header>
+            <div id="hamburger-icon" onclick="toggleMobileMenu(this)">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+                <ul class="mobile-menu">
+                    <li><button class="createmessagebutton">New Message</button></li>
+                    <li><button class="sentmessagesbutton">Sent Messages</button></li>
+                    <li><button class="scheduledmessagesbutton">Scheduled Messages</button></li>
+                    <li><button class="clientsbutton">Clients</button></li>
+                    <li><button class="accountbutton">Account</button></li>
+                    <li><button class="chatbotsbutton">Chat Bots</button></li>
+                    <li><button class="supportbutton">Support</button></li>
+                    <li><button class="settingsbutton">Settings</button></li>
+                </ul>
+            </div>
+
+            <h1 id="header-title">Text My Clients</h1>
+
+            <button id="headerchatbotsbutton" class="headerbutton">Add a Chat Bot</button> 
+
+            <div class="action">
+                <div class="profile">
+                    <img src="/images/templogo.png">
+                </div>
+
+                <div class="menu">
+                    <h3 id="profileMenuName">Someone Famous</h3><h3><span>Website Designer</span></h3>
+                    <ul>
+                        <li>
+                            <!-- <i class="fa fa-car fa-icon-generic"></i> -->
+                            <i class="fa fa-user fa-icon-generic"></i>
+                            <a class="accountbutton dropdownmenuitem" href="#">My Profile</a>
+                        </li>
+                        <li>
+                            <i class="fa fa-gear fa-icon-generic"></i>
+                            <a class="settingsbutton dropdownmenuitem" href="#">Settings</a>
+                        </li>
+                        <li>
+                            <i class="fa fa-question fa-icon-generic"></i>
+                            <a class="supportbutton dropdownmenuitem" href="#">Support</a>
+                        </li>
+                        <li>
+                            <i class="fa fa-arrow-right fa-icon-generic"></i>
+                            <a class="signoutbutton dropdownmenuitem" href="#">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div id="maincontainer">
+                <aside class="side-menu-class">
+                    <nav>
+                        <button class="createmessagebutton">New Message</button>
+                        <button class="sentmessagesbutton">Sent Messages</button>
+                        <button class="scheduledmessagesbutton">Scheduled Messages</button>
+                        <button class="clientsbutton">Clients</button>
+                        <button class="accountbutton">Account</button>
+                        <button class="chatbotsbutton">Chat Bots</button>
+                        <button class="supportbutton">Support</button>
+                        <button class="settingsbutton">Settings</button>
+                    </nav>
+                </aside>
+
+                <!-- New Message Section -->
+                <div id="new-message-container" class="section-container">
+                    <h1 class="section-heading">New Message</h1>
+
+                    <h2>Send to:</h2>
+                    <div class="recipienttypeselectiondiv">
+                        <button class="showclientscontactsbutton recipienttypeselection">Clients</button>
+                        <button class="showclientsgroupsbutton recipienttypeselection">Groups</button>
+                    </div>
+
+                    <div class="clientsearchboxdiv">
+                        <input class="clientsearchbox" type="text" placeholder="Search...">
+                    </div>
+
+                    <div class="displayclientsdiv">
+                        <div class="client-selection-div style-15">
+                            <!-- <table id="saved-client-list-table" class="client-selection-list"></table> -->
+                            <table id="client-selection-list-table" class="client-selection-list"></table>
+                        </div>
+                    </div>
+
+                    <div class="displayclientgroupsdiv">
+                        <div class="client-selection-div style-15">
+                            <table id="group-selection-list-table" class="client-selection-list group-selection-list"></table>
+                        </div>
+                    </div><br>
+                    <!--
+                    <div class="client-selection-div style-15">
+                        <table id="client-selection-list-table" class="client-selection-list"></table>
+                    </div><br>
+                    -->
+
+                    <div id="recipientmanualinputdiv">
+                        <span id="enternewclientsspan">
+                            <h3 id="newclientslabel" style="color:black; display:inline; padding-right:20px;">Add New Clients</h3>
+                            <button id="showmanualrecipientinputbutton" style="display:inline;">Enter Manually</button>
+                            <button id="uploadnewclientsfromfilebutton" style="display:inline;">Upload from File</button>
+                        </span>
+
+                        <span id="manualrecipientinputspan" style="display:none;">
+                            <h3>New Client Info</h3>
+                            <label for="messageclientfname">First Name:</label>
+                            <input type="text" id="messageclientfname" name="messageclientfname" class="clients-input-class" placeholder="First Name*" required><br>
+                            <label for="messageclientlname">Last Name:</label>
+                            <input type="text" id="messageclientlname" name="messageclientlname" class="clients-input-class" placeholder="Last Name*" required><br>
+                            <label for="messageclientphone">Phone:</label>
+                            <input type="tel" id="messageclientphone" name="messageclientphone" class="clients-input-class" placeholder="Phone*" required><br>
+                            <label for="messageclientemail">Email:</label>
+                            <input type="text" id="messageclientemail" name="messageclientemail" class="clients-input-class" placeholder="Email (optional)"><br>
+                            <label for="messageclientcompany">Company:</label>
+                            <input type="text" id="messageclientcompany" name="messageclientcompany" class="clients-input-class" placeholder="Company (optional)"><br><br>
+                            <!--
+                            <label for="messageclientaddress">Address:</label>
+                            <input type="text" id="messageclientaddress" name="messageclientaddress" class="clients-input-class" placeholder="Address (optional)"><br>
+                            <label for="messageclientcity">City:</label>
+                            <input type="text" id="messageclientcity" name="messageclientcity" class="clients-input-class" placeholder="City (optional)"><br>
+                            <label for="messageclientstate">State:</label>
+                            <input type="text" id="messageclientstate" name="messageclientstate" class="clients-input-class" placeholder="State (optional)"><br>
+                            <label for="messageclientzip">Zip:</label>
+                            <input type="text" id="messageclientzip" name="messageclientzip" class="clients-input-class" placeholder="Zip (optional)"><br>
+                            <label for="messageclientcountry">Country:</label>
+                            <input type="text" id="messageclientcountry" name="messageclientcountry" class="clients-input-class" placeholder="Country (optional)"><br><br>
+                            -->
+
+                            <span id="newmessagebuttonspan">
+                                <button id="savetomyclientsandselectbutton">Add</button>
+                                <span class="mobileformatspan"><br></span>
+                                <button id="cancelsavetomyclientsandselectbutton" class="cancel-button-class">Cancel</button>
+                                <span class="mobileformatspan"><br></span>
+                                <input type="checkbox" id="savemessageclientcheckbox" style="width:20px;" checked>
+                                <label for="savemessageclientcheckbox">Save to My Clients</label>
+                                <div id="new-message-status-div" class="status-class" style="font-size:1.2em;"></div>
+                            </span>
+                        </span>
+                    </div><br>
+
+                    <div id="newmessagelowerdiv">
+                        <label for="message">Message:</label><br>
+                        <textarea id="message" name="message" rows="4" placeholder="Message" required></textarea><br>
+
+                        <label for="filetoupload" class="custom-file-upload">Attach Image</label>
+                        <input type="file" id="filetoupload" name="filetoupload" accept="image/*"><br><br>
+
+                        <button id="sendmessagebutton" type="submit">Send</button>
+                        <button id="cancelmessagebutton" type="reset" class="cancel-button-class">Cancel</button><br><br>
+
+                        <button id="schedulemessagebutton">Schedule For Later</button>
+                        <div id="schedulemessagediv" style="display:none;">
+                            <input id="schedulemessagedatetimeinput" type="datetime-local" style="color:black;">
+                            <button id="cancelschedulemessagebutton" class="cancel-button-class">Undo</button>
+                        </div>
+                    </div>
+
+                    <!-- Popup box to display send message status -->
+                    <div class="popup">
+                        <div class="popup-content">
+                            <h3 id="message-status-div" class="status-class"></h3>
+                            <button class="closePopup cancel-button-class" style="display:inline;">Close</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sent Messages Section -->
+                <div id="sent-messages-container" class="section-container">
+                    <!-- List on left side of page -->
+                    <div class="scrollbar style-15">
+                        <div class="force-overflow">
+                            <ol id="sent-messages-list" class="sent-messages-list"></ol>
+                        </div>
+                    </div>
+
+                    <!-- Current displayed message on right side of page -->
+                    <div class="sent-message-container">
+                        <h2 id="sent-message-timestamp"></h2>
+
+                        <div id="sent-message-messageimage-div" class="sent-message-container-section">
+                            <img id="sent-message-image1" class="sent-message-image" style="display:none;">
+                        </div>
+
+                        <div id="sent-message-messagebody-div" class="sent-message-container-section">
+                            <h4 class="recipient-label">Message:</h4>
+                            <p id="sent-message-messagebody"></p>
+                        </div>
+
+                        <div id="sent-message-recipient-client-groups-div" class="sent-message-container-section">
+                            <h4 class="recipient-label">Recipient Groups:</h4>
+                            <ol id="sent-message-recipient-client-groups"></ol>
+                        </div>
+
+                        <div id="sent-message-recipients-div" class="sent-message-container-section">
+                            <h4 class="recipient-label">Delivered to:</h4>
+                            <ol id="sent-message-recipients"></ol>
+                        </div>
+                    </div>
+
+                    <!-- Hidden div to allow for show image functionality -->
+                    <div style="display:none;">
+                        <p id="messageUID_toShow"></p>
+                        <button id="showMessageImageButton"></button>
+                    </div>
+                </div>
+
+                <!-- Scheduled Messages Section -->
+                <div id="scheduled-messages-section-container" class="section-container">
+                    <!-- <h1 class="section-heading">Scheduled Messages</h1> -->
+
+                    <!-- List on left side of page -->
+                    <div class="scrollbar style-15">
+                        <div class="force-overflow">
+                            <ol id="scheduled-messages-list" class="sent-messages-list"></ol>
+                        </div>
+                    </div>
+
+                    <!-- Current displayed message on right side of page -->
+                    <div class="sent-message-container">
+                        <h2 id="scheduled-message-timestamp"></h2>
+
+                        <div id="scheduled-message-messageimage-div" class="sent-message-container-section">
+                            <img id="scheduled-message-image1" class="sent-message-image" style="display:none;">
+                        </div>
+
+                        <div id="scheduled-message-messagebody-div" class="sent-message-container-section">
+                            <p id="scheduled-message-messagebody"></p>
+                        </div>
+
+                        <div id="scheduled-message-recipient-client-groups-div" class="sent-message-container-section">
+                            <h4 class="recipient-label">Recipient Groups:</h4>
+                            <ol id="scheduled-message-recipient-client-groups"></ol>
+                        </div>
+
+                        <div id="scheduled-message-recipients-div" class="sent-message-container-section">
+                            <h4 class="recipient-label">Delivered to:</h4>
+                            <ol id="scheduled-message-recipients"></ol>
+                        </div>
+                    </div>
+
+                    <!-- Hidden div to allow for show image functionality -->
+                    <div style="display:none;">
+                        <p id="scheduledMessageUID_toShow"></p>
+                        <button id="showScheduledMessageImageButton"></button>
+                    </div>
+                </div>
+
+                <!-- Clients Section -->
+                <div id="clients-section-container" class="section-container">
+                    <h1 class="section-heading">Clients</h1>
+
+                    <span id="showuploadnewclientsspan">
+                        <button id="showuploadnewclientsbutton">Upload New Clients</button>
+                        <button id="createnewclientsgroupbutton">Add Clients to Group</button>
+                        <button id="canceluploadnewclientsbutton" class="xcancel-button-class" style="display:none;">Cancel</button>
+                        <div id="create-client-group-status-div" class="status-class" style="font-size:1.2em;"></div>
+                    </span><br>
+
+                    <!-- Popup box containing client groupname input -->
+                    <div id="myPopup" class="popup">
+                        <div class="popup-content">
+                            <h3>Enter Group Name</h3>
+                            <input type="text" id="clientGroupNameInput" name="clientGroupNameInput" placeholder="Group Name" required autofocus>
+                            <button id="submitNewClientGroupButton" style="display:inline;">Submit</button>
+                            <button class="closePopup cancel-button-class" style="display:inline;">Cancel</button>
+                        </div>
+                    </div>
+
+                    <!-- Upload clients on top of page -->
+                    <div id="uploadclientsdiv" class="uploadclientsdiv" style="display:none;">
+                        <!-- File input -->
+                        <div id="uploadclientsfilediv">
+                            <h2>Upload Clients from File</h2>
+
+                            <label for="clientfiletoupprocess" class="custom-file-upload">Upload Clients:</label>
+                            <input type="file" id="clientfiletoupprocess" name="clientfiletoupprocess" accept=".csv"><br><br>
+
+                            <div id="selectclientgroupdiv">
+                                <h3>Select Client Group</h3>
+                                <span id="selectExistingClientGroupSpan">
+                                    <input type="radio" id="existinggroup" name="clientgroupradiochoice" class="clientgroupradiochoice" value="existinggroup" checked>
+                                    <label for="existinggroup">Existing Group:</label>
+                                    <select name="clientgroupname" id="clientgroupname"></select>
+                                </span><br>
+                                <span class="mobileformatspan"><br></span>
+
+                                <span id="selectNewClientGroupSpan">
+                                    <input type="radio" id="newgroup" name="clientgroupradiochoice" class="clientgroupradiochoice" value="newgroup">
+                                    <label for="newgroup">New Group:</label>
+                                    <input type="text" id="newclientgroupname" placeholder="Group Name"><br><br>
+                                </span>
+                            </div>
+
+                            <button id="uploadclientscsvfilebutton">Upload</button>
+                            <button id="canceluploadclientscsvfilebutton" class="cancel-button-class">Cancel</button><br><br>
+
+                            <div id="upload-clients-status-div" class="status-class" style="font-size:1.2em;"></div>
+                        </div>
+
+                        <!-- Manual input -->
+                        <div id="uploadclientsmanuallydiv">
+                            <h2>Input Clients Manually</h2>
+
+                            <form id="clients-form" action="none">
+                                <label for="clientfname">First Name:</label>
+                                <input type="text" id="clientfname" name="clientfname" class="clients-input-class" placeholder="First Name*" required><br>
+                                <label for="clientlname">Last Name:</label>
+                                <input type="text" id="clientlname" name="clientlname" class="clients-input-class" placeholder="Last Name*" required><br>
+                                <label for="clientphone">Phone:</label>
+                                <input type="tel" id="clientphone" name="clientphone" class="clients-input-class" placeholder="Phone*" required><br>
+                                <label for="clientemail">Email:</label>
+                                <input type="text" id="clientemail" name="clientemail" class="clients-input-class" placeholder="Email (optional)"><br>
+                                <label for="clientcompany">Company:</label>
+                                <input type="text" id="clientcompany" name="clientcompany" class="clients-input-class" placeholder="Company (optional)"><br><br>
+                                <!--
+                                <label for="clientaddress">Address:</label>
+                                <input type="text" id="clientaddress" name="clientaddress" class="clients-input-class" placeholder="Address (optional)"><br>
+                                <label for="clientcity">City:</label>
+                                <input type="text" id="clientcity" name="clientcity" class="clients-input-class" placeholder="City (optional)"><br>
+                                <label for="clientstate">State:</label>
+                                <input type="text" id="clientstate" name="clientstate" class="clients-input-class" placeholder="State (optional)"><br>
+                                <label for="clientzip">Zip:</label>
+                                <input type="text" id="clientzip" name="clientzip" class="clients-input-class" placeholder="Zip (optional)"><br>
+                                <label for="clientcountry">Country:</label>
+                                <input type="text" id="clientcountry" name="clientcountry" class="clients-input-class" placeholder="Country (optional)"><br><br>
+                                -->
+
+                                <button id="uploadclientbutton" type="submit">Save</button>
+                                <button id="canceluploadclientsbutton" type="reset" class="cancel-button-class">Cancel</button><br><br>
+                            </form>
+                        </div>
+
+                        <div id="upload-client-status-div" class="status-class"></div>
+                    </div>
+
+                    <!-- Display saved clients on bottom of page -->
+                    <div class="recipienttypeselectiondiv">
+                        <button class="showclientscontactsbutton recipienttypeselection">Clients</button>
+                        <button class="showclientsgroupsbutton recipienttypeselection">Groups</button>
+                    </div>
+
+                    <div class="clientsearchboxdiv">
+                        <input class="clientsearchbox" type="text" placeholder="Search...">
+                    </div>
+
+                    <!-- Hidden div to allow for remove member from group functionality -->
+                    <div style="display:none;">
+                        <p id="clientToRemoveUID"></p>
+                        <p id="groupToRemoveFrom"></p>
+                        <button id="submit-remove-client-request-button"></button>
+                    </div>
+
+                    <div class="displayclientsdiv">
+                        <div class="client-selection-div style-15">
+                            <table id="saved-client-list-table" class="client-selection-list"></table>
+                        </div>
+                    </div>
+
+                    <div class="displayclientgroupsdiv">
+                        <div class="client-selection-div style-15">
+                            <table id="saved-client-group-list-table" class="client-selection-list group-selection-list"></table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account Section -->
+                <div id="account-section-container" class="section-container">
+                    <h1 class="section-heading">Account</h1>
+
+                    <div id="account-info-div">
+                        <h2 id="account-info-business-name"></h2>
+                        <h3 id="account-info-profile-name"></h3>
+                        <h3 id="account-info-profile-tier"></h3>
+                        <h4 id="account-info-profile-credits"></h4>
+                    </div>
+
+                    <div id="add-account-credits-div">
+                        <script src="https://js.stripe.com/v3/"></script>
+
+                        <section class="addAccountCreditsPurchaseOption">
+                            <div class="product">
+                                <img src="https://i.imgur.com/EHyR2nP.png" alt="The cover of Stubborn Attachments" />
+                                <div class="description">
+                                    <h3>1k Credits</h3>
+                                    <h5>$19.00</h5>
+                                </div>
+                            </div>
+
+                            <form action="/create-checkout-session-add-credits" method="POST">
+                                <input type="text" class="accountinfoclientUID" name="accountinfoclientUID" style="display:none;">
+                                <input type="text" value="1kcredits" name="amount" style="display:none;">
+                                <button type="submit" id="checkout-button">Checkout</button>
+                            </form>
+                        </section>
+
+                        <section class="addAccountCreditsPurchaseOption">
+                            <div class="product">
+                                <img src="https://i.imgur.com/EHyR2nP.png" alt="The cover of Stubborn Attachments" />
+                                <div class="description">
+                                    <h3>10k Credits</h3>
+                                    <h5>$99.00</h5>
+                                </div>
+                            </div>
+
+                            <form action="/create-checkout-session-add-credits" method="POST">
+                                <input type="text" class="accountinfoclientUID" name="accountinfoclientUID" style="display:none;">
+                                <input type="text" value="10kcredits" name="amount" style="display:none;">
+                                <button type="submit" id="alt-checkout-button">Checkout</button>
+                            </form>
+                        </section>
+                    </div>
+                </div>
+
+                <!-- Chat Bots Section -->
+                <div id="chatbots-section-container" class="section-container">
+                    <h1 class="section-heading">Chat Bots</h1>
+                </div>
+
+                <!-- Support Section -->
+                <div id="support-section-container" class="section-container">
+                    <h1 class="section-heading">Support</h1><br><br>
+
+                    <div id="support-section-maindiv">
+                        <form id="support-form" method="post" enctype="multipart/form-data">
+                            <h3>Issue Description:</h3>
+                            <!-- <label for="issuedescription">Issue:</label><br> -->
+                            <textarea name="issuedescription" id="issuedescription" placeholder="Please describe your issue" rows="4" required></textarea><br><br>
+
+                            <h3>Please select your preferred contact method:</h3>
+                            <input type="radio" id="emailcontactradiobutton" name="contactmethodselection" class="contactmethodselection" value="email">
+                            <label for="emailcontactradiobutton">email</label><br>
+                            <input type="radio" id="textcontactradiobutton" name="contactmethodselection" class="contactmethodselection" value="text">
+                            <label for="textcontactradiobutton">text</label><br>
+                            <input type="radio" id="callcontactradiobutton" name="contactmethodselection" class="contactmethodselection" value="call">
+                            <label for="callcontactradiobutton">call</label><br><br>
+
+                            <div id="supportcontactmethodconfirmaddressdiv" style="display:none;">
+                                <h3>Select contact point:</h3>
+                                <span id="usedefaultcontactspan"><p><input type="radio" value="default" id="usedefaultcontactcheckbox" name="selectsupportcontactmethodcheckbox" class="selectsupportcontactmethodcheckbox" checked>Contact my account's default email/phone</p></span>
+                                <span id="usealternatecontactspan"><p><input type="radio" value="alternate" id="usealternatecontactcheckbox" name="selectsupportcontactmethodcheckbox" class="selectsupportcontactmethodcheckbox">Contact alternate email/phone:
+                                    <input type="tel" id="supportformphone" name="supportformphone" placeholder="alternate">
+                                </p></span><br>
+                            </div>
+
+                            <button id="submitsupportformbutton" type="submit">Submit</button>
+                            <button id="cancelsupportrequestbutton" type="reset" class="cancel-button-class">Cancel</button><br>
+                        </form>
+
+                        <div id="support-form-status-div" class="status-class"></div>
+                    </div>
+                </div>
+
+                <!-- Settings Section -->
+                <div id="settings-section-container" class="section-container">
+                    <h1 class="section-heading">Settings</h1>
+                </div>
+            </div>
+        </main>
+
+        <script type="module">
+
+            // Libraries
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
+            import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js"
+
+            // Config
+            const firebaseConfig = {
+                apiKey: "AIzaSyDK3f9wKaA6-FTPx9_1DyUPJgT0peHovMA",
+                authDomain: "textproject-91e54.firebaseapp.com",
+                projectId: "textproject-91e54",
+                storageBucket: "textproject-91e54.appspot.com",
+                messagingSenderId: "992522000735",
+                appId: "1:992522000735:web:bf2a10c5cd9103e8f43eea",
+                measurementId: "G-CGRCELQCN5"
+            };
+
+            // Initialize Firebase
+            var authIsReady = false;
+            const app = initializeApp(firebaseConfig);
+            const auth = getAuth(app);
+
+            auth.onAuthStateChanged((user) => {
+                if (!authIsReady) {
+                    initConsole();
+                }
+                authIsReady = !authIsReady;
+            })
+
+            async function initConsole() {
+                readClientsFromDb("client-selection-list-table");
+                getUserInfo();
+            }
+
+
+            async function getUserInfo() {
+                const user = auth.currentUser;
+                if (user) {
+                    user.getIdToken(true).then(function(idToken) {
+
+                        const jsonToSend = JSON.stringify({userIdToken: idToken});
+
+                        $.ajax({
+                          headers: {"Content-Type": "application/json"},
+                          type: "POST",
+                          url: "/user-info",
+                          data: jsonToSend,
+                          success: function (data) {
+                                       const returnedData = JSON.parse(data);
+                                       $("#profileMenuName").text(returnedData['firstname'] + ' ' + returnedData['lastname']);
+                          },
+                          error: function (errorMessage) { console.log("Error occurred while retrieving user info"); } // ,
+                          // dataType: "json"
+                        });
+                    }).catch(function(error) {
+                        console.log("Error occurred while retrieving user info");
+                    });
+                }
+                else {
+                    console.log("Error occurred during user authentication");
+                }
+            }
+
+
+            async function readClientsFromDb(tableName) {
+                const user = auth.currentUser;
+                if (user) {
+                    user.getIdToken(true).then(function(idToken) {
+
+                        $.ajax({
+                          headers: {"Content-Type": "application/json"},
+                          type: "POST",
+                          url: "/saved-clients",
+                          data: JSON.stringify({userIdToken: idToken}),
+                          success: function (data) {
+                                // Insert clients into table
+                                const returnedData = JSON.parse(data);
+                                const savedClients = returnedData['clients'];
+                                $("#" + tableName).empty();
+                                // $("#" + tableName).append('<thead><tr><th style="display:none;">Client ID</th> <th>First Name</th> <th>Last Name</th> <th>Phone</th> <th>Select<input type="checkbox" id="selectallclientscheckbox" class="clientcheckbox" onClick="checkAllClients(this);"></td></th></tr></thead><tbody>');
+                                $("#" + tableName).append('<thead><tr><th style="display:none;">Client ID</th> <th>First Name</th> <th>Last Name</th> <th class="phonetd">Phone</th> <th><button class="selectallbutton" style="background-color: rgb(0,180,0);" onClick="checkAllClients(this);">Select All</button></th></tr></thead><tbody>');
+                                for (const savedClient in savedClients) {
+                                    // const newClientTableRow = '<tr><td style="display:none;">' + savedClients[i]['clientUID'] + '</td><td>' + savedClients[i]['firstname'] + '</td><td>' + savedClients[i]['lastname'] + '</td><td>' + savedClients[i]['phone'] + '</td><td><input type="checkbox" class="clientcheckbox" style="width:30px;"></td></tr>';
+                                    const newClientTableRow = '<tr><td style="display:none;">' + savedClient + '</td><td>' + savedClients[savedClient]['firstname'] + '</td><td>' + savedClients[savedClient]['lastname'] + '</td><td class="phonetd">' + savedClients[savedClient]['phone'] + '</td><td><input type="checkbox" class="clientcheckbox"></td></tr>';
+                                    $("#" + tableName).append(newClientTableRow);
+                                }
+                                $("#" + tableName).append('</tbody>');
+
+                                // Insert clients groups into group selection list and insert client groups into client groups table
+                                const savedClientGroups = returnedData['groups'];
+                                $("#clientgroupname").empty();
+                                $("#clientgroupname").append('<option value="Default" selected>Default</option>');
+                                $(".group-selection-list").empty();
+                                $(".group-selection-list").append('<thead><tr><th>Expand</th> <th>Group Name</th> <th>Total Members</th> <th><button class="selectallbutton" style="background-color: rgb(0,180,0);" onClick="checkAllClientGroups(this);">Select All</button></th></tr></thead><tbody>');
+                                for (const currentGroupName in savedClientGroups) {
+                                    // Group selection list
+                                    const newOption = '<option value="' + currentGroupName + '">' + currentGroupName + '</option>';
+                                    $("#clientgroupname").append(newOption);
+
+                                    // Client groups
+                                    $(".group-selection-list").append('<tr class="group-name-table-row"><td><button class="' + currentGroupName + '" onClick="toggleClientGroup(this);">+</button></td> <td>' + currentGroupName + '</td> <td>' + savedClientGroups[currentGroupName].length + '</td> <td><input type="checkbox" class="clientgroupcheckbox" style="width:30px;"></td></tr>');
+
+                                    // Client groups members
+                                    for (const member of savedClientGroups[currentGroupName]) {
+                                        $(".group-selection-list").append('<tr style="background-color:lightgrey; padding-top:10px; display:none;" class="group-members-table-row ' + currentGroupName + '__members_row__"><td style="display:none;">' + member + '</td> <td style="text-align:left;">' + savedClients[member]['firstname'] + '</td> <td style="text-align:left;">' + savedClients[member]['lastname'] + '</td> <td class="groupphonetd" style="text-align:left;">' + savedClients[member]['phone'] + '</td> <td><button class="' + member + ',' + currentGroupName + '" onClick="removeMemberFromGroup(this);" style="font-size:0.9em; padding-left:4px; padding-right:4px; background-color:rgb(220,0,0);">Remove</button></td></tr>');
+                                    }
+
+
+                                }
+                                $(".group-selection-list").append('</tbody>');
+
+                          },
+                          error: function (errorMessage) { console.log("Error retrieving saved clients"); } // ,
+                          // dataType: "json"
+                        });
+                    }).catch(function(error) {
+                        console.log("Error submitting get clients request");
+                    });
+                }
+                else {
+                    console.log("Error occurred during user authentication");
+                }
+            }
+
+
+            async function saveClientToDb(fname, lname, phone, email, company, address, city, state, zip, country) {
+                const user = auth.currentUser;
+                if (user) {
+                    user.getIdToken(true).then(function(idToken) {
+
+                        // Don't submit empty or incomplete clients
+                        if (fname == "" || lname == "" || phone == "") {
+                            $(".status-class").empty();
+                            $(".status-class").css("color", "red");
+                            $(".status-class").text('Please fill in required fields');
+                            setTimeout(function() {
+                                $(".status-class").empty();
+                            }, 3000);
+                            return;
+                        }
+
+                        const newClientJson = JSON.stringify({userIdToken: idToken, client: {firstname: fname, lastname: lname, phone: phone, email: email, address: address, city: city, state: state, zip: zip, country: country, company: company}});
+
+                        $.ajax({
+                          headers: {"Content-Type": "application/json"},
+                          type: "POST",
+                          url: "/save-client",
+                          data: newClientJson,
+                          success: function (data) {
+                                       $("#clients-form")[0].reset();
+                                       // $(".clientsbutton").click();
+                                       // $("#upload-client-status-div").empty();
+                                       // $("#upload-client-status-div").text(data);
+                                       $(".status-class").empty();
+                                       $(".status-class").css("color", "green");
+                                       $(".status-class").text(data);
+                                       setTimeout(function() {
+                                           $(".status-class").empty();
+                                       }, 3000);
+                          },
+                          error: function (errorMessage) { console.log("Error occurred while saving client"); } // ,
+                          // dataType: "json"
+                        });
+                    }).catch(function(error) {
+                        console.log("Error submitting upload client request");
+                    });
+                }
+                else {
+                    console.log("Error occurred during user authentication");
+                }
+            }
+
+
+            async function getMessageImage(messageUID, imageDivID) {
+                const user = auth.currentUser;
+                if (user) {
+                    user.getIdToken(true).then(function(idToken) {
+
+                        const jsonToSend = JSON.stringify({userIdToken: idToken, messageUID: sanitize(messageUID)});
+
+                        $.ajax({
+                          headers: {"Content-Type": "application/json"},
+                          type: "POST",
+                          url: "/message-image",
+                          data: jsonToSend,
+                          success: function (data) {
+                                       const returnedData = JSON.parse(data);
+                                       $("#" + imageDivID).css("display", "inline");
+                                       $("#" + imageDivID).attr('src', returnedData['image']);
+                          },
+                          error: function (errorMessage) { console.log("Error retrieving message image"); } // ,
+                          // dataType: "json"
+                        });
+                    }).catch(function(error) {
+                        console.log("Error retrieving message image");
+                    });
+                }
+                else {
+                    console.log("Error occurred during user authentication");
+                }
+            }
+
+
+            /*
+            $(".side-menu-class button").click(function (event) {
+                $(".side-menu-class button").css("background-color", "#111");
+            });
+             */
+            $("#showmanualrecipientinputbutton").click(function (event) {
+                event.preventDefault();
+                $("#newclientslabel").css("display", "none");
+                $("#showmanualrecipientinputbutton").css("display", "none");
+                $("#uploadnewclientsfromfilebutton").css("display", "none");
+                $("#manualrecipientinputspan").css("display", "block");
+                $("#savemessageclientcheckbox").prop('checked', true);
+            });
+
+
+            $("#savetomyclientsandselectbutton").click(function (event) {
+                const fname = sanitize($("#messageclientfname").val());
+                const lname = sanitize($("#messageclientlname").val());
+                const phone = sanitize($("#messageclientphone").val());
+                const email = sanitize($("#messageclientemail").val());
+                const company = sanitize($("#messageclientcompany").val());
+                /*
+                const address = $("#messageclientaddress").val();
+                const city = $("#messageclientcity").val();
+                const state = $("#messageclientstate").val();
+                const zip = $("#messageclientzip").val();
+                const country = $("#messageclientcountry").val();
+                 */
+
+                if (fname == "" || lname == "" || phone == "") {
+                    $(".status-class").empty();
+                    $(".status-class").css("color", "red");
+                    $(".status-class").text('Please fill in required fields');
+                    setTimeout(function() {
+                        $(".status-class").empty();
+                    }, 3000);
+                    return;
+                }
+
+                if ($("#savemessageclientcheckbox").prop("checked")) {
+                    // saveClientToDb(fname, lname, phone, email, company, address, city, state, zip, country);
+                    saveClientToDb(fname, lname, phone, email, company, '', '', '', '', '');
+                    /*
+                    setTimeout(function() {
+                        readClientsFromDb("client-selection-list-table");
+                    }, 3000);
+                     */
+                }
+
+                const newRecipientTableRow = '<tr><td style="display:none;">0</td><td>' + fname + '</td><td>' + lname + '</td><td class="phonetd">' + phone + '</td><td><input type="checkbox" class="clientcheckbox" checked></td></tr>';
+                $("#client-selection-list-table tbody").prepend(newRecipientTableRow);
+
+                $(".clients-input-class").val("");
+            });
+
+
+            $("#cancelsavetomyclientsandselectbutton").click(function (event) {
+                $(".clients-input-class").val("");
+                $("#manualrecipientinputspan").css("display", "none");
+                $("#showmanualrecipientinputbutton").css("display", "inline");
+                $("#uploadnewclientsfromfilebutton").css("display", "inline");
+                $("#newclientslabel").css("display", "inline");
+            });
+
+
+            $("#uploadnewclientsfromfilebutton").click(function (event) {
+                $(".clientsbutton").click();
+                $("#showuploadnewclientsbutton").click();
+            });
+
+
+            $("#sendmessagebutton").click(function (event) {
+                event.preventDefault();
+
+                const user = auth.currentUser;
+                if (user) {
+                    user.getIdToken(true).then(function(idToken) {
+
+                        // Add individual client selections to recipient list
+                        let allRecipients = [];
+                        $("#client-selection-list-table tr").each(function(i, row) { 
+                            if ($(row).find('input:checked').length) {
+                                allRecipients.push(sanitize($(row.cells[1]).text() + ',' + $(row.cells[3]).text()));
+                            }
+                        });
+
+                        // Hash map to store previously added client groups to avoid duplicates from Clients Section table
+                        let storedRecipientClientGroupsMap = {};
+
+                        // Add client group selections to recipient list
+                        let messageRecipientClientGroups = [];
+                        $(".group-selection-list tr").each(function(i, row) { 
+                            if ($(row).find('input:checked').length) {
+                                const selectedGroupName = sanitize($(row.cells[1]).text());
+
+                                if (!storedRecipientClientGroupsMap[selectedGroupName]) {
+                                    messageRecipientClientGroups.push(selectedGroupName);
+                                    storedRecipientClientGroupsMap[selectedGroupName] = true;
+
+                                    // Hash map to store previously added client UIDs to avoid duplicates from Clients Section table
+                                    let storedRecipientMap = {};
+                                    $("." + selectedGroupName + "__members_row__").each(function() {
+                                        const currentClientUID = $(this.cells[0]).text();
+                                        if (!storedRecipientMap[currentClientUID]) {
+                                            allRecipients.push($(this.cells[3]).text() + ',' + $(this.cells[3]).text());
+                                            storedRecipientMap[currentClientUID] = true;
+                                        }
+                                    });
+                                }
+                            }
+                        });
+
+                        const message = sanitize($("#message").val());
+                        const scheduleSendTime = $("#schedulemessagedatetimeinput").val();
+
+                        // Don't send empty messages
+                        if (message == "" || allRecipients.length == 0) return;
+
+                        // Attach image if user uploaded one
+                        if ($("#filetoupload").prop("files").length > 0) {
+                            let reader = new FileReader();
+                            reader.readAsDataURL($("#filetoupload").prop("files")[0]);
+                            reader.onloadend = function() {
+                                const imageToAttach = reader.result;
+                                const sanitizedImage = sanitize(imageToAttach);
+
+                                const jsonToSend = JSON.stringify({userIdToken: idToken, userRecipients: allRecipients, userMessage: message, userMessageImage: sanitizedImage, messageRecipientClientGroups: messageRecipientClientGroups, scheduleSendTime: scheduleSendTime });
+
+                                $.ajax({
+                                  headers: {"Content-Type": "application/json"},
+                                  type: "POST",
+                                  url: "/send-message",
+                                  data: jsonToSend,
+                                  success: function (data) {
+                                        $("#message-status-div").empty();
+                                        $(".popup").css("display", "block");
+                                        $("#message-status-div").css("color", "green");
+                                        $("#message-status-div").text(data);
+                                        // $("#message-form")[0].reset();
+                                        $('input:checkbox').prop('checked', false);
+                                        $("#filetoupload").val(null);
+                                        $("#message").val("");
+                                        $("#phone").val("");
+                                  },
+                                  error: function (errorMessage) { console.log("Error occurred while sending message"); } // ,
+                                  // dataType: "json"
+                                });
+                            }
+                        }
+                        else {
+                            const jsonToSend = JSON.stringify({userIdToken: idToken, userRecipients: allRecipients, userMessage: message, userMessageImage: null, messageRecipientClientGroups: messageRecipientClientGroups, scheduleSendTime: scheduleSendTime});
+
+                            $.ajax({
+                              headers: {"Content-Type": "application/json"},
+                              type: "POST",
+                              url: "/send-message",
+                              data: jsonToSend,
+                              success: function (data) {
+                                    $("#message-status-div").empty();
+                                    $(".popup").css("display", "block");
+                                    $("#message-status-div").css("color", "green");
+                                    $("#message-status-div").text(data);
+                                    // $("#message-form")[0].reset();
+                                    $('input:checkbox').prop('checked', false);
+                                    $("#message").val("");
+                                    $("#phone").val("");
+                              },
+                              error: function (errorMessage) { console.log("Error occurred while sending message"); } // ,
+                              // dataType: "json"
+                            });
+                        }
+
+                    }).catch(function(error) {
+                        console.log("Error occurred during user authentication");
+                    });
+                }
+                else {
+                    console.log("Error occurred during user authentication");
+                }
+            });
+
+
+            $(".createmessagebutton").click(function (event) {
+                event.preventDefault();
+                displayDiv("new-message-container");
+                $("#phone").val("");
+                $("#manualrecipientinputspan").css("display", "none");
+                $("#showmanualrecipientinputbutton").css("display", "inline");
+                $("#uploadnewclientsfromfilebutton").css("display", "inline");
+                $("#newclientslabel").css("display", "inline");
+                $("#schedulemessagediv").hide();
+                $("#schedulemessagebutton").show();
+                $("#filetoupload").val(null);
+                $("#message-status-div").empty();
+
+                $(".recipienttypeselectiondiv").css("display", "flex");
+                $(".displayclientsdiv").css("display", "inline");
+                $(".displayclientgroupsdiv").css("display", "none");
+                $(".showclientscontactsbutton").css("background-color", "lightgrey");
+                $(".showclientsgroupsbutton").css("background-color", "#555");
+                $(".clientsearchbox").val("");
+                $("#schedulemessagedatetimeinput").val('');
+
+                // initConsole();
+                readClientsFromDb("client-selection-list-table");
+
+                /*
+                const user = auth.currentUser;
+                if (user) {
+                    user.getIdToken(true).then(function(idToken) {
+                        // Navigate to create-message page
+                        // document.location.href = "/create-message.html";
+                    }).catch(function(error) {
+                        console.log("Error retrieving clients");
+                    });
+                }
+                else {
+                    console.log("Error occurred during user authentication");
+                }
+                 */
+            });
+
+
+            $("#cancelmessagebutton").click(function (event) {
+                $("#phone").val('');
+                $("#manualrecipientinputspan").css("display", "none");
+                $("#showmanualrecipientinputbutton").css("display", "inline");
+                $("#uploadnewclientsfromfilebutton").css("display", "inline");
+                $("#newclientslabel").css("display", "inline");
+                $("#message").val(null);
+                $("#filetoupload").val(null);
+                $('input:checkbox').prop('checked', false);
+                $("#savemessageclientcheckbox").prop('checked', true);
+                $("#schedulemessagedatetimeinput").val('');
+                $("#schedulemessagediv").hide();
+                $("#schedulemessagebutton").show();
+            });
+
+
+            $("#schedulemessagebutton").click(function (event) {
+                $("#schedulemessagebutton").hide();
+                $("#schedulemessagediv").show();
+
+                let currentDateTime = new Date();
+                currentDateTime.setMinutes(currentDateTime.getMinutes() - currentDateTime.getTimezoneOffset());
+                $("#schedulemessagedatetimeinput").val(currentDateTime.toISOString().slice(0,16));
+                document.querySelector("#schedulemessagedatetimeinput").showPicker(); // @TODO: figure out why this only works in Chrome
+            });
+
+
+            $("#cancelschedulemessagebutton").click(function (event) {
+                $("#schedulemessagedatetimeinput").val('');
+                $("#schedulemessagediv").hide();
+                $("#schedulemessagebutton").show();
+            });
+
+
+            $(".sentmessagesbutton").click(function (event) {
+                event.preventDefault();
+                displayDiv("sent-messages-container");
+
+                const user = auth.currentUser;
+                if (user) {
+                    user.getIdToken(true).then(function(idToken) {
+
+                        $.ajax({
+                          headers: {"Content-Type": "application/json"},
+                          type: "POST",
+                          url: "/sent-messages",
+                          data: JSON.stringify({userIdToken: idToken}),
+                          success: function (data) {
+                            try {
+                                const returnedData = JSON.parse(data);
+                                const rdm = returnedData['recentMessages'];
+                                $(".sent-messages-list").empty();
+
+                                // Display first message (right side of screen)
+                                if (rdm.length > 0) {
+                                    const currentMessageUID = rdm[0]['messageUID'];
+                                    const currentMessageBody = rdm[0]['messagebody'];
+                                    // const currentMessageImage = rdm[0]['base64image'];
+                                    const currentMessageContainsImage = rdm[0]['containsImage'];
+                                    const currentMessageRecipients = rdm[0]['recipients'];
+                                    const currentMessageRecipientClientGroups = rdm[0]['messageRecipientClientGroups'];
+                                    const currentMessageTimestamp = rdm[0]['timestamp'];
+
+                                    $("#sent-message-recipients").empty();
+                                    for (let i = 0; i < currentMessageRecipients.length; i++) {
+                                        $("#sent-message-recipients").append('<li class="message-recipient-li">' + currentMessageRecipients[i] + '</li>');
+                                    }
+
+                                    $("#sent-message-recipient-client-groups-div").hide();
+                                    $("#sent-message-recipient-client-groups").empty();
+                                    for (let i = 0; i < currentMessageRecipientClientGroups.length; i++) {
+                                        $("#sent-message-recipient-client-groups").append('<li class="message-recipient-client-group-li">' + currentMessageRecipientClientGroups[i] + '</li>');
+                                    }
+
+                                    if (currentMessageRecipientClientGroups.length > 0) {
+                                        $("#sent-message-recipient-client-groups-div").show();
+                                    }
+
+                                    $("#sent-message-image1").css("display", "none");
+                                    if (currentMessageContainsImage) {
+                                        // $("#sent-message-image1").attr('src', currentMessageImage);
+                                        getMessageImage(currentMessageUID, "sent-message-image1");
+                                    }
+
+                                    const rawDate = new Date(currentMessageTimestamp);
+                                    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+                                    const humanReadableDate = rawDate.toLocaleString('en-US', options);
+                                    $("#sent-message-timestamp").text('Sent: ' + humanReadableDate);
+                                    $("#sent-message-messagebody").text(currentMessageBody);
+                                }
+
+                                // Display message previews (left side of screen)
+                                for (let i = 0; i < rdm.length; i++) {
+                                    const currentMessageUID = rdm[i]['messageUID'];
+                                    const currentMessageBody = rdm[i]['messagebody'];
+                                    // const currentMessageImage = rdm[i]['base64image'];
+                                    const currentMessageContainsImage = rdm[i]['containsImage'];
+                                    const currentMessageRecipients = rdm[i]['recipients'];
+                                    const currentMessageRecipientClientGroups = rdm[i]['messageRecipientClientGroups'];
+                                    const currentMessageTimestamp = rdm[i]['timestamp'];
+                                    const sentMessagesHtml = '<li><div class="sent-message-preview" onclick="showMessage(this)"><h3>' + currentMessageBody + '</h3><p>' + currentMessageTimestamp + ',' + currentMessageUID + ',' + currentMessageContainsImage + ',' + currentMessageRecipients + '</p><h4 style="display:none;">' + currentMessageRecipientClientGroups + '</h4></div></li>';
+                                    // const sentMessagesHtml = '<li><div class="sent-message-preview"><h3>' + currentMessageBody + '</h3><p>' + currentMessageTimestamp + ',' + currentMessageUID + ',' + currentMessageContainsImage + ',' + currentMessageRecipients + '</p></div></li>';
+                                    $(".sent-messages-list").append(sentMessagesHtml);
+
+                                    // Mark first message preview as selected
+                                    if (i == 0) {
+                                        $(".sent-message-preview").css("background-color", "rgba(5, 202, 237, 0.9)");
+                                    }
+                                }
+                            } catch(error) {
+                                console.log('Error retrieving sent messages');
+                            }
+                          },
+                          error: function (errorMessage) { console.log("Error retrieving sent messages"); } // ,
+                          // dataType: "json"
+                        });
+                    }).catch(function(error) {
+                        console.log("Error retrieving sent messages");
+                    });
+                }
+                else {
+                    console.log("Error occurred during user authentication");
+                }
+            });
+
+
+            $("#showMessageImageButton").click(function (event) {
+                getMessageImage($("#messageUID_toShow").val(), 'sent-message-image1');
+            });
+
+
+            $("#showScheduledMessageImageButton").click(function (event) {
+                getMessageImage($("#scheduledMessageUID_toShow").val(), 'scheduled-message-image1');
+            });
+
+
+            $(".scheduledmessagesbutton").click(function (event) {
+                event.preventDefault();
+                displayDiv("scheduled-messages-section-container");
+
+                const user = auth.currentUser;
+                if (user) {
+                    user.getIdToken(true).then(function(idToken) {
+
+                        $.ajax({
+                          headers: {"Content-Type": "application/json"},
+                          type: "POST",
+                          url: "/scheduled-messages",
+                          data: JSON.stringify({userIdToken: idToken}),
+                          success: function (data) {
+                                    try {
+                                        const returnedData = JSON.parse(data);
+                                        const rdm = returnedData['scheduledMessages'];
+                                        $("#scheduled-messages-list").empty();
+
+                                        // Display first message (right side of screen)
+                                        if (rdm.length > 0) {
+                                            const currentMessageUID = rdm[0]['messageUID'];
+                                            const currentMessageBody = rdm[0]['messagebody'];
+                                            const currentMessageContainsImage = rdm[0]['containsImage'];
+                                            const currentMessageRecipients = rdm[0]['recipients'];
+                                            const currentMessageRecipientClientGroups = rdm[0]['messageRecipientClientGroups'];
+                                            // const currentMessageTimestamp = rdm[0]['timestamp'];
+                                            const currentMessageScheduleSendTime = rdm[0]['scheduleSendTime'];
+
+                                            $("#scheduled-message-recipients").empty();
+                                            for (let i = 0; i < currentMessageRecipients.length; i++) {
+                                                $("#scheduled-message-recipients").append('<li class="message-recipient-li">' + currentMessageRecipients[i] + '</li>');
+                                            }
+
+                                            $("#scheduled-message-recipient-client-groups").empty();
+                                            for (let i = 0; i < currentMessageRecipientClientGroups.length; i++) {
+                                                $("#scheduled-message-recipient-client-groups").append('<li class="message-recipient-client-group-li">' + currentMessageRecipientClientGroups[i] + '</li>');
+                                            }
+
+                                            $("#scheduled-message-image1").css("display", "none");
+                                            if (currentMessageContainsImage) {
+                                                getMessageImage(currentMessageUID, "scheduled-message-image1");
+                                            }
+
+                                            const rawDate = new Date(currentMessageScheduleSendTime);
+                                            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+                                            const humanReadableDate = rawDate.toLocaleString('en-US', options);
+                                            $("#scheduled-message-timestamp").text('Scheduled for: ' + humanReadableDate);
+                                            $("#scheduled-message-messagebody").text(currentMessageBody);
+                                        }
+
+                                        // Display message previews (left side of screen)
+                                        for (let i = 0; i < rdm.length; i++) {
+                                            const currentMessageUID = rdm[i]['messageUID'];
+                                            const currentMessageBody = rdm[i]['messagebody'];
+                                            // const currentMessageImage = rdm[i]['base64image'];
+                                            const currentMessageContainsImage = rdm[i]['containsImage'];
+                                            const currentMessageRecipients = rdm[i]['recipients'];
+                                            const currentMessageRecipientClientGroups = rdm[i]['messageRecipientClientGroups'];
+                                            // const currentMessageTimestamp = rdm[i]['timestamp'];
+                                            const currentMessageScheduleSendTime = rdm[i]['scheduleSendTime'];
+                                            const scheduledMessagesHtml = '<li><div class="sent-message-preview" onclick="showScheduledMessage(this)"><h3>' + currentMessageBody + '</h3><p>' + currentMessageScheduleSendTime + ',' + currentMessageUID + ',' + currentMessageContainsImage + ',' + currentMessageRecipients + '</p><h4 style="display:none;">' + currentMessageRecipientClientGroups + '</h4></div></li>';
+                                            $("#scheduled-messages-list").append(scheduledMessagesHtml);
+
+                                            // Mark first message preview as selected
+                                            if (i == 0) {
+                                                $(".sent-message-preview").css("background-color", "rgba(5, 202, 237, 0.9)");
+                                            }
+                                        }
+                                    } catch(error) {
+                                        console.log("Error retrieving scheduled messages");
+                                    }
+                          },
+                          error: function (errorMessage) { console.log("Error retrieving scheduled messages"); } // ,
+                          // dataType: "json"
+                        });
+                    }).catch(function(error) {
+                        console.log("Error retrieving scheduled messages");
+                    });
+                }
+                else {
+                    console.log("Error occurred during user authentication");
+                }
+            });
+
+
+            $(".clientsbutton").click(function (event) {
+                event.preventDefault();
+                displayDiv("clients-section-container");
+                $("#upload-client-status-div").empty();
+
+                $("#uploadclientsdiv").css("display", "none");
+                $("#canceluploadnewclientsbutton").css("display", "none");
+                $(".displayclientgroupsdiv").css("display", "none");
+                $("#showuploadnewclientsbutton").css("display", "inline");
+                $("#createnewclientsgroupbutton").css("display", "inline");
+                $(".displayclientsdiv").css("display", "inline");
+                $(".showclientscontactsbutton").css("background-color", "lightgrey");
+                $(".showclientsgroupsbutton").css("background-color", "#555");
+                $(".clientsearchbox").val("");
+
+                readClientsFromDb("saved-client-list-table");
+            });
+
+
+            $("#showuploadnewclientsbutton").click(function (event) {
+                $(".recipienttypeselectiondiv").css("display", "none");
+                $("#showuploadnewclientsbutton").css("display", "none");
+                $("#createnewclientsgroupbutton").css("display", "none");
+                $(".clientsearchboxdiv").hide();
+                $(".displayclientsdiv").css("display", "none");
+                $(".displayclientgroupsdiv").css("display", "none");
+                $("#canceluploadnewclientsbutton").css("display", "inline");
+                $("#uploadclientsdiv").css("display", "inline");
+            });
+
+
+            $("#createnewclientsgroupbutton").click(function (event) {
+                event.preventDefault();
+
+                // Add client selections to recipient list
+                let allCheckedClients = [];
+                $("#saved-client-list-table tr").each(function(i, row) { 
+                    if ($(row).find('input:checked').length) {
+                        allCheckedClients.push($(row.cells[0]).text());
+                    }
+                });
+
+                if (allCheckedClients.length == 0) {
+                    $("#create-client-group-status-div").empty();
+                    $("#create-client-group-status-div").css("color", "red");
+                    $("#create-client-group-status-div").text('Please select clients to add to group');
+                    setTimeout(function() {
+                        $("#create-client-group-status-div").empty();
+                    }, 4000);
+                    return;
+                }
+
+                $(".popup").css("display", "block");
+            });
+
+
+            $(".closePopup").click(function (event) {
+                event.preventDefault();
+                $(".popup").css("display", "none");
+            });
+
+
+            $("#submitNewClientGroupButton").click(function (event) {
+                event.preventDefault();
+
+                const user = auth.currentUser;
+                if (user) {
+                    user.getIdToken(true).then(function(idToken) {
+
+                        const clientGroupName = sanitize($("#clientGroupNameInput").val()).replaceAll(" ", "_");
+
+                        // Add client selections to recipient list
+                        let allCheckedClients = [];
+                        $("#saved-client-list-table tr").each(function(i, row) { 
+                            if ($(row).find('input:checked').length) {
+                                allCheckedClients.push(sanitize($(row.cells[0]).text()));
+                            }
+                        });
+
+                        const jsonToSend = JSON.stringify({userIdToken: idToken, clientGroupName: clientGroupName, clients: allCheckedClients});
+
+                        $.ajax({
+                          headers: {"Content-Type": "application/json"},
+                          type: "POST",
+                          url: "/create-clientgroup",
+                          data: jsonToSend,
+                          success: function (data) {
+                                readClientsFromDb("saved-client-list-table");
+                                $("#create-client-group-status-div").empty();
+                                $("#create-client-group-status-div").css("color", "green");
+                                $("#create-client-group-status-div").text(data);
+                                setTimeout(function() {
+                                    $("#create-client-group-status-div").empty();
+                                }, 3000);
+
+                                $(".clientcheckbox").prop('checked', false);
+                          },
+                          error: function (errorMessage) { console.log("Error creating new client group"); } // ,
+                          // dataType: "json"
+                        });
+                    }).catch(function(error) {
+                        console.log("Error creating new client group");
+                    });
+                }
+                else {
+                    console.log("Error occurred during user authentication");
+                }
+
+                $(".popup").css("display", "none");
+            });
+
+
+            $("#canceluploadnewclientsbutton").click(function (event) {
+                $("#uploadclientsdiv").css("display", "none");
+                $("#canceluploadnewclientsbutton").css("display", "none");
+                $(".recipienttypeselectiondiv").css("display", "flex");
+                $(".clientsearchboxdiv").show();
+                $("#showuploadnewclientsbutton").css("display", "inline");
+                $("#createnewclientsgroupbutton").css("display", "inline");
+                $(".displayclientsdiv").css("display", "inline");
+                $(".showclientscontactsbutton").css("background-color", "lightgrey");
+                $(".showclientsgroupsbutton").css("background-color", "#555");
+            });
+
+
+            $("#uploadclientbutton").click(function (event) {
+                event.preventDefault();
+                const fname = sanitize($("#clientfname").val());
+                const lname = sanitize($("#clientlname").val());
+                const phone = sanitize($("#clientphone").val());
+                const email = sanitize($("#clientemail").val());
+                const company = sanitize($("#clientcompany").val());
+                /*
+                const address = $("#clientaddress").val();
+                const city = $("#clientcity").val();
+                const state = $("#clientstate").val();
+                const zip = $("#clientzip").val();
+                const country = $("#clientcountry").val();
+                 */
+
+                // saveClientToDb(fname, lname, phone, email, company, address, city, state, zip, country);
+                saveClientToDb(fname, lname, phone, email, company, '', '', '', '', '');
+
+                // Re-read clients from db after delay to retrieve newly added clients
+                setTimeout(function() {
+                     readClientsFromDb("saved-client-list-table");
+                }, 3000);
+            });
+
+
+            $("#selectExistingClientGroupSpan").click(function (event) {
+                $("#existinggroup").prop("checked", true);
+            });
+
+
+            $("#selectNewClientGroupSpan").click(function (event) {
+                $("#newgroup").prop("checked", true);
+            });
+
+
+            $("#uploadclientscsvfilebutton").click(function (event) {
+                const user = auth.currentUser;
+                if (user) {
+                    user.getIdToken(true).then(function(idToken) {
+
+                        if ($("#clientfiletoupprocess").prop("files").length > 0) {
+                            let reader = new FileReader();
+                            // reader.readAsDataURL($("#clientfiletoupprocess").prop("files")[0]);
+                            reader.readAsBinaryString($("#clientfiletoupprocess").prop("files")[0]);
+                            reader.onloadend = function() {
+                                const csvString = reader.result;
+                                const lines = csvString.split(/\r\n|\n/);
+                                const headers = lines[0].split(',');
+                                let headerColumnIndexes = {};
+
+                                // Save column indexes for headers of interest
+                                for (let i = 0; i < headers.length; i++) {
+                                    const currentColumn = sanitize(headers[i].toLowerCase().trim());
+
+                                    switch (currentColumn) {
+                                        case 'first name':
+                                        case 'firstname':
+                                        case 'fname':
+                                        case 'first':
+                                            headerColumnIndexes['firstname'] = i;
+                                            break;
+                                        case 'last name':
+                                        case 'lastname':
+                                        case 'lname':
+                                        case 'last':
+                                            headerColumnIndexes['lastname'] = i;
+                                            break;
+                                        case 'full name':
+                                        case 'fullname':
+                                        case 'name':
+                                            headerColumnIndexes['firstname'] = i;
+                                            break;
+                                        case 'email':
+                                        case 'e mail':
+                                        case 'e-mail':
+                                        case 'email address':
+                                            headerColumnIndexes['email'] = i;
+                                            break;
+                                        case 'company':
+                                        case 'business':
+                                            headerColumnIndexes['company'] = i;
+                                            break;
+                                        case 'address':
+                                        case 'address1':
+                                        case 'address 1':
+                                            headerColumnIndexes['address'] = i;
+                                            break;
+                                        case 'city':
+                                            headerColumnIndexes['city'] = i;
+                                            break;
+                                        case 'state':
+                                        case 'province':
+                                            headerColumnIndexes['state'] = i;
+                                            break;
+                                        case 'country':
+                                            headerColumnIndexes['country'] = i;
+                                            break;
+                                        case 'zip code':
+                                        case 'zipcode':
+                                        case 'zip':
+                                        case 'postal code':
+                                        case 'postalcode':
+                                        case 'postal':
+                                            headerColumnIndexes['zip'] = i;
+                                            break;
+                                        case 'phone number':
+                                        case 'phonenumber':
+                                        case 'phone':
+                                            headerColumnIndexes['phone'] = i;
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                }
+
+                                let newClients = [];
+                                for (let i = 1; i < lines.length; i++) {
+                                    const fields = lines[i].split(',');
+                                    let newClient = {};
+                                    for (let key in headerColumnIndexes) {
+                                        // console.log(key + ': ' + headerColumnIndexes[key] + ' --> ' + fields[headerColumnIndexes[key]]);
+                                        newClient[key] = sanitize(fields[headerColumnIndexes[key]]);
+                                    }
+
+                                    if (newClient['firstname'] && newClient['phone']) {
+                                        newClients.push(newClient);
+                                    }
+                                }
+
+                                let clientGroupName = '';
+                                if ($("input[name='clientgroupradiochoice']:checked").val() == 'existinggroup') {
+                                    clientGroupName = sanitize($("#clientgroupname").val());
+                                }
+                                else {
+                                    clientGroupName = sanitize($("#newclientgroupname").val()).replaceAll(" ", "_");
+
+                                    if (clientGroupName == '') {
+                                        $("#upload-clients-status-div").empty();
+                                        $("#upload-clients-status-div").css("color", "red");
+                                        $("#upload-clients-status-div").text('Please enter new group name');
+                                        setTimeout(function() {
+                                            $("#upload-clients-status-div").empty();
+                                        }, 4000);
+                                        return;
+                                    }
+                                }
+
+                                const jsonToSend = JSON.stringify({userIdToken: idToken, clientGroupName: clientGroupName, clients: newClients});
+
+                                $.ajax({
+                                  headers: {"Content-Type": "application/json"},
+                                  type: "POST",
+                                  url: "/save-clients",
+                                  data: jsonToSend,
+                                  success: function (data) {
+                                       readClientsFromDb("saved-client-list-table");
+                                       $("#clientfiletoupprocess").val(null);
+                                       $("#clientgroupname").val("Default");
+                                       $("#newclientgroupname").val("");
+                                       $("#existinggroup").prop("checked", true);
+                                       $("#newgroup").prop("checked", false);
+
+                                       $("#upload-clients-status-div").empty();
+                                       $("#upload-clients-status-div").css("color", "green");
+                                       $("#upload-clients-status-div").text(data);
+                                       setTimeout(function() {
+                                           $("#upload-clients-status-div").empty();
+                                       }, 4000);
+                                  },
+                                  error: function (errorMessage) { console.log("Error saving new clients"); } // ,
+                                  // dataType: "json"
+                                });
+                            }
+                        }
+                        else {
+                            $("#upload-clients-status-div").empty();
+                            $("#upload-clients-status-div").css("color", "red");
+                            $("#upload-clients-status-div").text('Please choose file to upload');
+                            setTimeout(function() {
+                                $("#upload-clients-status-div").empty();
+                            }, 4000);
+                            return;
+                        }
+                    }).catch(function(error) {
+                        console.log("Error saving new clients");
+                    });
+                }
+                else {
+                    console.log("Error occurred during user authentication");
+                }
+            });
+
+
+            $("#canceluploadclientscsvfilebutton").click(function (event) {
+                $("#clientfiletoupprocess").val(null);
+                $("#clientgroupname").val("Default");
+                $("#newclientgroupname").val("");
+            });
+
+
+            $(".showclientscontactsbutton").click(function (event) {
+                $(".showclientscontactsbutton").css("background-color", "lightgrey");
+                $(".showclientsgroupsbutton").css("background-color", "#555");
+                $(".displayclientgroupsdiv").css("display", "none");
+                $(".displayclientsdiv").css("display", "inline");
+            });
+
+
+            $(".showclientsgroupsbutton").click(function (event) {
+                $(".showclientscontactsbutton").css("background-color", "#555");
+                $(".showclientsgroupsbutton").css("background-color", "lightgrey");
+                $(".displayclientsdiv").css("display", "none");
+                $(".displayclientgroupsdiv").css("display", "inline");
+            });
+
+
+            $(".clientsearchbox").keyup(function() {
+                let clientTableID, groupTableID;
+                if ($("#clients-section-container").css("display") != "none") {
+                    clientTableID = "#saved-client-list-table";
+                    groupTableID = "#saved-client-group-list-table";
+                }
+                else {
+                    clientTableID = "#client-selection-list-table";
+                    groupTableID = "#group-selection-list-table";
+                }
+
+                const $rows = $(clientTableID + " tr");
+
+                const val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$';
+                const reg = RegExp(val, 'i');
+
+                $rows.show().filter(function() {
+                    const firstName = $(this).find("td:eq(1)").text();
+                    const lastName = $(this).find("td:eq(2)").text();
+                    const phoneNumber = $(this).find("td:eq(3)").text();
+                    // return !reg.test(firstName) && !reg.test(lastName) && !reg.test(phoneNumber.slice(2)); // only matches names individually, not full names
+                    return !reg.test(firstName + ' ' + lastName) && !reg.test(phoneNumber.slice(2));
+                }).hide();
+
+                const $groupRows = $(groupTableID + " tr");
+                $groupRows.show().filter(function() {
+                    if ($(this).prop("class") != "group-name-table-row") { return true; }
+                    const groupName = $(this).find("td:eq(1)").text();
+                    return !reg.test(groupName);
+                }).hide();
+            });
+
+
+            async function removeMemberFromGroupServerCall(clientUID, groupName) {
+                const user = auth.currentUser;
+                if (user) {
+                    user.getIdToken(true).then(function(idToken) {
+
+                        const jsonToSend = JSON.stringify({userIdToken: idToken, clientUID: clientUID, groupName: groupName});
+
+                        $.ajax({
+                          headers: {"Content-Type": "application/json"},
+                          type: "POST",
+                          url: "/remove-groupmember",
+                          data: jsonToSend,
+                          success: function (data) {
+                                       readClientsFromDb("saved-client-list-table");
+                                       $(".status-class").empty();
+                                       $(".status-class").text(data);
+                                       setTimeout(function() {
+                                           $("." + groupName).click();
+                                           $("." + groupName + "__members_row__").toggle();
+                                       }, 300);
+
+                                       setTimeout(function() {
+                                           $(".status-class").empty();
+                                           $("." + groupName).click();
+                                           $("." + groupName + "__members_row__").toggle();
+                                           $("." + groupName).click();
+                                           $("." + groupName + "__members_row__").toggle();
+                                       }, 3000);
+                          },
+                          error: function (errorMessage) { console.log("Error removing member from client group"); } // ,
+                          // dataType: "json"
+                        });
+                    }).catch(function(error) {
+                        console.log("Error removing member from client group");
+                    });
+                }
+                else {
+                    console.log("Error occurred during user authentication");
+                }
+            }
+
+
+            $("#submit-remove-client-request-button").click(function (event) {
+                removeMemberFromGroupServerCall(sanitize($("#clientToRemoveUID").val()), sanitize($("#groupToRemoveFrom").val()));
+            });
+
+
+            // Hide dropdown menu after click
+            $(".dropdownmenuitem").click(function (event) {
+                $(".profile").click();
+            });
+
+
+            $(".accountbutton").click(function (event) {
+                event.preventDefault();
+                displayDiv("account-section-container");
+
+                const user = auth.currentUser;
+                if (user) {
+                    user.getIdToken(true).then(function(idToken) {
+
+                        $.ajax({
+                          headers: {"Content-Type": "application/json"},
+                          type: "POST",
+                          url: "/user-info",
+                          data: JSON.stringify({userIdToken: idToken}),
+                          success: function (data) {
+                                       const returnedData = JSON.parse(data);
+                                       $("#account-info-business-name").text(returnedData['business']);
+                                       $("#account-info-profile-name").text(returnedData['firstname'] + ' ' + returnedData['lastname']);
+                                       $("#account-info-profile-tier").text(returnedData['accountTier']);
+                                       $("#account-info-profile-credits").text('Account credits: ' + returnedData['credits']);
+                                       $(".accountinfoclientUID").val(user.uid);
+                          },
+                          error: function (errorMessage) { console.log("Error retrieving user profile info"); } // ,
+                          // dataType: "json"
+                        });
+                    }).catch(function(error) {
+                        console.log("Error retrieving user profile info");
+                    });
+                }
+                else {
+                    console.log("Error occurred during user authentication");
+                }
+            });
+
+
+            $("#headerchatbotsbutton").click(function (event) {
+                event.preventDefault();
+                displayDiv("chatbots-section-container");
+            });
+
+
+            $(".chatbotsbutton").click(function (event) {
+                event.preventDefault();
+                displayDiv("chatbots-section-container");
+            });
+
+
+            $(".supportbutton").click(function (event) {
+                event.preventDefault();
+                displayDiv("support-section-container");
+            });
+
+
+            $(".contactmethodselection").click(function (event) {
+                $("#supportcontactmethodconfirmaddressdiv").css("display", "block");
+            });
+
+
+            $("#usedefaultcontactspan").click(function (event) {
+                $("#usedefaultcontactcheckbox").prop("checked", true);
+                $("#supportformphone").val("");
+            });
+
+
+            $("#usealternatecontactspan").click(function (event) {
+                $("#usealternatecontactcheckbox").prop("checked", true);
+                $("#supportformphone").focus();
+            });
+
+
+            $("#supportformphone").click(function (event) {
+                $("#usealternatecontactcheckbox").prop("checked", true);
+            });
+
+
+            $("#cancelsupportrequestbutton").click(function (event) {
+                $("#supportcontactmethodconfirmaddressdiv").css("display", "none");
+                $("#support-form-status-div").text("");
+            });
+
+
+            $("#submitsupportformbutton").click(function (event) {
+                event.preventDefault();
+
+                const user = auth.currentUser;
+                if (user) {
+                    user.getIdToken(true).then(function(idToken) {
+                        const issue = sanitize($("#issuedescription").val());
+                        const contactMethods = $(".contactmethodselection");
+                        const checkedContactMethod = sanitize(contactMethods.filter(":checked").val());
+
+                        if (issue == "") {
+                            $("#support-form-status-div").empty();
+                            $("#support-form-status-div").css("color", "red");
+                            $("#support-form-status-div").text("Please provide an issue description");
+                            return;
+                        }
+
+                        if (checkedContactMethod == "") {
+                            $("#support-form-status-div").empty();
+                            $("#support-form-status-div").css("color", "red");
+                            $("#support-form-status-div").text("Please select preferred contact method");
+                            return;
+                        }
+
+                        const contactPoint = $(".selectsupportcontactmethodcheckbox");
+                        const checkedContactPoint = sanitize(contactPoint.filter(":checked").val());
+                        const poc = sanitize($("#supportformphone").val());
+
+                        if (checkedContactPoint == "alternate") {
+                            if (poc == "") {
+                                $("#support-form-status-div").empty();
+                                $("#support-form-status-div").css("color", "red");
+                                $("#support-form-status-div").text("Please provide alternate email/phone or select default method");
+                                return;
+                            }
+                        }
+
+                        const jsonRequest = JSON.stringify({userIdToken: idToken, issueDescription: issue, contactMethod: checkedContactMethod, contactPoint: checkedContactPoint, poc: poc});
+
+                        $.ajax({
+                          headers: {"Content-Type": "application/json"},
+                          type: "POST",
+                          url: "/support-request",
+                          data: jsonRequest,
+                          success: function (data) {
+                                // const returnedData = JSON.parse(data);
+                                $("#support-form-status-div").empty();
+                                $("#support-form-status-div").css("color", "green");
+                                $("#support-form-status-div").text(data);
+                                $("#support-form")[0].reset();
+                                $("#supportcontactmethodconfirmaddressdiv").css("display", "none");
+                          },
+                          error: function (errorMessage) { console.log("Error submitting support request"); } // ,
+                          // dataType: "json"
+                        });
+                    }).catch(function(error) {
+                        console.log("Error submitting support request");
+                    });
+                }
+                else {
+                    console.log("Error occurred during user authentication");
+                }
+            });
+
+
+            $(".settingsbutton").click(function (event) {
+                event.preventDefault();
+                displayDiv("settings-section-container");
+
+                const user = auth.currentUser;
+                if (user) {
+                    user.getIdToken(true).then(function(idToken) {
+
+                        $.ajax({
+                          headers: {"Content-Type": "application/json"},
+                          type: "POST",
+                          url: "/user-settings",
+                          data: JSON.stringify({userIdToken: idToken}),
+                          success: function (data) {
+                                const returnedData = JSON.parse(data);
+                          },
+                          error: function (errorMessage) { console.log("Error retrieving user settings"); } // ,
+                          // dataType: "json"
+                        });
+                    }).catch(function(error) {
+                        console.log("Error retrieving user settings");
+                    });
+                }
+                else {
+                    console.log("Error occurred during user authentication");
+                }
+            });
+
+
+            $(".signoutbutton").click(function (event) {
+                event.preventDefault();
+
+                try {
+                    signOut(auth).then(() => {
+                        // Sign out successful
+                        console.log('Sign out successful');
+                    }).catch((error) => {
+                        // An error occurred
+                        console.log('Error occurred during sign out');
+                    });
+                } catch (error) {
+                    console.log('Error occurred during sign out');
+                }
+
+                document.location.href = "/";
+            });
+
+
+            function sanitize(userInput) {
+                if (!userInput) return "";
+                let result = userInput;
+                // result = result.replaceAll("!", "");
+                result = result.replaceAll("#", "");
+                result = result.replaceAll("$", "");
+                result = result.replaceAll("%", "");
+                result = result.replaceAll("^", "");
+                result = result.replaceAll("&", "");
+                result = result.replaceAll("*", "");
+                result = result.replaceAll("(", "");
+                result = result.replaceAll(")", "");
+                result = result.replaceAll("[", "");
+                result = result.replaceAll("]", "");
+                result = result.replaceAll("{", "");
+                result = result.replaceAll("}", "");
+                result = result.replaceAll("\\", "");
+                result = result.replaceAll("|", "");
+                result = result.replaceAll("\'", "");
+                result = result.replaceAll("\"", "");
+                result = result.replaceAll("<", "");
+                result = result.replaceAll(">", "");
+                // result = result.replaceAll("?", "");
+                return result;
+            }
+
+            /*
+            $(".sideMenuButton").mouseover(function() {
+                $(this).css("background-color", "green");
+            });
+
+            $(".sideMenuButton").mouseout(function() {
+                $(this).css("background-color", "black");
+            });
+             */
+
+        </script>
+
+        <script>
+            function toggleMobileMenu(menu) {
+                menu.classList.toggle('open');
+            }
+
+
+            function showMessage(element) {
+                $(".sent-message-preview").css("background-color", "rgba(5, 8, 173, 1.0");
+                $(element).css("background-color", "rgba(5, 202, 237, 0.9)");
+
+                const message = $(element).children('h3').text();
+                const recipientClientGroups = $(element).children('h4').text().split(',');
+                // const messageimage = $(element).children('h4').text();
+                const details = $(element).children('p').text();
+                const data = details.split(',');
+
+                $("#sent-message-image1").css("display", "none");
+
+                if (data[2] == 'true') {
+                    // $("#sent-message-image1").attr('src', '');
+                    // getMessageImage(data[1], "sent-message-image1");
+                    $("#messageUID_toShow").val(data[1]);
+                    $("#showMessageImageButton").click();
+                }
+
+                const rawDate = new Date(Number(data[0]));
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+                const humanReadableDate = rawDate.toLocaleString('en-US', options);
+                $("#sent-message-timestamp").text('Sent: ' + humanReadableDate);
+                $("#sent-message-messagebody").text(message);
+
+                $("#sent-message-recipients").empty();
+                for (let i = 3; i < data.length; i++) {
+                    $("#sent-message-recipients").append('<li class="message-recipient-li">' + data[i] + '</li>');
+                }
+
+                $("#sent-message-recipient-client-groups-div").hide();
+                $("#sent-message-recipient-client-groups").empty();
+                for (let i = 0; i < recipientClientGroups.length; i++) {
+                    $("#sent-message-recipient-client-groups").append('<li class="message-recipient-client-group-li">' + recipientClientGroups[i] + '</li>');
+                }
+
+                if (recipientClientGroups.length > 0 && recipientClientGroups[0] != "") {
+                    $("#sent-message-recipient-client-groups-div").show();
+                }
+            }
+
+
+            function showScheduledMessage(element) {
+                $(".sent-message-preview").css("background-color", "rgba(5, 8, 173, 1.0");
+                $(element).css("background-color", "rgba(5, 202, 237, 0.9)");
+
+                const message = $(element).children('h3').text();
+                const recipientClientGroups = $(element).children('h4').text().split(',');
+                const details = $(element).children('p').text();
+                const data = details.split(',');
+
+                $("#scheduled-message-image1").css("display", "none");
+
+                if (data[2] == 'true') {
+                    $("#scheduledMessageUID_toShow").val(data[1]);
+                    $("#showScheduledMessageImageButton").click();
+                }
+
+                const rawDate = new Date(data[0]);
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+                const humanReadableDate = rawDate.toLocaleString('en-US', options);
+                $("#scheduled-message-timestamp").text('Scheduled for: ' + humanReadableDate);
+                $("#scheduled-message-messagebody").text(message);
+
+                $("#scheduled-message-recipients").empty();
+                for (let i = 3; i < data.length; i++) {
+                    $("#scheduled-message-recipients").append('<li class="message-recipient-li">' + data[i] + '</li>');
+                }
+
+                $("#scheduled-message-recipient-client-groups").empty();
+                for (let i = 0; i < recipientClientGroups.length; i++) {
+                    $("#scheduled-message-recipient-client-groups").append('<li class="message-recipient-client-group-li">' + recipientClientGroups[i] + '</li>');
+                }
+            }
+
+
+            function displayDiv(divToDisplay) {
+                $(".section-container").css("display", "none");
+                $("#" + divToDisplay).css("display", "block");
+            }
+
+
+            function checkAllClients(element) {
+                if ($(element).text() == 'Select All') {
+                    $(".clientcheckbox").prop('checked', true);
+                    $(element).text('Remove All');
+                    $(element).css("background-color", "rgb(220,0,0)");
+                }
+                else {
+                    $(".clientcheckbox").prop('checked', false);
+                    $(element).text('Select All');
+                    $(element).css("background-color", "rgb(0,180,0)");
+                }
+            }
+
+
+            function checkAllClientGroups(element) {
+                if ($(element).text() == 'Select All') {
+                    $(".clientgroupcheckbox").prop('checked', true);
+                    $(element).text('Remove All');
+                    $(element).css("background-color", "rgb(220,0,0)");
+                }
+                else {
+                    $(".clientgroupcheckbox").prop('checked', false);
+                    $(element).text('Select All');
+                    $(element).css("background-color", "rgb(0,180,0)");
+                }
+            }
+
+
+            function toggleClientGroup(element) {
+                const groupList = $(element).prop("class");
+                $("." + groupList + "__members_row__").toggle();
+
+                if ($(element).text() == "+") {
+                    $(element).text("-");
+                }
+                else {
+                    $(element).text("+");
+                }
+            }
+
+
+            function removeMemberFromGroup(element) {
+                const buttonClassName = $(element).prop("class");
+                const clientUIDtoRemove = buttonClassName.split(',')[0];
+                const groupToRemoveFrom = buttonClassName.split(',')[1];
+                $("#clientToRemoveUID").val(clientUIDtoRemove);
+                $("#groupToRemoveFrom").val(groupToRemoveFrom);
+                $("#submit-remove-client-request-button").click();
+            }
+
+
+            /*
+            // $("#search").keyup(function() {
+            function searchClients(element) {
+                const $rows = $("#saved-client-list-table tr");
+                console.log($(element).val());
+
+                const val = '^(?=.*\\b' + $.trim($(element).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$';
+                const reg = RegExp(val, 'i');
+
+                $rows.show().filter(function() {
+                    const text = $(element).text().replace(/\s+/g, ' ');
+                    return !reg.test(text);
+                }).hide();
+            }
+             */
+
+
+            const tap = document.querySelector('.profile');
+            tap.addEventListener('click', function() {
+                const toggleMenu = document.querySelector('.menu');
+                toggleMenu.classList.toggle('active');
+            });
+
+        </script>
+
+        <footer>
+            <a href="/">Careers</a>
+            <a href="/">Privacy Policy</a>
+            <a href="/">Support</a>
+            <a href="/">Legal</a>
+            <p>&copy; 2023 Text My Clients. All rights reserved.</p>
+        </footer>
+
+    </body>
+
+<html>
+
