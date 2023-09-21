@@ -99,10 +99,11 @@ header h3 {
 /* Profile Dropdown Menu Section */
 /* ================================== */
 .action{
-  position:fixed;
+  position:relative;
   z-index: 11;
   top:10px;
   right:30px;
+  float:right;
 }
 .action .profile{
   position:relative;
@@ -418,6 +419,8 @@ input[type="file"] {
     margin-bottom: 10px;
 }
 
+#addcreditsforinsufficientaccountcreditsmessagebutton,
+#editsubscriptionsbutton,
 #showuploadnewclientsbutton {
     background-color: #001EFF;
     color: white;
@@ -425,17 +428,21 @@ input[type="file"] {
     font-weight: bold;
 }
 
+#addcreditsforinsufficientaccountcreditsmessagebutton,
+#editsubscriptionsbutton,
+#cancelsubscriptionsbutton, 
 #showuploadnewclientsbutton,
-#createnewclientsgroupbutton,
-#canceluploadnewclientsbutton {
+#createnewclientsgroupbutton {
     padding: 20px 20px; 
     margin: 0 10px;
 }
 
 #canceluploadnewclientsbutton {
+    padding: 20px 30px; 
     background-color: rgb(220, 0, 0);
 }
 
+#cancelsubscriptionsbutton, 
 #createnewclientsgroupbutton {
     background-color: rgb(20, 160, 250);
     color: white;
@@ -443,9 +450,13 @@ input[type="file"] {
     font-weight: bold;
 }
 
-#createnewclientsgroupbutton:hover, #showuploadnewclientsbutton:hover, #canceluploadnewclientsbutton:hover {
+#addcreditsforinsufficientaccountcreditsmessagebutton:hover, #createnewclientsgroupbutton:hover, #showuploadnewclientsbutton:hover, #canceluploadnewclientsbutton:hover, #editsubscriptionsbutton:hover, #cancelsubscriptionsbutton:hover{
     background-color: #555;
     transform: scale(1.1);
+}
+
+#submitcancelsubscriptionbutton {
+    width: 20em;
 }
 
 .uploadclientsdiv {
@@ -453,6 +464,13 @@ input[type="file"] {
     text-align: left;
     margin: auto;
     width: 100%;
+}
+
+#account-subscription-div {
+    float: center;
+    justify-content: center;
+    text-align: center;
+    margin: auto;
 }
 
 /*
@@ -1050,8 +1068,7 @@ button:hover {
     font-weight: bold;
 }
 
-/* .showclientscontactsbutton:hover, .showclientsgroupsbutton:hover { */
-.recipienttypeselection:hover {
+.showclientscontactsbutton:hover, .showclientsgroupsbutton:hover {
     background-color: lightblue;
 }
 
@@ -1110,9 +1127,21 @@ button:hover {
     padding-bottom: 2em;
 }
 
+.popup-content h4 {
+    color: black;
+}
+
 .popup-content button {
     display: block;
     margin: 0 auto;
+}
+
+.confirmPopupQuestion {
+    width: auto;
+}
+
+.denyPopupQuestion {
+    background-color: grey;
 }
 
 .show {

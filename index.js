@@ -106,7 +106,7 @@ expApp.post("/setup-user", async(req, res) => {
         const uid = decodedToken.uid;
         console.log('setup-user page accessed by ' + uid);
 
-        const data = {firstName: req.body.userFirstName, lastName: req.body.userLastName, phone: req.body.userPhone, email: req.body.userEmail, business: req.body.business, credits: 0};
+        const data = {firstName: req.body.userFirstName, lastName: req.body.userLastName, phone: req.body.userPhone, email: req.body.userEmail, business: req.body.business, credits: 0, accountTier: 'free'};
         const writeResult = await db.collection('users').doc(uid).set(data);
 
         const createScheduledMessagesDocResult = await db.collection('scheduled-messages').doc(uid).set({messages: []});
@@ -165,40 +165,63 @@ expApp.post("/send-message", async(req, res) => {
         const currentTime = new Date().getTime();
         const currentMessageUID = 'mid-' + currentTime + Math.floor(Math.random() * 100000).toString();
         const uid = decodedToken.uid;
-        // const userRecipients = req.body.userRecipients;
         const recipientsData = req.body.userRecipients;
         const messageRecipientClientGroups = req.body.messageRecipientClientGroups;
         const userMessage = req.body.userMessage;
         const userMessageImage = req.body.userMessageImage;
         const scheduleSendTime = req.body.scheduleSendTime;
+        console.log('send-message request from ' + uid + ': ' + currentMessageUID);
 
         let userRecipients = [];
+        let markRecipientsMap = {}; // Hashmap to avoid duplicate messages (if user uploaded same contact multiple times)
         for (let i = 0; i < recipientsData.length; i++) {
-            userRecipients.push(recipientsData[i].split(',')[1]);
+            const phoneNumber = recipientsData[i].split(',')[1];
+            if (!markRecipientsMap[phoneNumber]) {
+                markRecipientsMap[phoneNumber] = true;
+                userRecipients.push(phoneNumber);
+            }
         }
 
-        console.log('send-message request from ' + uid + ': ' + currentMessageUID);
+        const currentMessageCredits = userRecipients.length; // @TODO: calculate message credits value
+        let accountCredits;
+
+        // Atomically update account credits after subtracting credits for this message
+        try {
+            const transactionResultIsSuccessful = await db.runTransaction(async (t) => {
+                // Verify user has enough credits in account to send the message
+                const userInfoDocument = db.collection('users').doc(uid);
+                let userItem = await userInfoDocument.get();
+                accountCredits = userItem.data().credits;
+
+                if (accountCredits < currentMessageCredits) {
+                    return false;
+                }
+                else {
+                    t.update(userInfoDocument, {credits: accountCredits - currentMessageCredits});
+                    return true;
+                }
+            });
+
+            if (!transactionResultIsSuccessful) {
+                res.status(400);
+                res.send('Insufficient account credits. Please add more credits to send this message. Your credits: ' + accountCredits + '. Credits needed to send this message: ' + currentMessageCredits + '.');
+                return;
+            }
+        } catch (e) {
+            console.log('send-message transaction failure: ', e);
+            res.status(400);
+            res.send('Error occurred during send-message transaction');
+            return;
+        }
 
         // If message has an image attached, save to cloud storage bucket
         let messageContainsImage = false;
         if (userMessageImage != null) {
             messageContainsImage = true;
             await storage.bucket('sentimages').file(currentMessageUID).save(userMessageImage);
-
-            /*
-            // Only needed for saving/writing file to disk
-            console.log('Image received');
-            const newpath = "./public/images/newIMAGE.png";
-            const base64Image = userMessageImage.replace(/^data:image\/png;base64,/, "");
-            fs.writeFile(newpath, base64Image, 'base64', function (err) {
-                            if (err) throw err;
-                            console.log('Results Received');
-                            });
-             */
         }
 
         // Save message to db
-        // const newMessageObject = { messageUID: currentMessageUID, message: {messagebody: userMessage, recipients: userRecipients, timestamp: currentTime} };
         const newMessageObject = { messageUID: currentMessageUID, messagebody: userMessage, containsImage: messageContainsImage, recipients: userRecipients, messageRecipientClientGroups: messageRecipientClientGroups, timestamp: currentTime, scheduleSendTime: scheduleSendTime };
         const dbRef = db.collection('users').doc(uid);
         const unionRes = await dbRef.update({
@@ -234,6 +257,7 @@ expApp.post("/send-message", async(req, res) => {
         }
          */
 
+        res.status(200);
         res.send('Message sent successfully');
       })
       .catch((error) => {
@@ -741,6 +765,37 @@ expApp.post("/support-request", async(req, res) => {
 })
 
 
+// Cancel account subscription with Stripe
+expApp.post("/cancel-subscription", async(req, res) => {
+    const idToken = req.body.userIdToken;
+
+    getAuth()
+      .verifyIdToken(idToken)
+      .then( async (decodedToken) => {
+          const uid = decodedToken.uid;
+          console.log('cancel-subscription request submitted by ' + uid);
+
+          // Read users subscriptionID from db
+          const userInfoDocument = db.collection('users').doc(uid);
+          let userItem = await userInfoDocument.get();
+          const subscriptionID = userItem.data().subscriptionID;
+
+          // Cancel subscription with Stripe
+          const deleted = await stripe.subscriptions.cancel(subscriptionID);
+
+          // Update account status in db
+          const data = {credits: 0, accountTier: 'free'};
+          const writeResult = await db.collection('users').doc(uid).set(data);
+
+          res.send('Subscription has been canceled');
+      })
+      .catch((error) => {
+          console.log('Error in cancel-subscription ' + error);
+          res.send('Error while canceling subscription');
+      });
+})
+
+
 // Dictionary to map product name to its product ID
 const productIdMap = {'1kcredits': 'price_1NsJDjKF5W6IwfpPf0J1PWsJ', '10kcredits': 'price_1NsJEHKF5W6IwfpPfP2SRIvL'};
 
@@ -785,6 +840,8 @@ expApp.get('/success', async (req, res) => {
         const lineItems = await stripe.checkout.sessions.listLineItems(req.query.session_id);
         const sessionID = session['id'];
         const clientUID = session['client_reference_id'];
+        const purchaseMode = session['mode'];
+        const subscriptionID = session['subscription'];
         const purchasedSubscriptionName = lineItems['data'][0]['description'];
         const numberOfAccountCreditsToAdd = productCreditsMap[purchasedSubscriptionName];
 
@@ -808,8 +865,16 @@ expApp.get('/success', async (req, res) => {
                     const userDoc = await t.get(usersDocRef);
                     const credits = userDoc.data().credits;
 
+                    let updatedUserInfo;
+                    if (purchaseMode == 'subscription') {
+                        updatedUserInfo = {credits: credits + numberOfAccountCreditsToAdd, accountTier: purchasedSubscriptionName, subscriptionID: subscriptionID};
+                    }
+                    else {
+                        updatedUserInfo = {credits: credits + numberOfAccountCreditsToAdd};
+                    }
+
                     t.update(paymentDocRef, {payments: payments});
-                    t.update(usersDocRef, {credits: credits + numberOfAccountCreditsToAdd, accountTier: purchasedSubscriptionName});
+                    t.update(usersDocRef, updatedUserInfo);
                     return true;
                 }
                 else {

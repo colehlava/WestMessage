@@ -28,20 +28,18 @@
 
             <h1 id="header-title">Text My Clients</h1>
 
-            <button id="headerchatbotsbutton" class="headerbutton">Add a Chat Bot</button> 
-
             <div class="action">
                 <div class="profile">
                     <img src="/images/templogo.png">
                 </div>
 
                 <div class="menu">
-                    <h3 id="profileMenuName">Someone Famous</h3><h3><span>Website Designer</span></h3>
+                    <h3 id="profileBusinessName"></h3>
+                    <h3 id="profileMenuName"></h3>
                     <ul>
                         <li>
-                            <!-- <i class="fa fa-car fa-icon-generic"></i> -->
                             <i class="fa fa-user fa-icon-generic"></i>
-                            <a class="accountbutton dropdownmenuitem" href="#">My Profile</a>
+                            <a class="accountbutton dropdownmenuitem" href="#">Account</a>
                         </li>
                         <li>
                             <i class="fa fa-gear fa-icon-generic"></i>
@@ -58,6 +56,8 @@
                     </ul>
                 </div>
             </div>
+
+            <button id="headerchatbotsbutton" class="headerbutton">Add a Chat Bot</button> 
         </header>
 
         <main>
@@ -91,7 +91,6 @@
 
                     <div class="displayclientsdiv">
                         <div class="client-selection-div style-15">
-                            <!-- <table id="saved-client-list-table" class="client-selection-list"></table> -->
                             <table id="client-selection-list-table" class="client-selection-list"></table>
                         </div>
                     </div>
@@ -101,11 +100,6 @@
                             <table id="group-selection-list-table" class="client-selection-list group-selection-list"></table>
                         </div>
                     </div><br>
-                    <!--
-                    <div class="client-selection-div style-15">
-                        <table id="client-selection-list-table" class="client-selection-list"></table>
-                    </div><br>
-                    -->
 
                     <div id="recipientmanualinputdiv">
                         <span id="enternewclientsspan">
@@ -172,6 +166,7 @@
                     <div class="popup">
                         <div class="popup-content">
                             <h3 id="message-status-div" class="status-class"></h3>
+                            <button id="addcreditsforinsufficientaccountcreditsmessagebutton" style="display:none;">Add Credits</button><br><br>
                             <button class="closePopup cancel-button-class" style="display:inline;">Close</button>
                         </div>
                     </div>
@@ -265,7 +260,7 @@
                     <span id="showuploadnewclientsspan">
                         <button id="showuploadnewclientsbutton">Upload New Clients</button>
                         <button id="createnewclientsgroupbutton">Add Clients to Group</button>
-                        <button id="canceluploadnewclientsbutton" class="xcancel-button-class" style="display:none;">Cancel</button>
+                        <button id="canceluploadnewclientsbutton" class="xcancel-button-class" style="display:none;">Close</button>
                         <div id="create-client-group-status-div" class="status-class" style="font-size:1.2em;"></div>
                     </span><br>
 
@@ -387,6 +382,7 @@
                         <h4 id="account-info-profile-credits"></h4>
                     </div>
 
+                    <!-- Stripe Add Account Credits -->
                     <div id="add-account-credits-div">
                         <script src="https://js.stripe.com/v3/"></script>
 
@@ -421,6 +417,34 @@
                                 <button type="submit" id="alt-checkout-button">Checkout</button>
                             </form>
                         </section>
+                    </div>
+
+                    <!-- Stripe Subscriptions - signup, edit, cancel -->
+                    <div id="account-subscription-div">
+                        <button id="editsubscriptionsbutton">Edit Subscription</button>
+                        <button id="cancelsubscriptionsbutton">Cancel Subscription</button>
+                        <button id="canceleditsubscriptionbutton" class="cancel-button-class" style="display:none;">Cancel</button>
+
+                        <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
+                        <div id="stripe-signup-section" style="display:none;"></div>
+
+                        <div id="stripe-cancelmembership-section" style="display:none;">
+                            <br><br>
+                            <h4>Cancel Subscription</h4>
+                            <button id="submitcancelsubscriptionbutton" class="cancel-button-class">Cancel Subscription</button>
+
+                            <!-- Confirm cancel popup -->
+                            <div class="cancelpopup" style="display:none;">
+                                <div class="popup-content">
+                                    <h4>Are you sure you want to cancel your subscription?</h4>
+                                    <button id="denycancelbutton" class="denyPopupQuesiton" style="display:inline;">No</button>
+                                    <button id="confirmcancelbutton" class="confirmPopupQuestion closePopup cancel-button-class" style="display:inline;">Yes, cancel</button><br><br>
+
+                                    <h4 id="cancelsubscriptionstatusmessage"></h4>
+                                    <button id="closecancelbutton" class="closePopup cancel-button-class" style="display:none;">Close</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -520,6 +544,7 @@
                           success: function (data) {
                                        const returnedData = JSON.parse(data);
                                        $("#profileMenuName").text(returnedData['firstname'] + ' ' + returnedData['lastname']);
+                                       $("#profileBusinessName").text(returnedData['business']);
                           },
                           error: function (errorMessage) { console.log("Error occurred while retrieving user info"); } // ,
                           // dataType: "json"
@@ -746,6 +771,7 @@
 
             $("#sendmessagebutton").click(function (event) {
                 event.preventDefault();
+                $("#sendmessagebutton").prop("disabled", true);
 
                 const user = auth.currentUser;
                 if (user) {
@@ -777,7 +803,7 @@
                                     $("." + selectedGroupName + "__members_row__").each(function() {
                                         const currentClientUID = $(this.cells[0]).text();
                                         if (!storedRecipientMap[currentClientUID]) {
-                                            allRecipients.push($(this.cells[3]).text() + ',' + $(this.cells[3]).text());
+                                            allRecipients.push(sanitize($(this.cells[1]).text() + ',' + $(this.cells[3]).text()));
                                             storedRecipientMap[currentClientUID] = true;
                                         }
                                     });
@@ -807,18 +833,25 @@
                                   url: "/send-message",
                                   data: jsonToSend,
                                   success: function (data) {
+                                        $("#addcreditsforinsufficientaccountcreditsmessagebutton").hide();
                                         $("#message-status-div").empty();
-                                        $(".popup").css("display", "block");
                                         $("#message-status-div").css("color", "green");
                                         $("#message-status-div").text(data);
-                                        // $("#message-form")[0].reset();
+                                        $(".popup").css("display", "block");
                                         $('input:checkbox').prop('checked', false);
                                         $("#filetoupload").val(null);
                                         $("#message").val("");
                                         $("#phone").val("");
+                                        $("#sendmessagebutton").prop("disabled", false);
                                   },
-                                  error: function (errorMessage) { console.log("Error occurred while sending message"); } // ,
-                                  // dataType: "json"
+                                  error: function (errorMessage) {
+                                        $("#message-status-div").empty();
+                                        $("#message-status-div").css("color", "black");
+                                        $("#message-status-div").text(errorMessage.responseText);
+                                        $("#addcreditsforinsufficientaccountcreditsmessagebutton").css("display", "inline");
+                                        $(".popup").css("display", "block");
+                                        $("#sendmessagebutton").prop("disabled", false);
+                                  }
                                 });
                             }
                         }
@@ -830,18 +863,26 @@
                               type: "POST",
                               url: "/send-message",
                               data: jsonToSend,
+                              dataType: "text",
                               success: function (data) {
+                                    $("#addcreditsforinsufficientaccountcreditsmessagebutton").hide();
                                     $("#message-status-div").empty();
-                                    $(".popup").css("display", "block");
                                     $("#message-status-div").css("color", "green");
                                     $("#message-status-div").text(data);
-                                    // $("#message-form")[0].reset();
+                                    $(".popup").css("display", "block");
                                     $('input:checkbox').prop('checked', false);
                                     $("#message").val("");
                                     $("#phone").val("");
+                                    $("#sendmessagebutton").prop("disabled", false);
                               },
-                              error: function (errorMessage) { console.log("Error occurred while sending message"); } // ,
-                              // dataType: "json"
+                              error: function (errorMessage) {
+                                    $("#message-status-div").empty();
+                                    $("#message-status-div").css("color", "black");
+                                    $("#message-status-div").text(errorMessage.responseText);
+                                    $("#addcreditsforinsufficientaccountcreditsmessagebutton").css("display", "inline");
+                                    $(".popup").css("display", "block");
+                                    $("#sendmessagebutton").prop("disabled", false);
+                              }
                             });
                         }
 
@@ -852,6 +893,7 @@
                 else {
                     console.log("Error occurred during user authentication");
                 }
+
             });
 
 
@@ -927,6 +969,12 @@
                 $("#schedulemessagedatetimeinput").val('');
                 $("#schedulemessagediv").hide();
                 $("#schedulemessagebutton").show();
+            });
+
+
+            $("#addcreditsforinsufficientaccountcreditsmessagebutton").click(function (event) {
+                $(".popup").hide();
+                $(".accountbutton").click();
             });
 
 
@@ -1268,6 +1316,94 @@
             });
 
 
+            $("#editsubscriptionsbutton").click(function (event) {
+                const user = auth.currentUser;
+
+                if (user) {
+                    // Configure Stripe payment table
+                    const clientRefIdToSet = user.uid;
+                    $("#stripe-signup-section").html(`
+                            <h2>Membership Tier</h2>
+                            <stripe-pricing-table pricing-table-id="prctbl_1NrpPzKF5W6IwfpPvTXnATwW"
+                                publishable-key="pk_test_51NralMKF5W6IwfpP4ylys0vqnGKCDBlLHf6d7ArF4v87rcLZpwwLZ9zsDLnqfJZygcIK24LgoyzdLs04kxCmv4Ss00k5oM3xHS"
+                                client-reference-id="${clientRefIdToSet}">
+                            </stripe-pricing-table>
+                                                     `);
+
+                    $("#stripe-cancelmembership-section").hide();
+                    $("#editsubscriptionsbutton").hide();
+                    $("#cancelsubscriptionsbutton").hide();
+                    $("#canceleditsubscriptionbutton").show();
+                    $("#stripe-signup-section").show();
+                }
+            });
+
+
+            $("#cancelsubscriptionsbutton").click(function (event) {
+                $("#stripe-signup-section").hide();
+                $("#editsubscriptionsbutton").hide();
+                $("#cancelsubscriptionsbutton").hide();
+                $("#canceleditsubscriptionbutton").show();
+                $("#stripe-cancelmembership-section").show();
+            });
+
+
+            $("#canceleditsubscriptionbutton").click(function (event) {
+                $("#canceleditsubscriptionbutton").hide();
+                $("#stripe-signup-section").hide();
+                $("#stripe-cancelmembership-section").hide();
+                $("#editsubscriptionsbutton").show();
+                $("#cancelsubscriptionsbutton").show();
+            });
+
+
+            $("#submitcancelsubscriptionbutton").click(function (event) {
+                $(".cancelpopup").show();
+            });
+
+
+            $("#denycancelbutton").click(function (event) {
+                $(".cancelpopup").hide();
+            });
+
+
+            $("#confirmcancelbutton").click(function (event) {
+                const user = auth.currentUser;
+                if (user) {
+                    user.getIdToken(true).then(function(idToken) {
+
+                        const jsonToSend = JSON.stringify({userIdToken: idToken});
+
+                        $.ajax({
+                          headers: {"Content-Type": "application/json"},
+                          type: "POST",
+                          url: "/cancel-subscription",
+                          data: jsonToSend,
+                          success: function (data) {
+                                       $("#cancelsubscriptionstatusmessage").text(data);
+                                       $("#closecancelbutton").show();
+                          },
+                          error: function (errorMessage) {
+                                       $("#cancelsubscriptionstatusmessage").text('Error occurred while canceling subscription.');
+                                       $("#closecancelbutton").show();
+                          }
+                          // dataType: "json"
+                        });
+                    }).catch(function(error) {
+                        console.log("Error occurred while canceling subscription");
+                    });
+                }
+                else {
+                    console.log("Error occurred during user authentication");
+                }
+            });
+
+
+            $("#closecancelbutton").click(function (event) {
+                $(".cancelpopup").hide();
+            });
+
+
             $("#selectExistingClientGroupSpan").click(function (event) {
                 $("#existinggroup").prop("checked", true);
             });
@@ -1547,6 +1683,8 @@
 
             $(".accountbutton").click(function (event) {
                 event.preventDefault();
+                $("#stripe-signup-section").hide();
+                $("#stripe-cancelmembership-section").hide();
                 displayDiv("account-section-container");
 
                 const user = auth.currentUser;
