@@ -4,7 +4,8 @@
         <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
         <title>Text My Clients</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
         <link rel="stylesheet" href="styles.css">
     </head>
 
@@ -35,7 +36,7 @@
 
                 <div class="menu">
                     <h3 id="profileBusinessName"></h3>
-                    <h3 id="profileMenuName"></h3>
+                    <h3 id="profileMenuName"></h3><br>
                     <ul>
                         <li>
                             <i class="fa fa-user fa-icon-generic"></i>
@@ -101,8 +102,19 @@
                         </div>
                     </div><br>
 
+                    <div id="newmessageInfoPopup">
+                        <i id="closeNewMessageInfo-faIcon" class="fa fa-regular fa-rectangle-xmark fa-icon-generic fa-2xl"></i>
+                        <ol>
+                            <li>
+                                <h4>Personalized messages</h4>
+                                <p>To send personalized messages, use "_NAME_". All occurrences will be replaced with the client's first name.</p>
+                            </li>
+                        </ol>
+                    </div>
+
                     <div id="recipientmanualinputdiv">
                         <span id="enternewclientsspan">
+                            <i id="info-icon-newmessage" class="fa fa-solid fa-circle-info fa-lg fa-icon-generic"></i>
                             <h3 id="newclientslabel" style="color:black; display:inline; padding-right:20px;">Add New Clients</h3>
                             <button id="showmanualrecipientinputbutton" style="display:inline;">Enter Manually</button>
                             <button id="uploadnewclientsfromfilebutton" style="display:inline;">Upload from File</button>
@@ -162,10 +174,16 @@
                         </div>
                     </div>
 
-                    <!-- Popup box to display send message status -->
+
+                    <!-- Popup box to display send message status and progress animation -->
                     <div class="popup">
                         <div class="popup-content">
                             <h3 id="message-status-div" class="status-class"></h3>
+
+                            <div class="progress">
+                                <div class="progress-value"></div>
+                            </div>
+
                             <button id="addcreditsforinsufficientaccountcreditsmessagebutton" style="display:none;">Add Credits</button><br><br>
                             <button class="closePopup cancel-button-class" style="display:inline;">Close</button>
                         </div>
@@ -545,6 +563,13 @@
                                        const returnedData = JSON.parse(data);
                                        $("#profileMenuName").text(returnedData['firstname'] + ' ' + returnedData['lastname']);
                                        $("#profileBusinessName").text(returnedData['business']);
+
+                                       // Redirect to account subscription page if not subscribed
+                                       if (returnedData['accountTier'] == 'free') {
+                                           $(".accountbutton").click();
+                                           $("#add-account-credits-div").hide();
+                                           $("#editsubscriptionsbutton").click();
+                                       }
                           },
                           error: function (errorMessage) { console.log("Error occurred while retrieving user info"); } // ,
                           // dataType: "json"
@@ -698,11 +723,16 @@
             }
 
 
-            /*
-            $(".side-menu-class button").click(function (event) {
-                $(".side-menu-class button").css("background-color", "#111");
+            $("#info-icon-newmessage").click(function (event) {
+                $("#newmessageInfoPopup").toggle();
             });
-             */
+
+
+            $("#closeNewMessageInfo-faIcon").click(function (event) {
+                $("#newmessageInfoPopup").hide();
+            });
+
+
             $("#showmanualrecipientinputbutton").click(function (event) {
                 event.preventDefault();
                 $("#newclientslabel").css("display", "none");
@@ -772,6 +802,12 @@
             $("#sendmessagebutton").click(function (event) {
                 event.preventDefault();
                 $("#sendmessagebutton").prop("disabled", true);
+                $("#message-status-div").empty();
+                $("#message-status-div").css("color", "white");
+                $("#message-status-div").text('Sending...');
+                $(".popup").css("display", "block");
+                $(".progress-value").css("width", "0%");
+                $(".progress-value").animate({ width: "100%" }, 4000);
 
                 const user = auth.currentUser;
                 if (user) {
@@ -835,9 +871,8 @@
                                   success: function (data) {
                                         $("#addcreditsforinsufficientaccountcreditsmessagebutton").hide();
                                         $("#message-status-div").empty();
-                                        $("#message-status-div").css("color", "green");
                                         $("#message-status-div").text(data);
-                                        $(".popup").css("display", "block");
+                                        $(".progress-value").stop(true, true);
                                         $('input:checkbox').prop('checked', false);
                                         $("#filetoupload").val(null);
                                         $("#message").val("");
@@ -846,10 +881,9 @@
                                   },
                                   error: function (errorMessage) {
                                         $("#message-status-div").empty();
-                                        $("#message-status-div").css("color", "black");
+                                        $("#message-status-div").css("color", "red");
                                         $("#message-status-div").text(errorMessage.responseText);
                                         $("#addcreditsforinsufficientaccountcreditsmessagebutton").css("display", "inline");
-                                        $(".popup").css("display", "block");
                                         $("#sendmessagebutton").prop("disabled", false);
                                   }
                                 });
@@ -867,9 +901,8 @@
                               success: function (data) {
                                     $("#addcreditsforinsufficientaccountcreditsmessagebutton").hide();
                                     $("#message-status-div").empty();
-                                    $("#message-status-div").css("color", "green");
                                     $("#message-status-div").text(data);
-                                    $(".popup").css("display", "block");
+                                    $(".progress-value").stop(true, true);
                                     $('input:checkbox').prop('checked', false);
                                     $("#message").val("");
                                     $("#phone").val("");
@@ -877,10 +910,9 @@
                               },
                               error: function (errorMessage) {
                                     $("#message-status-div").empty();
-                                    $("#message-status-div").css("color", "black");
+                                    $("#message-status-div").css("color", "red");
                                     $("#message-status-div").text(errorMessage.responseText);
                                     $("#addcreditsforinsufficientaccountcreditsmessagebutton").css("display", "inline");
-                                    $(".popup").css("display", "block");
                                     $("#sendmessagebutton").prop("disabled", false);
                               }
                             });
@@ -2074,6 +2106,14 @@
             tap.addEventListener('click', function() {
                 const toggleMenu = document.querySelector('.menu');
                 toggleMenu.classList.toggle('active');
+            });
+
+
+            $(document).ready(function() {
+                /* Progress Bar animation */
+                $(".progress-bar").animate({
+                    width: "100%"
+                }, 250 ); // start in under a sec
             });
 
         </script>

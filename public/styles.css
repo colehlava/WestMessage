@@ -715,6 +715,44 @@ button:hover {
     padding: 0;
 }
 
+#info-icon-newmessage {
+    cursor: pointer;
+    margin-right: 3em;
+    padding: 1em 2em;
+}
+
+#newmessageInfoPopup {
+    background-color: lightgrey;
+    color: black;
+    border: 1px solid black;
+    padding: 1em;
+    display: none;
+    width: 15em;
+    height: 15em;
+    position: fixed;
+    z-index: 3;
+    left: 50%;
+    top: 50%;
+}
+
+#newmessageInfoPopup ol {
+    list-style: none;
+}
+
+#newmessageInfoPopup h4 {
+    margin-top: 2em;
+    color: black;
+}
+
+#newmessageInfoPopup p {
+    color: black;
+}
+
+#closeNewMessageInfo-faIcon {
+    margin-top: 4px;
+    float: right;
+}
+
 #showmanualrecipientinputbutton, #uploadnewclientsfromfilebutton {
     padding: 1em 1em 1em 1em;
     font-size: 1.0em;
@@ -1109,7 +1147,7 @@ button:hover {
 }
 
 .popup-content {
-    background-color: lightgrey;
+    background-color: black;
     margin: auto;
     border: 1px solid black;
     padding: 10em;
@@ -1120,10 +1158,9 @@ button:hover {
 }
 
 .popup-content h3 {
-    background-color: lightgrey;
     color: green;
-    text-align: left;
-    font-size: 1.3em;
+    text-align: center;
+    font-size: 1.6em;
     padding-bottom: 2em;
 }
 
@@ -1135,6 +1172,34 @@ button:hover {
     display: block;
     margin: 0 auto;
 }
+
+/* Loading progress bar */
+.progress {
+  background: rgba(255,255,255,0.1);
+  justify-content: flex-start;
+  border-radius: 100px;
+  align-items: center;
+  position: relative;
+  padding: 0 5px;
+  display: flex;
+  height: 40px;
+  width: 500px;
+}
+
+.progress-value {
+  /* animation: load 4s normal forwards; */
+  box-shadow: 0 10px 40px -10px #fff;
+  border-radius: 100px;
+  background: #fff;
+  height: 30px;
+  width: 0;
+}
+
+@keyframes load {
+  0% { width: 0; }
+  100% { width: 90%; }
+}
+
 
 .confirmPopupQuestion {
     width: auto;

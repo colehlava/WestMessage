@@ -236,26 +236,19 @@ expApp.post("/send-message", async(req, res) => {
             });
         }
 
-        /*
-        // Format personalized messages
-        let recipientNames = [];
-        if (messagebody.contains('__NAME__')) {
-            for (let i = 0; i < recipientsData.length; i++) {
-                recipientNames.push(recipientsData[i].split(',')[0]);
-            }
-        }
 
         // @TODO: Integrate Twilio API to send text messages
         // Send each message using Twilio API
-        for (let i = 0; i < userRecipients.length; i++) {
-            let newMessageBody = messagebody;
-            if (newMessageBody.contains('__NAME__')) {
-                newMessageBody.replace('__NAME__', recipientNames[i]);
-            }
+        for (let i = 0; i < recipientsData.length; i++) {
+            const recipientName = recipientsData[i].split(',')[0];
+            const recipientNumber = recipientsData[i].split(',')[1];
 
-            sendTwilioMessage(newMessageBody, userRecipients[i], scheduleSendTime);
+            // Format personalized messages
+            const personalizeMessageBody = userMessage.replaceAll('_NAME_', recipientName);
+            console.log(personalizeMessageBody);
+
+            // sendTwilioMessage(personalizeMessageBody, recipientNumber);
         }
-         */
 
         res.status(200);
         res.send('Message sent successfully');
