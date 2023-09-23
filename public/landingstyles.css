@@ -1,11 +1,17 @@
-/* @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"); */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
+:root {
+    --blue: #001EFF;
+    --green: #1DB924;
+    --altgreen: #0A5C36;
+    --bradius: 30px;
+}
+
 * {
-  margin:0;
-  padding:0;
-  color: white;
-  font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-family: 'Poppins', sans-serif;
 }
 
 header {
@@ -26,18 +32,13 @@ header a {
     display: inline;
 }
 
-/*
-header h1 {
-    float: left;
-    margin-right: 50vw;
-    margin-top: 8px;
-    padding-left: 8px;
+nav a {
+    cursor: pointer;
 }
 
-header h3 {
-    margin-top: 25px;
+li a {
+    cursor: pointer;
 }
- */
 
 .headerbutton {
     float: right;
@@ -49,26 +50,6 @@ header h3 {
 main {
     color: black;
 }
-
-/*
-#headersupportbutton {
-    background-color: white;
-    color: black;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 4px;
-    margin: 2px;
-    cursor: pointer;
-}
-
-#headersupportbutton:hover {
-    background-color: green;
-    color: white;
-}
- */
-
-
-
 
 
 /* ================================== */
@@ -172,6 +153,7 @@ main {
 
 
 footer {
+    background-color: black;
     padding: 20px;
     margin: 0px;
     text-align: center;
@@ -206,7 +188,7 @@ input[type="file"] {
 }
 
 .features-label {
-    color: red;
+    color: var(--blue);
     font-size: 20px;
     margin-bottom: 10px;
 }
@@ -402,6 +384,7 @@ button:hover {
     background-color: rgb(0, 0, 0);
     color: #498afb;
     border: 1px solid #498afb;
+    font-size: 1em;
     vertical-align: middle;
     float: right;
     margin-left: 3em;
@@ -440,7 +423,7 @@ button:hover {
 
 /* Hero Section */
 .hero {
-    background-image: url('images/templogo.png');
+    background-image: url('images/hero.jpeg');
     background-size: cover;
     background-position: center;
     color: #ffffff;
@@ -449,13 +432,25 @@ button:hover {
 }
 
 .hero-content {
+    background-color: white;
+    color: black;
+    border-radius: var(--bradius);
     max-width: 800px;
-    margin: 0 auto;
+    margin: 2em auto;
+}
+
+.hero-content h1 {
+    padding-top: 0.3em;
+}
+
+.hero h1, h3 {
+    color: black;
+    margin-bottom: 20px;
 }
 
 .hero h1 {
-    font-size: 36px;
-    margin-bottom: 20px;
+    margin-top: 2em;
+    font-size: 3em;
 }
 
 .hero p {
@@ -466,10 +461,10 @@ button:hover {
 .get-started-button {
     display: inline;
     border: 2px solid white;
-    background-color: rgba(220, 0, 0, 1.0);
+    background-color: var(--blue);
     color: white;
     padding: 15px 30px;
-    border-radius: 5px;
+    border-radius: var(--bradius);
     text-decoration: none;
     /* font-family: "Poppins", sans-serif; */
     font-size: 1em;
@@ -490,9 +485,9 @@ button:hover {
 
 .feature-card {
     background-color: #f9f9f9;
-    color: red;
+    color: var(--blue);
     padding: 30px;
-    border-radius: 5px;
+    border-radius: var(--bradius);
     margin: auto;
     margin-bottom: 20px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
@@ -513,7 +508,7 @@ button:hover {
 .feature-card h3 {
     font-size: 24px;
     margin-bottom: 10px;
-    color: rgb(220, 0, 0);
+    color: var(--blue);
 }
 
 .services {
@@ -523,7 +518,7 @@ button:hover {
 
 /* About Section */
 .about {
-    background-color: white;
+    background-color: grey;
     color: black;
     padding: 80px 0;
     text-align: center;
@@ -531,12 +526,15 @@ button:hover {
 
 /* Contact Section */
 .contact {
-    background-color: white;
-    color: black;
+    background-color: black;
+    color: white;
     padding: 80px 0;
     text-align: center;
 }
 
+.about p, .contact p {
+    text-align: center;
+}
 
 /* ================================== */
 /* Side Menu
@@ -891,6 +889,8 @@ button:hover {
 /* Mobile */
 /* ================================== */
 #brand {
+  background-color: white;
+  border-radius: var(--bradius);
   font-weight: bold;
   font-size: 28px;
   display: inline;
@@ -899,7 +899,9 @@ button:hover {
 }
 
 #brand a {
-  color: rgb(220, 0, 0);
+  padding: 10px 5px;
+  color: var(--blue);
+  text-decoration: none;
 }
 
 ul {
@@ -917,6 +919,7 @@ ul a {
 ul li {
   padding: 5px 5px 5px 5px;
   float: center;
+  font-size: 1.2em;
   text-align: center;
 }
 
@@ -952,7 +955,7 @@ ul li:hover {
 }
 
 #hamburger-icon {
-  margin-top: 0px;
+  margin-top: 5px;
   float: left;
   padding: 0px 40px 10px 40px;
   display: none;
@@ -962,9 +965,8 @@ ul li:hover {
 #hamburger-icon div {
   width: 35px;
   height: 3px;
-  background-color: red;
-  margin-top: 0px;
-  margin-bottom: 6px;
+  background-color: var(--green);
+  margin: 6px 0px;
   transition: 0.4s;
 }
 
@@ -1009,17 +1011,13 @@ ul li:hover {
 }
 
 .mobile-menu a {
-  color: red;
+  color: var(--green);
 }
 
 
 /* @media (min-width: 800px) { */
 /* Mobile browser Responsive Styles */
 @media screen and (max-width: 799px) {
-    h1 {
-        color: red
-    }
-
     header nav {
         display: none;
     }
@@ -1042,6 +1040,7 @@ ul li:hover {
 
     #login-button {
         display: block;
+        margin-left: 20px;
     }
 
     #brand {
@@ -1049,6 +1048,8 @@ ul li:hover {
         font-size: 1.0em;
         justify-content: center;
         text-align: center;
+        margin: auto;
+        margin-right: 0px;
     }
 
     /*

@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="landingstyles.css">
-    <title>Text My Clients</title>
+    <title>West Message</title>
 </head>
 
 <body>
     <header>
         <button id="login-button">Login</button>
-        <div id="brand"><a href="/">Text My Clients</a></div>
+        <div id="brand"><a href="/">West Message</a></div>
 
         <nav>
             <ul>
@@ -37,33 +37,14 @@
                 <li id="signup"><a href="/signup.html">Sign Up</a></li>
             </ul>
         </div>
-
-        <!--
-            <div class="above-nav-div">
-                <button id="login-button-landingpage" class="get-started-button">Login</button>
-                <div class="logo">
-                    <img src="images/pendulumlogo2.png"><br>
-                </div>
-            </div>
-
-            <section class="et-hero-tabs">
-                <div class="et-hero-tabs-container">
-                    <a class="et-hero-tab" href="about.html">About</a>
-                    <a class="et-hero-tab" href="services.html">Services</a>
-                    <a class="et-hero-tab" href="pricing.html">Pricing</a>
-                    <a class="et-hero-tab" href="support.html">Support</a>
-                    <span class="et-hero-tab-slider"></span>
-                </div>
-            </section>
-        -->
-      </header>
+    </header>
 
     <main>
         <section class="hero">
             <div class="hero-content">
-                <h1>Text My Clients</h1>
-                <h3>Where communication meets Innovation</h3>
-                <button id="start-button-new-user" class="get-started-button">Start for Free</button>
+                <h1>West Message</h1>
+                <h3>Send a text message to all of your past clients, with a few simple clicks.</h3>
+                <button id="start-button-new-user" class="get-started-button">Get Started</button>
             </div>
         </section>
 
@@ -107,18 +88,22 @@
 
         <section id="about" class="about">
             <h2>About Us</h2>
-            <p>Unlock the potential of text message communication and create lasting connections with your clients. TextMyClients.com – where communication meets innovation.</p>
+            <p>Unlock the potential of text message communication and create lasting connections with your clients.</p>
+            <p>West Message – where communication meets innovation.</p>
         </section>
 
         <section id="contact" class="contact">
             <h2>Contact Us</h2>
-            <p>For inquiries and support, contact our team.</p>
-            <a href="mailto:contact@textmyclients.com" class="cta-button">Email Us</a>
+            <p>For inquiries and support, contact our team. <a href="mailto:contact@textmyclients.com" class="cta-button">Email Us</a></p>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2023 Text My Clients. All rights reserved.</p>
+        <a href="/">Careers</a>
+        <a href="/">Privacy Policy</a>
+        <a href="/">Support</a>
+        <a href="/">Legal</a>
+        <p>&copy; 2023 West Message. All rights reserved.</p>
     </footer>
 
     <script type="module">
@@ -151,9 +136,7 @@
             authIsReady = !authIsReady;
         })
 
-
         // Redirect to console if valid user session exists
-        // $(document).ready(function () {
         function checkForValidUserSession() {
             const user = auth.currentUser;
 
@@ -179,87 +162,6 @@
         });
 
     </script>
-
-    <!--
-    <script>
-        class StickyNavigation {
-          
-          constructor() {
-            this.currentId = null;
-            this.currentTab = null;
-            this.tabContainerHeight = 70;
-            let self = this;
-            $('.et-hero-tab').click(function() { 
-              self.onTabClick(event, $(this)); 
-            });
-            $(window).scroll(() => { this.onScroll(); });
-            $(window).resize(() => { this.onResize(); });
-          }
-          
-          onTabClick(event, element) {
-            // @TODO: confirm this is okay to leave out
-            // event.preventDefault();
-            // let scrollTop = $(element.attr('href')).offset().top - this.tabContainerHeight + 1;
-            // $('html, body').animate({ scrollTop: scrollTop }, 600);
-          }
-          
-          onScroll() {
-            this.checkTabContainerPosition();
-            this.findCurrentTabSelector();
-          }
-          
-          onResize() {
-            if(this.currentId) {
-              this.setSliderCss();
-            }
-          }
-          
-          checkTabContainerPosition() {
-            let offset = $('.et-hero-tabs').offset().top + $('.et-hero-tabs').height() - this.tabContainerHeight;
-            if($(window).scrollTop() > offset) {
-              $('.et-hero-tabs-container').addClass('et-hero-tabs-container--top');
-            } 
-            else {
-              $('.et-hero-tabs-container').removeClass('et-hero-tabs-container--top');
-            }
-          }
-          
-          findCurrentTabSelector(element) {
-            let newCurrentId;
-            let newCurrentTab;
-            let self = this;
-            $('.et-hero-tab').each(function() {
-              let id = $(this).attr('href');
-              let offsetTop = $(id).offset().top - self.tabContainerHeight;
-              let offsetBottom = $(id).offset().top + $(id).height() - self.tabContainerHeight;
-              if($(window).scrollTop() > offsetTop && $(window).scrollTop() < offsetBottom) {
-                newCurrentId = id;
-                newCurrentTab = $(this);
-              }
-            });
-            if(this.currentId != newCurrentId || this.currentId === null) {
-              this.currentId = newCurrentId;
-              this.currentTab = newCurrentTab;
-              this.setSliderCss();
-            }
-          }
-          
-          setSliderCss() {
-            let width = 0;
-            let left = 0;
-            if(this.currentTab) {
-              width = this.currentTab.css('width');
-              left = this.currentTab.offset().left;
-            }
-            $('.et-hero-tab-slider').css('width', width);
-            $('.et-hero-tab-slider').css('left', left);
-          }
-          
-        }
-
-        new StickyNavigation();
-    </script>
-    -->
 
     <script>
         function toggleMobileMenu(menu) {

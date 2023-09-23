@@ -1,5 +1,11 @@
-/* @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"); */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+:root {
+    --blue: #001EFF;
+    --bradius: 30px;
+    --green: #1DB924;
+    --altgreen: #0A5C36;
+}
 
 * {
     margin:0;
@@ -57,7 +63,7 @@ header h3 {
 }
 
 .headerbutton {
-    background-color: #74EE15;
+    background-color: var(--green);
     color: black;
     border: 2px solid #555;
     font-weight: bold;
@@ -113,11 +119,17 @@ header h3 {
   overflow:hidden;
   cursor:pointer;
 }
-.action .profile img{
-  position:absolute;
-  top:0; left:0;
-  width:100%; height:100%;
+/* .action .profile img{ */
+#profileIcon {
+  background-color:white;
+  /* position:absolute; */
+  /* top:0; left:0; */
+  width:100%;
+  height:100%;
   object-fit:cover;
+  text-align:center;
+  vertical-align: center;
+  padding-top: 30px;
 }
 .action .menu{
   position:absolute;
@@ -198,6 +210,7 @@ header h3 {
 
 
 footer {
+    display: none;
     padding: 20px;
     margin: 0px;
     text-align: center;
@@ -251,7 +264,7 @@ input[type="file"] {
 }
 
 .cancel-button-class {
-    background-color: rgb(230, 29, 43);
+    background-color: rgba(230, 29, 43, 0.9);
     color: white;
     border: 1px solid white;
     font-weight: bold;
@@ -260,10 +273,11 @@ input[type="file"] {
 }
 
 .custom-file-upload {
-    background-color: #001EFF;
+    background-color: var(--green);
     color: white;
     border: 1px solid white;
-    font-weight: normal;
+    border-radius: 4px;
+    font-weight: bold;
     cursor: pointer;
     display: inline-block;
     padding: 6px 12px;
@@ -422,7 +436,7 @@ input[type="file"] {
 #addcreditsforinsufficientaccountcreditsmessagebutton,
 #editsubscriptionsbutton,
 #showuploadnewclientsbutton {
-    background-color: #001EFF;
+    background-color: var(--green);
     color: white;
     border: 1px solid white;
     font-weight: bold;
@@ -444,7 +458,7 @@ input[type="file"] {
 
 #cancelsubscriptionsbutton, 
 #createnewclientsgroupbutton {
-    background-color: rgb(20, 160, 250);
+    background-color: var(--altgreen);
     color: white;
     border: 1px solid white;
     font-weight: bold;
@@ -568,7 +582,7 @@ button:hover {
 
 /* Hero Section */
 .hero {
-    background-image: url('images/templogo.png');
+    background-image: url('./images/hero.jpeg');
     background-size: cover;
     background-position: center;
     color: #ffffff;
@@ -721,6 +735,10 @@ button:hover {
     padding: 1em 2em;
 }
 
+#info-icon-newmessage:hover {
+    transform: scale(1.4);
+}
+
 #newmessageInfoPopup {
     background-color: lightgrey;
     color: black;
@@ -751,6 +769,11 @@ button:hover {
 #closeNewMessageInfo-faIcon {
     margin-top: 4px;
     float: right;
+    cursor: pointer;
+}
+
+#closeNewMessageInfo-faIcon:hover {
+    transform: scale(1.1);
 }
 
 #showmanualrecipientinputbutton, #uploadnewclientsfromfilebutton {
@@ -770,9 +793,9 @@ button:hover {
 }
 
 #savetomyclientsandselectbutton {
-    border: 2px solid black;
+    border: 1px solid lightgrey;
     color: white;
-    background-color: #001EFF;
+    background-color: var(--green);
     width: 7em;
     font-weight: bold;
     padding: 10px 10px 10px 10px;
@@ -787,13 +810,13 @@ button:hover {
 /* #savemessageclientcheckbox { */
     margin-right: 1em;
     color: white;
-    border: 2px solid black;
+    border: 1px solid lightgrey;
 }
 
 #sendmessagebutton {
     width: 100px;
     padding: 15px 20px 15px 20px;
-    background-color: #001EFF;
+    background-color: var(--green);
     color: white;
     border: 1px solid white;
     font-weight: bold;
@@ -1147,7 +1170,7 @@ button:hover {
 }
 
 .popup-content {
-    background-color: black;
+    background-color: #555;
     margin: auto;
     border: 1px solid black;
     padding: 10em;
@@ -1179,6 +1202,7 @@ button:hover {
   justify-content: flex-start;
   border-radius: 100px;
   align-items: center;
+  float: center;
   position: relative;
   padding: 0 5px;
   display: flex;
@@ -1224,13 +1248,70 @@ button:hover {
     text-align: center;
 }
 
+#addCreditsHeading {
+    background-color: lightgrey;
+    color: black;
+    width: 60%;
+    padding-top: 1em;
+    font-size: 1.6em;
+}
+
 #add-account-credits-div {
     display: flex;
+    width: 60%;
     justify-content: center;
+    float: center;
+    margin: auto;
+    background-color: lightgrey;
 }
 
 .addAccountCreditsPurchaseOption {
-    padding: 9em 9em 9em 9em;
+    padding: 3em 3em 3em 3em;
+    justify-content: center;
+}
+
+.product {
+    background-color: white;
+    border: 2px solid black;
+    width: 10em;
+    height: 10em;
+    padding: 3em 2em 1em 2em;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+.product i {
+    margin-top: 0.2em;
+    margin-bottom: 0.8em;
+    font-size: 4em;
+}
+
+.product form {
+    padding: 0em 0em 0em 0em;
+    margin: 1em 0em 0em 0em;
+    justify-content: center;
+    text-align: center;
+}
+
+.description h3, h5 {
+    color: black;
+}
+
+.checkout-button {
+    background-color: #555;
+    color: white;
+    border: 1px solid black;
+    text-align: center;
+    float: center;
+    margin: auto;
+    font-size: 0.6em;
+    font-weight: bold;
+}
+
+.checkout-button:hover {
+    background-color: lightgrey;
+    color: black;
+    transform: scale(1.2);
 }
 
 /* ================================== */
@@ -1373,7 +1454,7 @@ ul li:hover {
 #hamburger-icon div {
   width: 40px;
   height: 6px;
-  background-color: red;
+  background-color: var(--green);
   margin: 6px 6px 6px 6px;
   transition: 0.4s;
 }
@@ -1407,7 +1488,7 @@ ul li:hover {
   top: 10vh;
   left: 0;
   z-index: 10;
-  height: 110vh;
+  height: 130vh;
   width: 100%;
   list-style: none;
 }
@@ -1417,7 +1498,7 @@ ul li:hover {
 }
 
 .mobile-menu a {
-  color: red;
+  color: var(--green);
 }
 
 .mobile-menu button {
@@ -1464,7 +1545,7 @@ ul li:hover {
     }
 
     input[type=text], input[type=tel] {
-        font-size: 1.5em;
+        font-size: 1.0em;
         width: 80%;
         height: 50px;
     }
@@ -1529,6 +1610,7 @@ ul li:hover {
 
     .section-container {
         width: 100%;
+        padding-bottom: 200px;
     }
 
     .phonetd {
@@ -1541,8 +1623,8 @@ ul li:hover {
 
     #newclientslabel {
         text-align: center;
-        font-size: 1.5em;
-        padding-right: 0px;
+        font-size: 1.0em;
+        margin-right: 2em;
     }
 
     #clientGroupNameInput {
@@ -1563,8 +1645,25 @@ ul li:hover {
         font-size: 2.0em;
     }
 
+    #info-icon-newmessage {
+        margin-right: 0.0em;
+        padding: 1em 1em;
+    }
+    #newmessageInfoPopup {
+        left: 23%;
+    }
+
+    .popup-content {
+        padding: 1em;
+        width: 85%;
+        height: 85%;
+    }
+
+    .progress {
+        width: 80%;
+    }
+
     .sent-message-container {
-        border: 2px solid black;
         float: bottom;
         width: 100%;
     }
@@ -1592,7 +1691,9 @@ ul li:hover {
     #recipientmanualinputdiv,
     .client-selection-div,
     .recipienttypeselectiondiv,
-    .clientsearchboxdiv {
+    .clientsearchboxdiv,
+    #addCreditsHeading,
+    #add-account-credits-div {
         width: 90%;
     }
 
@@ -1603,6 +1704,15 @@ ul li:hover {
     .recipienttypeselectiondiv {
         font-size: 1.0em;
         height: 8%;
+    }
+
+    #add-account-credits-div {
+        display: block;
+    }
+
+    .product {
+        width: 60%;
+        height: 12em;
     }
 
     #issuedescription {

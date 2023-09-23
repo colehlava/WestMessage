@@ -1,5 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
+:root {
+    --blue: #001EFF;
+    --green: #1DB924;
+    --altgreen: #0A5C36;
+    --bradius: 30px;
+}
+
 * {
     font-family: 'Poppins', sans-serif;
 }
@@ -28,13 +35,15 @@ header a {
     margin-left: 20px;
     margin-right: 20px;
     display: inline;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .pagetitle {
     float: center;
     font-weight: bold;
     font-size: 2.5em;
-    color: blue;
+    color: var(--blue);
     padding-top: 5px;
     margin-top: 10px;
     display: block;
@@ -144,7 +153,7 @@ form.form1 {
     text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
     color: black;
     padding-top: 30px;
-    font-size: 0.7em;
+    font-size: 0.9em;
 }
 
 a {
@@ -166,12 +175,12 @@ a {
     display: inline;
     padding-right: 2px;
     color: rgb(0, 50, 180);
-    font-size: 0.7em;
+    font-size: 0.9em;
 }
 
 .existingaccountlink {
     display: inline;
-    font-size: 0.7em;
+    font-size: 0.9em;
 }
 
 .errormessage {
@@ -208,16 +217,20 @@ footer {
 /* Mobile */
 /* ================================== */
 #brand {
+  background-color: white;
+  border-radius: var(--bradius);
   font-weight: bold;
   font-size: 1.8em;
   display: inline;
   float: left;
+  padding: 0px 0px 0px 0px;
   margin-top: 10px;
   margin-left: 40px;
 }
 
 #brand a {
-  color: rgb(220, 0, 0);
+  padding: 10px 10px 10px 10px;
+  color: var(--blue);
 }
 
 ul {
@@ -278,7 +291,7 @@ ul li:hover {
 #hamburger-icon div {
   width: 35px;
   height: 3px;
-  background-color: red;
+  background-color: var(--green);
   margin: 6px 10px;
   transition: 0.4s;
 }
@@ -325,17 +338,13 @@ ul li:hover {
 }
 
 .mobile-menu a {
-  color: red;
+  color: var(--green);
 }
 
 
 /* @media (max-width: 900px) {
 @media screen and (max-width: 799px) { */
 @media (max-width: 1300px) {
-    .pagetitle {
-        color: red;
-    }
-
     .main {
         width: 90%;
         margin-top: 50px;
@@ -372,7 +381,7 @@ ul li:hover {
         justify-content: center;
         text-align: center;
         margin: auto;
-        padding-right: 30px;
+        margin-right: 15px;
     }
 }
 

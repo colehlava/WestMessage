@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
-        <title>Text My Clients</title>
+        <title>West Message</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -27,11 +27,12 @@
                 </ul>
             </div>
 
-            <h1 id="header-title">Text My Clients</h1>
+            <h1 id="header-title">West Message</h1>
 
             <div class="action">
                 <div class="profile">
-                    <img src="/images/templogo.png">
+                    <!-- <img src="/images/templogo.png"> -->
+                    <i id="profileIcon" class="fa fa-sharp fa-solid fa-icon-generic fa-2xl"></i>
                 </div>
 
                 <div class="menu">
@@ -107,7 +108,8 @@
                         <ol>
                             <li>
                                 <h4>Personalized messages</h4>
-                                <p>To send personalized messages, use "_NAME_". All occurrences will be replaced with the client's first name.</p>
+                                <p>Use keyword "_NAME_" to send personalized messages.</p>
+                                <p>All occurrences of _NAME_ will be replaced with the client's first name.</p>
                             </li>
                         </ol>
                     </div>
@@ -285,7 +287,7 @@
                     <!-- Popup box containing client groupname input -->
                     <div id="myPopup" class="popup">
                         <div class="popup-content">
-                            <h3>Enter Group Name</h3>
+                            <h3 style="color:white;">Enter Group Name</h3>
                             <input type="text" id="clientGroupNameInput" name="clientGroupNameInput" placeholder="Group Name" required autofocus>
                             <button id="submitNewClientGroupButton" style="display:inline;">Submit</button>
                             <button class="closePopup cancel-button-class" style="display:inline;">Cancel</button>
@@ -391,14 +393,16 @@
 
                 <!-- Account Section -->
                 <div id="account-section-container" class="section-container">
-                    <h1 class="section-heading">Account</h1>
+                    <h1 class="section-heading">Account</h1><br><br>
 
                     <div id="account-info-div">
                         <h2 id="account-info-business-name"></h2>
                         <h3 id="account-info-profile-name"></h3>
                         <h3 id="account-info-profile-tier"></h3>
-                        <h4 id="account-info-profile-credits"></h4>
-                    </div>
+                        <h3 id="account-info-profile-credits"></h3>
+                    </div><br><br>
+
+                    <h2 id="addCreditsHeading">Add Credits</h2>
 
                     <!-- Stripe Add Account Credits -->
                     <div id="add-account-credits-div">
@@ -406,55 +410,55 @@
 
                         <section class="addAccountCreditsPurchaseOption">
                             <div class="product">
-                                <img src="https://i.imgur.com/EHyR2nP.png" alt="The cover of Stubborn Attachments" />
+                                <!-- <img src="https://i.imgur.com/EHyR2nP.png" alt="The cover of Stubborn Attachments" /> -->
+                                <i class="fa fa-solid fa-coins fa-icon-generic fa-2xl"></i>
                                 <div class="description">
-                                    <h3>1k Credits</h3>
+                                    <h3>+1k Credits</h3>
                                     <h5>$19.00</h5>
                                 </div>
-                            </div>
 
-                            <form action="/create-checkout-session-add-credits" method="POST">
-                                <input type="text" class="accountinfoclientUID" name="accountinfoclientUID" style="display:none;">
-                                <input type="text" value="1kcredits" name="amount" style="display:none;">
-                                <button type="submit" id="checkout-button">Checkout</button>
-                            </form>
+                                <form action="/create-checkout-session-add-credits" method="POST">
+                                    <input type="text" class="accountinfoclientUID" name="accountinfoclientUID" style="display:none;">
+                                    <input type="text" value="1kcredits" name="amount" style="display:none;">
+                                    <button type="submit" id="checkout-button" class="checkout-button">Checkout</button>
+                                </form>
+                            </div>
                         </section>
 
                         <section class="addAccountCreditsPurchaseOption">
                             <div class="product">
-                                <img src="https://i.imgur.com/EHyR2nP.png" alt="The cover of Stubborn Attachments" />
+                                <i class="fa fa-solid fa-coins fa-icon-generic fa-2xl"></i>
                                 <div class="description">
-                                    <h3>10k Credits</h3>
+                                    <h3>+10k Credits</h3>
                                     <h5>$99.00</h5>
                                 </div>
-                            </div>
 
-                            <form action="/create-checkout-session-add-credits" method="POST">
-                                <input type="text" class="accountinfoclientUID" name="accountinfoclientUID" style="display:none;">
-                                <input type="text" value="10kcredits" name="amount" style="display:none;">
-                                <button type="submit" id="alt-checkout-button">Checkout</button>
-                            </form>
+                                <form action="/create-checkout-session-add-credits" method="POST">
+                                    <input type="text" class="accountinfoclientUID" name="accountinfoclientUID" style="display:none;">
+                                    <input type="text" value="10kcredits" name="amount" style="display:none;">
+                                    <button type="submit" id="alt-checkout-button" class="checkout-button">Checkout</button>
+                                </form>
+                            </div>
                         </section>
-                    </div>
+                    </div><br><br><br><br>
 
                     <!-- Stripe Subscriptions - signup, edit, cancel -->
                     <div id="account-subscription-div">
                         <button id="editsubscriptionsbutton">Edit Subscription</button>
+                        <span class="mobileformatspan"><br></span>
                         <button id="cancelsubscriptionsbutton">Cancel Subscription</button>
-                        <button id="canceleditsubscriptionbutton" class="cancel-button-class" style="display:none;">Cancel</button>
+                        <button id="canceleditsubscriptionbutton" class="cancel-button-class" style="display:none;">Cancel</button><br><br>
 
                         <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
                         <div id="stripe-signup-section" style="display:none;"></div>
 
                         <div id="stripe-cancelmembership-section" style="display:none;">
-                            <br><br>
-                            <h4>Cancel Subscription</h4>
                             <button id="submitcancelsubscriptionbutton" class="cancel-button-class">Cancel Subscription</button>
 
                             <!-- Confirm cancel popup -->
                             <div class="cancelpopup" style="display:none;">
                                 <div class="popup-content">
-                                    <h4>Are you sure you want to cancel your subscription?</h4>
+                                    <h4 style="color:white;">Are you sure you want to cancel your subscription?</h4>
                                     <button id="denycancelbutton" class="denyPopupQuesiton" style="display:inline;">No</button>
                                     <button id="confirmcancelbutton" class="confirmPopupQuestion closePopup cancel-button-class" style="display:inline;">Yes, cancel</button><br><br>
 
@@ -564,6 +568,11 @@
                                        $("#profileMenuName").text(returnedData['firstname'] + ' ' + returnedData['lastname']);
                                        $("#profileBusinessName").text(returnedData['business']);
 
+                                       let profileIconCharacter = "fa-";
+                                       if (returnedData['business'] != '') profileIconCharacter += returnedData['business'].charAt(0).toLowerCase();
+                                       else profileIconCharacter += returnedData['firstname'].charAt(0).toLowerCase();
+                                       $("#profileIcon").addClass(profileIconCharacter);
+
                                        // Redirect to account subscription page if not subscribed
                                        if (returnedData['accountTier'] == 'free') {
                                            $(".accountbutton").click();
@@ -600,7 +609,7 @@
                                 const savedClients = returnedData['clients'];
                                 $("#" + tableName).empty();
                                 // $("#" + tableName).append('<thead><tr><th style="display:none;">Client ID</th> <th>First Name</th> <th>Last Name</th> <th>Phone</th> <th>Select<input type="checkbox" id="selectallclientscheckbox" class="clientcheckbox" onClick="checkAllClients(this);"></td></th></tr></thead><tbody>');
-                                $("#" + tableName).append('<thead><tr><th style="display:none;">Client ID</th> <th>First Name</th> <th>Last Name</th> <th class="phonetd">Phone</th> <th><button class="selectallbutton" style="background-color: rgb(0,180,0);" onClick="checkAllClients(this);">Select All</button></th></tr></thead><tbody>');
+                                $("#" + tableName).append('<thead><tr><th style="display:none;">Client ID</th> <th>First Name</th> <th>Last Name</th> <th class="phonetd">Phone</th> <th><button class="selectallbutton" style="background-color: #1DB954;" onClick="checkAllClients(this);">Select All</button></th></tr></thead><tbody>');
                                 for (const savedClient in savedClients) {
                                     // const newClientTableRow = '<tr><td style="display:none;">' + savedClients[i]['clientUID'] + '</td><td>' + savedClients[i]['firstname'] + '</td><td>' + savedClients[i]['lastname'] + '</td><td>' + savedClients[i]['phone'] + '</td><td><input type="checkbox" class="clientcheckbox" style="width:30px;"></td></tr>';
                                     const newClientTableRow = '<tr><td style="display:none;">' + savedClient + '</td><td>' + savedClients[savedClient]['firstname'] + '</td><td>' + savedClients[savedClient]['lastname'] + '</td><td class="phonetd">' + savedClients[savedClient]['phone'] + '</td><td><input type="checkbox" class="clientcheckbox"></td></tr>';
@@ -613,7 +622,7 @@
                                 $("#clientgroupname").empty();
                                 $("#clientgroupname").append('<option value="Default" selected>Default</option>');
                                 $(".group-selection-list").empty();
-                                $(".group-selection-list").append('<thead><tr><th>Expand</th> <th>Group Name</th> <th>Total Members</th> <th><button class="selectallbutton" style="background-color: rgb(0,180,0);" onClick="checkAllClientGroups(this);">Select All</button></th></tr></thead><tbody>');
+                                $(".group-selection-list").append('<thead><tr><th>Expand</th> <th>Group Name</th> <th>Total Members</th> <th><button class="selectallbutton" style="background-color: #1DB954;" onClick="checkAllClientGroups(this);">Select All</button></th></tr></thead><tbody>');
                                 for (const currentGroupName in savedClientGroups) {
                                     // Group selection list
                                     const newOption = '<option value="' + currentGroupName + '">' + currentGroupName + '</option>';
@@ -2043,7 +2052,7 @@
                 else {
                     $(".clientcheckbox").prop('checked', false);
                     $(element).text('Select All');
-                    $(element).css("background-color", "rgb(0,180,0)");
+                    $(element).css("background-color", "#1DB954");
                 }
             }
 
@@ -2057,7 +2066,7 @@
                 else {
                     $(".clientgroupcheckbox").prop('checked', false);
                     $(element).text('Select All');
-                    $(element).css("background-color", "rgb(0,180,0)");
+                    $(element).css("background-color", "#1DB954");
                 }
             }
 
@@ -2108,14 +2117,6 @@
                 toggleMenu.classList.toggle('active');
             });
 
-
-            $(document).ready(function() {
-                /* Progress Bar animation */
-                $(".progress-bar").animate({
-                    width: "100%"
-                }, 250 ); // start in under a sec
-            });
-
         </script>
 
         <footer>
@@ -2123,7 +2124,7 @@
             <a href="/">Privacy Policy</a>
             <a href="/">Support</a>
             <a href="/">Legal</a>
-            <p>&copy; 2023 Text My Clients. All rights reserved.</p>
+            <p>&copy; 2023 West Message. All rights reserved.</p>
         </footer>
 
     </body>

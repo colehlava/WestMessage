@@ -1,5 +1,5 @@
 // index.js
-// Entry point for Text My Clients web application
+// Entry point for West Message web application
 
 // Libraries
 import { default as fs } from 'fs';
