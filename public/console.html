@@ -1016,6 +1016,8 @@
             $("#addcreditsforinsufficientaccountcreditsmessagebutton").click(function (event) {
                 $(".popup").hide();
                 $(".accountbutton").click();
+                $("#account-subscription-div").hide();
+                $("#add-account-credits-div").show();
             });
 
 
@@ -1091,7 +1093,7 @@
 
                                     // Mark first message preview as selected
                                     if (i == 0) {
-                                        $(".sent-message-preview").css("background-color", "rgba(5, 202, 237, 0.9)");
+                                        $(".sent-message-preview").css("background-color", "rgba(5, 202, 237, 0.8)");
                                     }
                                 }
                             } catch(error) {
@@ -1962,8 +1964,11 @@
 
 
             function showMessage(element) {
-                $(".sent-message-preview").css("background-color", "rgba(5, 8, 173, 1.0");
-                $(element).css("background-color", "rgba(5, 202, 237, 0.9)");
+                const selectedMessageColorString = "rgba(5, 202, 237, 0.8)";
+                const defaultMessageColorString = "#145EFF";
+
+                $(".sent-message-preview").css("background-color", defaultMessageColorString);
+                $(element).css("background-color", selectedMessageColorString);
 
                 const message = $(element).children('h3').text();
                 const recipientClientGroups = $(element).children('h4').text().split(',');
@@ -2004,8 +2009,11 @@
 
 
             function showScheduledMessage(element) {
-                $(".sent-message-preview").css("background-color", "rgba(5, 8, 173, 1.0");
-                $(element).css("background-color", "rgba(5, 202, 237, 0.9)");
+                const selectedMessageColorString = "rgba(5, 202, 237, 0.8)";
+                const defaultMessageColorString = "#145EFF";
+
+                $(".sent-message-preview").css("background-color", defaultMessageColorString);
+                $(element).css("background-color", selectedMessageColorString);
 
                 const message = $(element).children('h3').text();
                 const recipientClientGroups = $(element).children('h4').text().split(',');

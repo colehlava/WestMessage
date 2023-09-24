@@ -2,16 +2,18 @@
 
 :root {
     --blue: #001EFF;
-    --bradius: 30px;
     --green: #1DB924;
     --altgreen: #0A5C36;
+    --messagePreviewColor: #145EFF;
+    --bradius: 30px;
 }
 
 * {
     margin:0;
     padding:0;
     color: white;
-    font-family: 'Poppins', sans-serif;
+    /* font-family: 'Poppins', sans-serif; */
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 button {
@@ -53,13 +55,14 @@ header h3 {
 }
 
 #header-title {
+    color: var(--green);
     width: auto;
     display: inline;
     float: left;
     font-size: 2em;
     padding: 0px 0px 0px 0px;
-    margin-top: 10px;
-    margin-left: 1.0em;
+    margin-top: 0.4em;
+    margin-left: 2.0em;
 }
 
 .headerbutton {
@@ -162,7 +165,6 @@ header h3 {
 .action .menu h3{
   width:100%;
   text-align:center;
-  font-size: 18px;
   padding:0px 0;
   font-weight: 500;
   font-size: 18px;
@@ -170,8 +172,8 @@ header h3 {
   line-height: 1.2em;
 }
 .action .menu h3 span{
-  font-size: 14px;
   color:#cecece;
+  font-size: 14px;
   font-weight: 400;
 }
 .action .menu ul li{
@@ -240,7 +242,6 @@ input {
 
 input[type="file"] {
     /* display: none; */
-    font-family: 'Poppins', sans-serif;
     font-size: 1.0em;
     font-weight: bold;
     padding: 1.2em 1.2em;
@@ -248,7 +249,6 @@ input[type="file"] {
 }
 
 #filetoupload {
-    font-family: 'Poppins', sans-serif;
     font-size: 1.0em;
     font-weight: bold;
 }
@@ -937,12 +937,12 @@ button:hover {
     align: center;
     justify-content: center;
     float: center;
-    background-color: rgba(5, 8, 173, 1.0);
+    background-color: var(--messagePreviewColor);
     border: none;
     border-radius: 0px;
     padding: 0px;
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
-    margin-bottom: 5px;
+    margin-bottom: 3px;
     width: 100%;
     height: 6em;
     cursor: pointer;
@@ -1000,7 +1000,7 @@ button:hover {
 	float: left;
     width: 30%;
     height: 100%;
-	background: black;
+	background: darkgrey;
 	overflow-y: scroll;
 }
 
@@ -1304,6 +1304,7 @@ button:hover {
     text-align: center;
     float: center;
     margin: auto;
+    padding: 15px 30px;
     font-size: 0.6em;
     font-weight: bold;
 }
@@ -1530,6 +1531,20 @@ ul li:hover {
         margin: 0px 0px 0px 0px;
     }
 
+    .action {
+        top: 1px;
+    }
+
+    .action .profile{
+        width: 40px;
+        height: 40px;
+    }
+
+    #profileIcon {
+        font-size: 1.2em;
+        padding-top: 20px;
+    }
+
     #selectExistingClientGroupSpan {
         padding: 0px 0px 0px 0px;
         margin: 0px 0px 0px 0px;
@@ -1565,8 +1580,9 @@ ul li:hover {
     }
 
     #header-title {
+        color: white;
         font-size: 1.5em;
-        margin-top: 1px;
+        margin-top: 6px;
     }
 
     .headerbutton {

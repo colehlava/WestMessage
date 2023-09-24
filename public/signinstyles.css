@@ -8,7 +8,8 @@
 }
 
 * {
-    font-family: 'Poppins', sans-serif;
+    /* font-family: 'Poppins', sans-serif; */
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 body {
@@ -40,11 +41,15 @@ header a {
 }
 
 .pagetitle {
+    background: var(--blue);
+    color: white;
+    border-radius: var(--bradius);
+    padding: 10px 5px;
     float: center;
     font-weight: bold;
     font-size: 2.5em;
-    color: var(--blue);
-    padding-top: 5px;
+    width: 8em;
+    margin: auto;
     margin-top: 10px;
     display: block;
 }
@@ -217,7 +222,7 @@ footer {
 /* Mobile */
 /* ================================== */
 #brand {
-  background-color: white;
+  background-color: var(--blue);
   border-radius: var(--bradius);
   font-weight: bold;
   font-size: 1.8em;
@@ -230,7 +235,7 @@ footer {
 
 #brand a {
   padding: 10px 10px 10px 10px;
-  color: var(--blue);
+  color: white;
 }
 
 ul {

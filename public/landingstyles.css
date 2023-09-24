@@ -11,7 +11,8 @@
     margin: 0;
     padding: 0;
     color: white;
-    font-family: 'Poppins', sans-serif;
+    /* font-family: 'Poppins', sans-serif; */
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 header {
@@ -38,6 +39,24 @@ nav a {
 
 li a {
     cursor: pointer;
+}
+
+.logocontainer {
+    background: var(--blue);
+    border-radius: var(--bradius);
+    width: 8em;
+    text-align: center;
+    float: center;
+    margin: auto;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.westmessagelogo {
+    background: var(--blue);
+    color: white;
+    font-size: 2em;
+    padding: 10px 5px;
 }
 
 .headerbutton {
@@ -185,12 +204,6 @@ input[type="file"] {
     /* display: none; */
     padding: 1.2em 1.2em;
     transition: 1s;
-}
-
-.features-label {
-    color: var(--blue);
-    font-size: 20px;
-    margin-bottom: 10px;
 }
 
 .cancel-button-class {
@@ -436,41 +449,30 @@ button:hover {
     color: black;
     border-radius: var(--bradius);
     max-width: 800px;
-    margin: 2em auto;
+    margin: auto;
+    margin-top: 6em;
+    margin-bottom: 0.5em;
+    padding-top: 1px;
 }
 
-.hero-content h1 {
-    padding-top: 0.3em;
-}
-
-.hero h1, h3 {
+.hero-content h3, h4 {
     color: black;
-    margin-bottom: 20px;
-}
-
-.hero h1 {
-    margin-top: 2em;
-    font-size: 3em;
-}
-
-.hero p {
-    font-size: 18px;
-    margin-bottom: 40px;
+    margin-bottom: 1em;
 }
 
 .get-started-button {
     display: inline;
-    border: 2px solid white;
-    background-color: var(--blue);
-    color: white;
+    border: 2px solid black;
+    background-color: rgb(0, 225, 0);
+    color: black;
     padding: 15px 30px;
     border-radius: var(--bradius);
     text-decoration: none;
-    /* font-family: "Poppins", sans-serif; */
     font-size: 1em;
     font-weight: bold;
     transition: background-color 0.3s ease;
-    margin: 30px;
+    margin-top: 0.6em;
+    margin-bottom: 2.5em;
 }
 
 .cta-button:hover {
@@ -483,32 +485,89 @@ button:hover {
     text-align: center;
 }
 
+.features-label {
+    background-color: white;
+    border-radius: var(--bradius);
+    padding: 10px 30px 10px 30px;
+    width: 40vw;
+    float: center;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.features-label h1 {
+    color: black;
+    font-size: 1.8em;
+}
+
 .feature-card {
-    background-color: #f9f9f9;
+    background-color: white;
     color: var(--blue);
     padding: 30px;
     border-radius: var(--bradius);
     margin: auto;
     margin-bottom: 20px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-    width: 50vw;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 40vw;
+    height: 50vh;
     color: green;
 }
 
-.feature-card p {
-    color: black;
-    text-align: center;
+.feature-details {
+    float: left;
+    width: 25%;
+    margin-top: 10%;
 }
+
+/*
+.feature-details ul {
+    list-style: circle outside none;
+}
+
+.feature-details ul li {
+    color: black;
+    padding: 0;
+    float: left;
+}
+ */
 
 .feature-icon {
     font-size: 36px;
     margin-bottom: 10px;
 }
 
+.fa-icon-generic {
+    color: black;
+    margin-bottom: 0.6em;
+}
+
 .feature-card h3 {
+    color: black;
     font-size: 24px;
+    text-align: center;
     margin-bottom: 10px;
-    color: var(--blue);
+}
+
+.feature-card p {
+    color: black;
+    text-align: left;
+    font-size: 1.2em;
+}
+
+.feature-card img {
+    border-radius: var(--bradius);
+    float: right;
+}
+
+.browser-screenshot {
+    max-width: 70%;
+    height: auto;
+}
+
+.mobile-screenshot {
+    max-height: 100%;
+    width: auto;
+    margin-right: 30%;
 }
 
 .services {
@@ -889,7 +948,7 @@ button:hover {
 /* Mobile */
 /* ================================== */
 #brand {
-  background-color: white;
+  background-color: var(--blue);
   border-radius: var(--bradius);
   font-weight: bold;
   font-size: 28px;
@@ -900,7 +959,6 @@ button:hover {
 
 #brand a {
   padding: 10px 5px;
-  color: var(--blue);
   text-decoration: none;
 }
 
