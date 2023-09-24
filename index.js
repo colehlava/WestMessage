@@ -155,6 +155,29 @@ expApp.post("/user-info", async(req, res) => {
 })
 
 
+// Process contact form submission
+expApp.post('/contact-form', async (req, res) => {
+    const firstName = req.body.clientfname;
+    const lastName = req.body.clientlname;
+    const phone = req.body.clientphone;
+    const email = req.body.clientemail;
+    const company = req.body.clientcompany;
+    console.log('Contact form submission received');
+
+    // Save details to db
+    let currentDateTime = new Date();
+    currentDateTime.setMinutes(currentDateTime.getMinutes() - currentDateTime.getTimezoneOffset());
+    currentDateTime = currentDateTime.toISOString().slice(0,16);
+    const data = {firstName: firstName, lastName: lastName, phone: phone, email: email, business: company, timestamp: currentDateTime};
+    const dbRef = db.collection('contact-form-submissions').doc('entries');
+    const unionRes = await dbRef.update({
+        entries: FieldValue.arrayUnion(data)
+    });
+
+    res.end();
+});
+
+
 // Send message to user's clients
 expApp.post("/send-message", async(req, res) => {
     const idToken = req.body.userIdToken;
@@ -790,7 +813,8 @@ expApp.post("/cancel-subscription", async(req, res) => {
 
 
 // Dictionary to map product name to its product ID
-const productIdMap = {'1kcredits': 'price_1NsJDjKF5W6IwfpPf0J1PWsJ', '10kcredits': 'price_1NsJEHKF5W6IwfpPfP2SRIvL'};
+// const productIdMap = {'1kcredits': 'price_1NsJDjKF5W6IwfpPf0J1PWsJ', '10kcredits': 'price_1NsJEHKF5W6IwfpPfP2SRIvL'}; // Test mode product mappings
+const productIdMap = {'1kcredits': 'price_1Nu11ZKF5W6IwfpP3lKLxi8h', '10kcredits': 'price_1Nu12mKF5W6IwfpPdIDIfXzD'};
 
 // Initiate checkout process to add credits to user account
 async function initiateAddAccountCreditsRequest(productName, req, res) {

@@ -430,7 +430,7 @@
                                 <i class="fa fa-solid fa-coins fa-icon-generic fa-2xl"></i>
                                 <div class="description">
                                     <h3>+10k Credits</h3>
-                                    <h5>$99.00</h5>
+                                    <h5>$69.00</h5>
                                 </div>
 
                                 <form action="/create-checkout-session-add-credits" method="POST">
@@ -1923,9 +1923,11 @@
                 if (!userInput) return "";
                 let result = userInput;
                 // result = result.replaceAll("!", "");
+                result = result.replaceAll("`", "");
+                result = result.replaceAll("~", "");
                 result = result.replaceAll("#", "");
-                result = result.replaceAll("$", "");
-                result = result.replaceAll("%", "");
+                // result = result.replaceAll("$", "");
+                // result = result.replaceAll("%", "");
                 result = result.replaceAll("^", "");
                 result = result.replaceAll("&", "");
                 result = result.replaceAll("*", "");
@@ -1937,6 +1939,7 @@
                 result = result.replaceAll("}", "");
                 result = result.replaceAll("\\", "");
                 result = result.replaceAll("|", "");
+                result = result.replaceAll(";", "");
                 result = result.replaceAll("\'", "");
                 result = result.replaceAll("\"", "");
                 result = result.replaceAll("<", "");

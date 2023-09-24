@@ -4,6 +4,9 @@
     --blue: #001EFF;
     --green: #1DB924;
     --altgreen: #0A5C36;
+    --messageSectionBackgroundColor: white;
+    --messageSectionBorderColor: black;
+    --messageTextColor: black;
     --messagePreviewColor: #145EFF;
     --bradius: 30px;
 }
@@ -101,7 +104,19 @@ header h3 {
  */
 
 
+#about-main {
+    color: black;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
 
+#about-main h1, h2, h3, h4, p, li {
+    color: black;
+}
 
 
 /* ================================== */
@@ -887,7 +902,7 @@ button:hover {
     justify-content: center;
     margin: auto;
     padding: 1em 1em 1em 1em;
-    border: 2px solid white;
+    border: 2px solid var(--messageSectionBorderColor);
 }
 
 #sent-message-messageimage-div, #scheduled-message-messageimage-div {
@@ -897,9 +912,11 @@ button:hover {
 
 #sent-message-timestamp, #scheduled-message-timestamp {
     padding: 0.5em;
+    color: white;
 }
 
 #sent-message-messagebody-div, #scheduled-message-messagebody-div {
+    background-color: var(--messageSectionBackgroundColor);
     width: 80%;
     max-height: 60%;
     overflow-y: auto;
@@ -907,6 +924,8 @@ button:hover {
 
 #sent-message-messagebody {
     text-align: center;
+    color: var(--messageTextColor);
+    font-size: 1.2em;
 }
 
 .sent-messages-list {
@@ -975,10 +994,11 @@ button:hover {
     max-height: 30%;
     margin-top: 30px;
     overflow-y: auto;
+    background-color: var(--messageSectionBackgroundColor);
 }
 
 .sent-message-image {
-    border: 1px solid white;
+    border: 1px solid var(--messageSectionBorderColor);
     max-width: 60%;
     max-height: 60%;
     margin: auto;
@@ -1596,6 +1616,10 @@ ul li:hover {
 
     .mobileformatspan {
         display: block;
+    }
+
+    .feature-card {
+        width: 90vw;
     }
 
     .selectallbutton {
