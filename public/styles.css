@@ -922,6 +922,7 @@ button:hover {
     overflow-y: auto;
 }
 
+#scheduled-message-messagebody,
 #sent-message-messagebody {
     text-align: center;
     color: var(--messageTextColor);
@@ -1262,23 +1263,31 @@ button:hover {
 /* Account Section */
 /* ================================== */
 #account-info-div {
-    width: 80%;
+    background-color: var(--messageSectionBackgroundColor);
+    border: 2px solid var(--messageSectionBorderColor);
+    width: 30em;
     float: center;
+    padding: 5px 0px;
     margin: auto;
     text-align: center;
+}
+
+#account-info-div h2, h3 {
+    color: var(--messageTextColor);
+    margin-bottom: 0.4em;
 }
 
 #addCreditsHeading {
     background-color: lightgrey;
     color: black;
-    width: 60%;
+    width: 70%;
     padding-top: 1em;
     font-size: 1.6em;
 }
 
 #add-account-credits-div {
     display: flex;
-    width: 60%;
+    width: 70%;
     justify-content: center;
     float: center;
     margin: auto;
@@ -1733,6 +1742,7 @@ ul li:hover {
     .recipienttypeselectiondiv,
     .clientsearchboxdiv,
     #addCreditsHeading,
+    #account-info-div,
     #add-account-credits-div {
         width: 90%;
     }
