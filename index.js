@@ -106,13 +106,54 @@ expApp.post("/setup-user", async(req, res) => {
         const uid = decodedToken.uid;
         console.log('setup-user page accessed by ' + uid);
 
-        const data = {firstName: req.body.userFirstName, lastName: req.body.userLastName, phone: req.body.userPhone, email: req.body.userEmail, business: req.body.business, credits: 0, accountTier: 'free'};
-        const writeResult = await db.collection('users').doc(uid).set(data);
+        // Save initial settings to new user doc
+        const userData = {firstName: req.body.userFirstName, lastName: req.body.userLastName, phone: req.body.userPhone, email: req.body.userEmail, business: req.body.business, credits: 0, accountTier: 'free'};
+        const writeResult = await db.collection('users').doc(uid).set(userData);
 
-        const createScheduledMessagesDocResult = await db.collection('scheduled-messages').doc(uid).set({messages: []});
+        const temporaryUID = req.body.temporaryUID;
+        if (temporaryUID != '') {
+            // Atomically lookup unredeemed transaction, mark it as redeemed by deleting the entries, and update user account credits and subscription info
+            const transactionResultIsSuccessful = await db.runTransaction(async (t) => {
+                try {
+                    // Lookup transaction in db
+                    const paymentsDocument = db.collection('payment-transactions').doc('unredeemed');
+                    const paymentsData = await t.get(paymentsDocument);
+                    const unredeemedPayments = paymentsData.data().unredeemedPayments;
+                    const unredeemedPaymentsTempUIDMap = paymentsData.data().unredeemedPaymentsTempUIDMap;
+                    const stripeSessionID = unredeemedPaymentsTempUIDMap[temporaryUID];
+
+                    // Delete entries now that this subscription is redeemed
+                    delete unredeemedPayments[stripeSessionID];
+                    delete unredeemedPaymentsTempUIDMap[temporaryUID];
+
+                    // Retrieve Stripe checkout session info
+                    const session = await stripe.checkout.sessions.retrieve(stripeSessionID);
+                    const lineItems = await stripe.checkout.sessions.listLineItems(stripeSessionID);
+                    const subscriptionID = session['subscription'];
+                    const purchasedSubscriptionName = lineItems['data'][0]['description'];
+                    const numberOfAccountCreditsToAdd = productCreditsMap[purchasedSubscriptionName];
+
+                    const userDocument = db.collection('users').doc(uid);
+                    t.update(userDocument, {firstName: req.body.userFirstName, lastName: req.body.userLastName, phone: req.body.userPhone, email: req.body.userEmail, business: req.body.business, credits: numberOfAccountCreditsToAdd, accountTier: purchasedSubscriptionName, subscriptionID: subscriptionID});
+                    t.update(paymentsDocument, {unredeemedPayments: unredeemedPayments, unredeemedPaymentsTempUIDMap: unredeemedPaymentsTempUIDMap});
+                    return true;
+
+                } catch (error) {
+                    console.log('Error during setup-user transaction: ' + error);
+                    return false;
+                }
+            });
+
+            if (!transactionResultIsSuccessful) {
+                res.status(400);
+                res.end();
+                return;
+            }
+        }
 
         // Create user-clients doc for new user
         // const writeClientsResult = await db.collection('user-clients').doc(uid).set({clients: []});
+        const createScheduledMessagesDocResult = await db.collection('scheduled-messages').doc(uid).set({messages: []});
 
         res.status(200);
         res.end();
@@ -213,7 +254,7 @@ expApp.post("/send-message", async(req, res) => {
             const transactionResultIsSuccessful = await db.runTransaction(async (t) => {
                 // Verify user has enough credits in account to send the message
                 const userInfoDocument = db.collection('users').doc(uid);
-                let userItem = await userInfoDocument.get();
+                const userItem = await t.get(userInfoDocument);
                 accountCredits = userItem.data().credits;
 
                 if (accountCredits < currentMessageCredits) {
@@ -856,15 +897,23 @@ expApp.get('/success', async (req, res) => {
         const session = await stripe.checkout.sessions.retrieve(req.query.session_id);
         const lineItems = await stripe.checkout.sessions.listLineItems(req.query.session_id);
         const sessionID = session['id'];
-        const clientUID = session['client_reference_id'];
+        // const clientUID = session['client_reference_id'];
         const purchaseMode = session['mode'];
         const subscriptionID = session['subscription'];
         const purchasedSubscriptionName = lineItems['data'][0]['description'];
         const numberOfAccountCreditsToAdd = productCreditsMap[purchasedSubscriptionName];
 
+        // Request will have client_reference_id defined when user goes through signup page. It will not be defined when user goes through pricing page
+        let clientUID;
+        let tempUID;
+
+        if (session['client_reference_id']) {
+            clientUID = session['client_reference_id'];
+        }
+
         // console.log(session);
         // console.log(lineItems);
-        console.log('productName = ' + purchasedSubscriptionName);
+        // console.log('productName = ' + purchasedSubscriptionName);
         // console.log('Subscription name = ' + purchasedSubscriptionName + ', credits = ' + numberOfAccountCreditsToAdd);
 
         // Atomically read historical payments, verify payment is valid, save payment, and update user account credits
@@ -874,24 +923,48 @@ expApp.get('/success', async (req, res) => {
                 const doc = await t.get(paymentDocRef);
                 const payments = doc.data().payments;
 
-                // Add credits to user account if payment is valid
+                // Check if payment is valid
                 if (!payments[sessionID]) {
                     payments[sessionID] = true;
 
-                    const usersDocRef = db.collection('users').doc(clientUID);
-                    const userDoc = await t.get(usersDocRef);
-                    const credits = userDoc.data().credits;
-
+                    let whereToSaveCreditsDocRef;
                     let updatedUserInfo;
-                    if (purchaseMode == 'subscription') {
-                        updatedUserInfo = {credits: credits + numberOfAccountCreditsToAdd, accountTier: purchasedSubscriptionName, subscriptionID: subscriptionID};
+
+                    if (session['client_reference_id']) {
+                        whereToSaveCreditsDocRef = db.collection('users').doc(clientUID);
+                        const userDoc = await t.get(whereToSaveCreditsDocRef);
+                        const credits = userDoc.data().credits;
+
+                        if (purchaseMode == 'subscription') {
+                            updatedUserInfo = {credits: credits + numberOfAccountCreditsToAdd, accountTier: purchasedSubscriptionName, subscriptionID: subscriptionID};
+                        }
+                        else {
+                            updatedUserInfo = {credits: credits + numberOfAccountCreditsToAdd};
+                        }
                     }
                     else {
-                        updatedUserInfo = {credits: credits + numberOfAccountCreditsToAdd};
+                        whereToSaveCreditsDocRef = db.collection('payment-transactions').doc('unredeemed');
+                        const undredeemedPaymentsDoc = await t.get(whereToSaveCreditsDocRef);
+                        const unredeemedPayments = undredeemedPaymentsDoc.data().unredeemedPayments;
+
+                        if (unredeemedPayments[sessionID]) {
+                            return false;
+                        }
+                        else {
+                            unredeemedPayments[sessionID] = true;
+
+                            const currentTime = new Date().getTime();
+                            tempUID = 'tuid-' + currentTime + Math.floor(Math.random() * 100000).toString();
+                            const unredeemedPaymentsTempUIDMap = undredeemedPaymentsDoc.data().unredeemedPaymentsTempUIDMap;
+                            unredeemedPaymentsTempUIDMap[tempUID] = sessionID;
+
+                            updatedUserInfo = {unredeemedPayments: unredeemedPayments, unredeemedPaymentsTempUIDMap: unredeemedPaymentsTempUIDMap};
+                        }
                     }
 
                     t.update(paymentDocRef, {payments: payments});
-                    t.update(usersDocRef, updatedUserInfo);
+                    t.update(whereToSaveCreditsDocRef, updatedUserInfo);
+
                     return true;
                 }
                 else {
@@ -899,14 +972,33 @@ expApp.get('/success', async (req, res) => {
                 }
             });
 
-            if (transactionResultIsSuccessful) {
-                console.log('Successful transaction from ' + clientUID + ', sid: ' + sessionID);
-                // res.send(`<html><body><h1>Thanks for your order!</h1></body></html>`);
+            if (transactionResultIsSuccessful && session['client_reference_id']) {
+                console.log('Successful transaction, origin: signup page, sid: ' + sessionID);
                 // res.redirect(__dirname + '/public/console.html');
-                res.sendFile(__dirname + '/public/successfulcheckout.html');
+                // res.sendFile(__dirname + '/public/successfulcheckout.html');
+                res.send(`<html><body><script>document.location.href = "/console.html";</script></body></html>`);
+            }
+            else if (transactionResultIsSuccessful && !session['client_reference_id']) {
+                console.log('Successful transaction, origin: pricing page, sid: ' + sessionID);
+                // res.send(`<html><body><script>document.location.href = "/finish-signup.html";</script></body></html>`);
+                // res.setHeader('temporaryUID', tempUID);
+                // res.sendFile(__dirname + '/public/finish-signup.html');
+                // res.sendFile(__dirname + '/public/intermediary-finish-signup.html');
+                res.send(`<html>
+                              <head><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script></head>
+                              <body>
+                                  <script>
+                                      $(document).ready(function() {
+                                          document.cookie = "temporaryUID=${tempUID};";
+                                          // document.location.href = "/finish-signup.html";
+                                          document.location.href = "/signup.html";
+                                      });
+                                  </script>
+                              </body>
+                          </html>`);
             }
             else {
-                console.log('Invalid transaction from ' + clientUID + ', sid: ' + sessionID);
+                console.log('Invalid transaction');
                 res.send(`<html><body><h1>Error occurred</h1></body></html>`);
             }
         } catch (e) {

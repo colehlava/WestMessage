@@ -731,6 +731,10 @@ button:hover {
     float: center;
 }
 
+#new-message-container h2 {
+    color: white;
+}
+
 #recipientmanualinputdiv {
     width: 60%;
     margin-top: 30px;
@@ -1367,6 +1371,7 @@ button:hover {
 
 #support-section-maindiv h3 {
     padding-bottom: 10px;
+    color: white;
 }
 
 #support-section-maindiv label, p, form {
@@ -1387,6 +1392,7 @@ button:hover {
 #supportcontactmethodconfirmaddressdiv input {
     color: black;
     margin-left: 5px;
+    height: 1.5em;
 }
 
 #issuedescription {
