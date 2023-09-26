@@ -289,9 +289,24 @@
                     <!-- Popup box containing client groupname input -->
                     <div id="myPopup" class="popup">
                         <div class="popup-content">
-                            <h3 style="color:white;">Enter Group Name</h3>
-                            <input type="text" id="clientGroupNameInput" name="clientGroupNameInput" placeholder="Group Name" required autofocus>
-                            <button id="submitNewClientGroupButton" style="display:inline;">Submit</button>
+                            <h3 style="color:white;">Select Group</h3>
+
+                            <div class="selectclientgroupdiv">
+                                <span class="selectExistingClientGroupSpan">
+                                    <h4 style="color:white;">Existing Group</h4>
+                                    <input type="radio" id="existinggroupaddclients" name="clientgroupradiochoiceaddclients" class="clientgroupradiochoice" value="existinggroupaddclients" checked>
+                                    <select id="clientgroupnameaddclients" class="clientgroupname"></select><br><br>
+                                </span>
+                                <span class="mobileformatspan"><br></span>
+
+                                <span class="selectNewClientGroupSpan">
+                                    <h4 style="color:white;">New Group</h4>
+                                    <input type="radio" id="newgroupaddclients" name="clientgroupradiochoiceaddclients" class="clientgroupradiochoice" value="newgroup">
+                                    <input type="text" id="clientGroupNameInput" style="height:1.3em;" placeholder="Group Name" required>
+                                </span>
+                            </div><br>
+
+                            <button id="submitNewClientGroupButton" style="display:inline;">Submit</button><br><br>
                             <button class="closePopup cancel-button-class" style="display:inline;">Cancel</button>
                         </div>
                     </div>
@@ -305,16 +320,16 @@
                             <label for="clientfiletoupprocess" class="custom-file-upload">Upload Clients:</label>
                             <input type="file" id="clientfiletoupprocess" name="clientfiletoupprocess" accept=".csv"><br><br>
 
-                            <div id="selectclientgroupdiv">
+                            <div class="selectclientgroupdiv">
                                 <h3>Select Client Group</h3>
-                                <span id="selectExistingClientGroupSpan">
+                                <span class="selectExistingClientGroupSpan">
                                     <input type="radio" id="existinggroup" name="clientgroupradiochoice" class="clientgroupradiochoice" value="existinggroup" checked>
                                     <label for="existinggroup">Existing Group:</label>
-                                    <select name="clientgroupname" id="clientgroupname"></select>
+                                    <select name="clientgroupname" id="clientgroupname" class="clientgroupname"></select>
                                 </span><br>
                                 <span class="mobileformatspan"><br></span>
 
-                                <span id="selectNewClientGroupSpan">
+                                <span class="selectNewClientGroupSpan">
                                     <input type="radio" id="newgroup" name="clientgroupradiochoice" class="clientgroupradiochoice" value="newgroup">
                                     <label for="newgroup">New Group:</label>
                                     <input type="text" id="newclientgroupname" placeholder="Group Name"><br><br>
@@ -360,7 +375,7 @@
                             </form>
                         </div>
 
-                        <div id="upload-client-status-div" class="status-class"></div>
+                        <div id="upload-client-status-div" class="status-class"></div><br><br>
                     </div>
 
                     <!-- Display saved clients on bottom of page -->
@@ -623,14 +638,14 @@
 
                                 // Insert clients groups into group selection list and insert client groups into client groups table
                                 const savedClientGroups = returnedData['groups'];
-                                $("#clientgroupname").empty();
-                                $("#clientgroupname").append('<option value="Default" selected>Default</option>');
+                                $(".clientgroupname").empty();
+                                $(".clientgroupname").append('<option value="Default" selected>Default</option>');
                                 $(".group-selection-list").empty();
                                 $(".group-selection-list").append('<thead><tr><th>Expand</th> <th>Group Name</th> <th>Total Members</th> <th><button class="selectallbutton" style="background-color: #1DB954;" onClick="checkAllClientGroups(this);">Select All</button></th></tr></thead><tbody>');
                                 for (const currentGroupName in savedClientGroups) {
                                     // Group selection list
                                     const newOption = '<option value="' + currentGroupName + '">' + currentGroupName + '</option>';
-                                    $("#clientgroupname").append(newOption);
+                                    $(".clientgroupname").append(newOption);
 
                                     // Client groups
                                     $(".group-selection-list").append('<tr class="group-name-table-row"><td><button class="' + currentGroupName + '" onClick="toggleClientGroup(this);">+</button></td> <td>' + currentGroupName + '</td> <td>' + savedClientGroups[currentGroupName].length + '</td> <td><input type="checkbox" class="clientgroupcheckbox" style="width:30px;"></td></tr>');
@@ -1282,7 +1297,23 @@
                 if (user) {
                     user.getIdToken(true).then(function(idToken) {
 
-                        const clientGroupName = sanitize($("#clientGroupNameInput").val()).replaceAll(" ", "_");
+                        let clientGroupName = '';
+                        if ($("input[name='clientgroupradiochoiceaddclients']:checked").val() == 'existinggroupaddclients') {
+                            clientGroupName = sanitize($("#clientgroupnameaddclients").val());
+                        }
+                        else {
+                            clientGroupName = sanitize($("#clientGroupNameInput").val()).replaceAll(" ", "_");
+
+                            if (clientGroupName == '') {
+                                $("#create-client-group-status-div").empty();
+                                $("#create-client-group-status-div").css("color", "red");
+                                $("#create-client-group-status-div").text('Please enter new group name');
+                                setTimeout(function() {
+                                    $("#create-client-group-status-div").empty();
+                                }, 4000);
+                                return;
+                            }
+                        }
 
                         // Add client selections to recipient list
                         let allCheckedClients = [];
@@ -1364,15 +1395,28 @@
 
 
             $("#editsubscriptionsbutton").click(function (event) {
+                const testMode = true;
+                let pricingTableID;
+                let pricingTablePublicKey;
+                if (testMode) {
+                    pricingTableID = 'prctbl_1NrpPzKF5W6IwfpPvTXnATwW';
+                    pricingTablePublicKey = 'pk_test_51NralMKF5W6IwfpP4ylys0vqnGKCDBlLHf6d7ArF4v87rcLZpwwLZ9zsDLnqfJZygcIK24LgoyzdLs04kxCmv4Ss00k5oM3xHS';
+                }
+                else {
+                    pricingTableID = 'prctbl_1Nu0vdKF5W6IwfpPJ0469tTX';
+                    pricingTablePublicKey = 'pk_live_51NralMKF5W6IwfpPGXNiikIt6nP9w9TOllBO6GKbupQCcqCQHZbV1hG7PH7fJxIruMEG80hGGYmGi5zL05jv5DkA00B53pEeyw';
+                }
+
                 const user = auth.currentUser;
 
                 if (user) {
                     // Configure Stripe payment table
                     const clientRefIdToSet = user.uid;
+
                     $("#stripe-signup-section").html(`
                             <h2>Membership Tier</h2>
-                            <stripe-pricing-table pricing-table-id="prctbl_1Nu0vdKF5W6IwfpPJ0469tTX"
-                                publishable-key="pk_live_51NralMKF5W6IwfpPGXNiikIt6nP9w9TOllBO6GKbupQCcqCQHZbV1hG7PH7fJxIruMEG80hGGYmGi5zL05jv5DkA00B53pEeyw"
+                            <stripe-pricing-table pricing-table-id="${pricingTableID}"
+                                publishable-key="${pricingTablePublicKey}"
                                 client-reference-id="${clientRefIdToSet}">
                             </stripe-pricing-table>
                                                      `);
@@ -1451,13 +1495,15 @@
             });
 
 
-            $("#selectExistingClientGroupSpan").click(function (event) {
+            $(".selectExistingClientGroupSpan").click(function (event) {
                 $("#existinggroup").prop("checked", true);
+                $("#existinggroupaddclients").prop("checked", true);
             });
 
 
-            $("#selectNewClientGroupSpan").click(function (event) {
+            $(".selectNewClientGroupSpan").click(function (event) {
                 $("#newgroup").prop("checked", true);
+                $("#newgroupaddclients").prop("checked", true);
             });
 
 
@@ -1928,29 +1974,29 @@
             function sanitize(userInput) {
                 if (!userInput) return "";
                 let result = userInput;
-                // result = result.replaceAll("!", "");
-                result = result.replaceAll("`", "");
-                result = result.replaceAll("~", "");
-                result = result.replaceAll("#", "");
-                // result = result.replaceAll("$", "");
-                // result = result.replaceAll("%", "");
-                result = result.replaceAll("^", "");
-                result = result.replaceAll("&", "");
-                result = result.replaceAll("*", "");
-                result = result.replaceAll("(", "");
-                result = result.replaceAll(")", "");
-                result = result.replaceAll("[", "");
-                result = result.replaceAll("]", "");
-                result = result.replaceAll("{", "");
-                result = result.replaceAll("}", "");
-                result = result.replaceAll("\\", "");
-                result = result.replaceAll("|", "");
-                result = result.replaceAll(";", "");
-                result = result.replaceAll("\'", "");
-                result = result.replaceAll("\"", "");
-                result = result.replaceAll("<", "");
-                result = result.replaceAll(">", "");
-                // result = result.replaceAll("?", "");
+                // result = result.replaceAll("!", " ");
+                result = result.replaceAll("`", " ");
+                result = result.replaceAll("~", " ");
+                result = result.replaceAll("#", " ");
+                // result = result.replaceAll("$", " ");
+                // result = result.replaceAll("%", " ");
+                result = result.replaceAll("^", " ");
+                result = result.replaceAll("&", " ");
+                result = result.replaceAll("*", " ");
+                result = result.replaceAll("(", " ");
+                result = result.replaceAll(")", " ");
+                result = result.replaceAll("[", " ");
+                result = result.replaceAll("]", " ");
+                result = result.replaceAll("{", " ");
+                result = result.replaceAll("}", " ");
+                result = result.replaceAll("\\", " ");
+                result = result.replaceAll("|", " ");
+                result = result.replaceAll(";", " ");
+                result = result.replaceAll("\'", " ");
+                result = result.replaceAll("\"", " ");
+                result = result.replaceAll("<", " ");
+                result = result.replaceAll(">", " ");
+                // result = result.replaceAll("?", " ");
                 return result;
             }
 

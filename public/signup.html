@@ -211,6 +211,7 @@
                                        if (tempUID == '') {
                                            // Configure Stripe payment table
                                            const clientRefIdToSet = user.uid;
+
                                            $("#stripe-signup-section").html(`
                                                    <h2>Membership Tier</h2>
                                                    <stripe-pricing-table pricing-table-id="${pricingTableID}"

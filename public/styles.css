@@ -31,6 +31,10 @@ input[type=text], input[type=tel] {
     font-size: 1.0em;
 }
 
+select {
+    font-size: 1.0em;
+}
+
 label {
     font-size: 1.0em;
 }
@@ -382,7 +386,7 @@ input[type="file"] {
     width: 300px;
 }
 
-#selectclientgroupdiv {
+.selectclientgroupdiv {
     width: 60%;
     margin: auto;
     float: center;
@@ -390,12 +394,17 @@ input[type="file"] {
     text-align: left;
 }
 
-#selectclientgroupdiv h3 {
+.selectclientgroupdiv h3 {
     color: black;
     text-align: center;
 }
 
-#selectclientgroupdiv input, label {
+.selectclientgroupdiv h4 {
+    color: white;
+    text-align: left;
+}
+
+.selectclientgroupdiv input, label {
     padding: 0px 0px 0px 0px;
     margin: 0px 0px 0px 0px;
 }
@@ -406,9 +415,13 @@ input[type="file"] {
     margin: 0px 0px 0px 0px;
 }
 
-#clientgroupname {
+.clientgroupname {
     color: black;
     width: 175px;
+}
+
+#clientGroupNameInput {
+    width: 15em;
 }
 
 #uploadclientsmanuallydiv {
@@ -425,6 +438,7 @@ input[type="file"] {
     text-align: center;
 }
 
+#uploadclientsmanuallydiv h2,
 #uploadclientsmanuallydiv label {
     color: white;
 }
@@ -448,6 +462,11 @@ input[type="file"] {
     margin-bottom: 10px;
 }
 
+#submitNewClientGroupButton {
+    width: 8em;
+}
+
+#submitNewClientGroupButton,
 #addcreditsforinsufficientaccountcreditsmessagebutton,
 #editsubscriptionsbutton,
 #showuploadnewclientsbutton {
@@ -479,7 +498,7 @@ input[type="file"] {
     font-weight: bold;
 }
 
-#addcreditsforinsufficientaccountcreditsmessagebutton:hover, #createnewclientsgroupbutton:hover, #showuploadnewclientsbutton:hover, #canceluploadnewclientsbutton:hover, #editsubscriptionsbutton:hover, #cancelsubscriptionsbutton:hover{
+#addcreditsforinsufficientaccountcreditsmessagebutton:hover, #createnewclientsgroupbutton:hover, #showuploadnewclientsbutton:hover, #canceluploadnewclientsbutton:hover, #editsubscriptionsbutton:hover, #cancelsubscriptionsbutton:hover, #submitNewClientGroupButton:hover {
     background-color: #555;
     transform: scale(1.1);
 }
@@ -493,6 +512,10 @@ input[type="file"] {
     text-align: left;
     margin: auto;
     width: 100%;
+}
+
+#uploadclientsdiv input {
+    height: 1.1em;
 }
 
 #account-subscription-div {
@@ -710,6 +733,8 @@ button:hover {
     margin-top: 0px;
     width: 100%;
     height: 60px;
+    font-size: 1.1em;
+    font-weight: bold;
 }
 
 .side-menu-class button:hover {
@@ -1564,6 +1589,7 @@ ul li:hover {
         height: 30px;
         padding: 0px 0px 0px 0px;
         margin: 0px 0px 0px 0px;
+        float: left;
     }
 
     .action {
@@ -1585,12 +1611,13 @@ ul li:hover {
         margin: 0px 0px 0px 0px;
     }
 
-    #existinggroup {
+    #existinggroup,
+    #existinggroupAddClients {
         float: left;
         margin-left: 0px;
     }
 
-    #clientgroupname {
+    .clientgroupname {
         width: 70%;
     }
 
@@ -1683,8 +1710,8 @@ ul li:hover {
     }
 
     #clientGroupNameInput {
-        float: center;
-        width: 200px;
+        width: 10em;
+        height: 1.2em;
     }
 
     #submitNewClientGroupButton {

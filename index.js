@@ -219,6 +219,16 @@ expApp.post('/contact-form', async (req, res) => {
 });
 
 
+async function sendMessageWithTwilio(fromNumber, personalizeMessageBody, userMessageImage, recipientNumber, scheduleSendTime) {
+    twilioClient.messages.create({
+         body: personalizeMessageBody,
+         from: fromNumber,
+         to: recipientNumber
+
+    }).then(message => console.log(message.sid));
+}
+
+
 // Send message to user's clients
 expApp.post("/send-message", async(req, res) => {
     const idToken = req.body.userIdToken;
@@ -272,7 +282,7 @@ expApp.post("/send-message", async(req, res) => {
                 return;
             }
         } catch (e) {
-            console.log('send-message transaction failure: ', e);
+            console.log('send-message transaction failure: ' + e);
             res.status(400);
             res.send('Error occurred during send-message transaction');
             return;
@@ -301,7 +311,6 @@ expApp.post("/send-message", async(req, res) => {
         }
 
 
-        // @TODO: Integrate Twilio API to send text messages
         // Send each message using Twilio API
         for (let i = 0; i < recipientsData.length; i++) {
             const recipientName = recipientsData[i].split(',')[0];
@@ -309,9 +318,10 @@ expApp.post("/send-message", async(req, res) => {
 
             // Format personalized messages
             const personalizeMessageBody = userMessage.replaceAll('_NAME_', recipientName);
-            console.log(personalizeMessageBody);
 
-            // sendTwilioMessage(personalizeMessageBody, recipientNumber);
+            // const defaultTwilioSendFromNumber = '+18669124067'; // @phs
+            const defaultTwilioSendFromNumber = '+18667986394';
+            sendMessageWithTwilio(defaultTwilioSendFromNumber, personalizeMessageBody, userMessageImage, recipientNumber, scheduleSendTime);
         }
 
         res.status(200);
@@ -359,22 +369,6 @@ expApp.post("/sent-messages", async(req, res) => {
         const uid = decodedToken.uid;
         console.log('sent-messages page accessed by ' + uid);
 
-        /*
-        // Get user's phone number from db
-        let userPhone;
-        try {
-            const userDocument = db.collection('users').doc(uid);
-            let userItem = await userDocument.get();
-            userPhone = userItem.data().phone;
-        } catch (error) {
-            console.log(error);
-        }
-         */
-
-        // Use default number for now
-        // @TODO: Uncomment above db read after implementing account tiers
-        let userPhone = '+18669124067';
-
         // Store MID and timestamp for all of user's messages
         try {
             let recentMessages = [];
@@ -405,12 +399,6 @@ expApp.post("/sent-messages", async(req, res) => {
                 if (i > 50) break;
 
                 const rmUID = sentmessages[recentMessages[i]['index']]['messageUID'];
-                /*
-                const rmBody = sentmessages[recentMessages[i]['index']]['message']['messagebody'];
-                const rmContainsImage = sentmessages[recentMessages[i]['index']]['message']['containsImage'];
-                const rmRecipients = sentmessages[recentMessages[i]['index']]['message']['recipients'];
-                const rmTimestamp = sentmessages[recentMessages[i]['index']]['message']['timestamp'];
-                 */
                 const rmBody = sentmessages[recentMessages[i]['index']]['messagebody'];
                 const rmContainsImage = sentmessages[recentMessages[i]['index']]['containsImage'];
                 const rmRecipients = sentmessages[recentMessages[i]['index']]['recipients'];
@@ -428,18 +416,15 @@ expApp.post("/sent-messages", async(req, res) => {
             }
              */
             const returnData = JSON.stringify({recentMessages: tenMostRecentMessages});
-            // res.status(200);
             res.send(returnData);
 
         } catch (error) {
             console.log('Error in sent-messages: ' + error);
-            // res.status(400); // @TODO: make sure this is in fact how it should be handled
             res.end();
         }
       })
       .catch((error) => {
         console.log('Error in sent-messages: ' + error);
-        // res.status(400); // @TODO: make sure this is in fact how it should be handled
         res.end();
       });
 })
@@ -467,7 +452,6 @@ expApp.post("/message-image", async(req, res) => {
 
         const returnData = JSON.stringify({image: readableContents});
         res.send(returnData);
-
       })
       .catch((error) => {
         console.log('Error in message-image: ' + error);
@@ -567,29 +551,6 @@ expApp.post("/save-clients", async(req, res) => {
       .then( async (decodedToken) => {
         const uid = decodedToken.uid;
         console.log('save-clients page accessed by ' + uid);
-
-        /*
-        // Write csv file to cloud storage bucket
-        const inputFile = req.body.userInputFile;
-        console.log(inputFile);
-        await storage.bucket('user-clients').file(uid + '.csv').save(inputFile);
-         */
-
-        /*
-        // Save clients to db (currently only works when saving one client at a time)
-        let clientUIDsList = [];
-        const clients = req.body.clients;
-        const dbRef = db.collection('user-clients').doc(uid);
-        for (let i = 0; i < clients.length; i++) {
-            const currentTime = new Date().getTime();
-            const clientUID = 'cid-' + currentTime + Math.floor(Math.random() * 100000).toString();
-            clientUIDsList.push(clientUID);
-            clients[i]['clientUID'] = clientUID;
-            const unionRes = await dbRef.update({
-                clients: FieldValue.arrayUnion(clients[i])
-            });
-        }
-         */
 
         // Read user's clients from db
         const userDocument = db.collection('user-clients').doc(uid);
@@ -888,7 +849,7 @@ expApp.post('/create-checkout-session-add-credits', async (req, res) => {
 
 
 // Dictionary to map product name to its value in account credits
-const productCreditsMap = {'Test Product 1': 100, 'Alternate Test Product': 1000, '1kcredits': 1000, '10kcredits': 10000};
+const productCreditsMap = {'Add 1,000 Credits': 1000, 'Add 10,000 Credits': 10000, 'Test Product 1': 100, 'Alternate Test Product': 1000, '1kcredits': 1000, '10kcredits': 10000};
 
 // Successful Stripe checkout reached
 expApp.get('/success', async (req, res) => {
@@ -1002,11 +963,11 @@ expApp.get('/success', async (req, res) => {
                 res.send(`<html><body><h1>Error occurred</h1></body></html>`);
             }
         } catch (e) {
-            console.log('Transaction failure: ', e);
+            console.log('Transaction failure: ' + e);
             res.send(`<html><body><h1>Error occurred during transaction</h1></body></html>`);
         }
     } catch (error) {
-        console.log('Session error: ', error);
+        console.log('Session error: ' + error);
         res.send(`<html><body><h1>Session error</h1></body></html>`);
     }
 });
@@ -1031,7 +992,6 @@ const httpsOptions = {
     cert: httpsCert,
     passphrase: certPassphrase
 };
-
 
 https.createServer(httpsOptions, expApp).listen(port, function(error) {
     if (error) throw error;

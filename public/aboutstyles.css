@@ -53,7 +53,7 @@ h2 {
 .contact-button {
     background-color: #555;
     color: white;
-    border: 1px solid black;
+    border: 2px solid black;
     text-align: center;
     float: center;
     margin: auto;
@@ -95,6 +95,32 @@ h2 {
     text-align: center;
     padding-top: 10px;
     font-size: 1.3em;
+}
+
+#contactinfodiv {
+    max-width: 800px;
+    margin: auto;
+    margin-top: 70px;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: var(--bradius);
+    color: black;
+}
+
+.contactInfoItem {
+    color: black;
+    float: center;
+    margin: auto;
+    text-align: center;
+}
+
+.phoneitem {
+    font-size: 1.0em;
+}
+
+.emailitem {
+    font-size: 0.8em;
 }
 
 /*
