@@ -14,8 +14,10 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // Stripe config
 import { Stripe } from 'stripe';
-const stripe = new Stripe('sk_test_51NralMKF5W6IwfpPSMKwDqlxIQVvAbDNSlwK8L5INDdaZjcW7roOsrohtOshzGT7pghpTbOYtzoxvxhc5hrxtRCf00UTBAiuA5');
-
+const rawStripeConfig = await readFile('./.sec/stripe.config', 'utf8');
+const stripeConfig = rawStripeConfig.trim();
+const stripe = new Stripe(stripeConfig);
+// const stripe = new Stripe('sk_test_51NralMKF5W6IwfpPSMKwDqlxIQVvAbDNSlwK8L5INDdaZjcW7roOsrohtOshzGT7pghpTbOYtzoxvxhc5hrxtRCf00UTBAiuA5'); // TEST MODE secret key
 
 // Twilio config
 import { default as twilio } from 'twilio';
@@ -25,7 +27,7 @@ const twilioClient = twilio(accountSid, authToken);
 
 // Firebase imports
 // import { initializeApp } from "firebase/app";
-import { initializeApp, applicationDefault, cert } from "firebase-admin/app"; // @TODO: maybe delete applicationDefault import
+import { initializeApp, applicationDefault, cert } from "firebase-admin/app";
 import { getAuth } from "firebase-admin/auth";
 import { getFirestore, Timestamp, FieldValue, Filter } from "firebase-admin/firestore";
 // import { getStorage } from "firebase-admin/storage";
@@ -35,7 +37,7 @@ import { Storage } from "@google-cloud/storage";
 
 // Initialize Firebase
 const serviceAccount = JSON.parse(
-  await readFile('./.sec/serviceAccountKey.json')
+    await readFile('./.sec/serviceAccountKey.json')
 );
 
 initializeApp({
@@ -47,21 +49,20 @@ initializeApp({
 const db = getFirestore();
 
 // Initialize cloud storage bucket and save reference
-// const storage = getStorage(app);
-// const storage = getStorage();
-const storage = new Storage();
+const storage = new Storage({
+    keyFilename: './.sec/serviceAccountKey.json'
+});
 
 // Custom classes
 import { RecentMessage } from './RecentMessage.js';
 
 // Constants
-const expApp = express();
 const domainName = 'https://localhost:3000/';
 const port = 3000;
-const apiLimitSize = 200;
 
 // Express config
 // @TODO: Finalize request size limits
+const expApp = express();
 expApp.use(express.json({limit: '50mb'}));
 expApp.use(express.urlencoded({limit: '50mb', extended: true}));
 expApp.use(express.static('public'));
@@ -219,13 +220,59 @@ expApp.post('/contact-form', async (req, res) => {
 });
 
 
-async function sendMessageWithTwilio(fromNumber, personalizeMessageBody, userMessageImage, recipientNumber, scheduleSendTime) {
-    twilioClient.messages.create({
-         body: personalizeMessageBody,
-         from: fromNumber,
-         to: recipientNumber
+async function sendMMSWithTwilio(fromNumber, personalizeMessageBody, userMessageImage, recipientNumber, scheduleSendTime, currentMessageUID) {
+    // Case 1: schedule send time is not set
+    if (scheduleSendTime == '') {
+        twilioClient.messages.create({
+             body: personalizeMessageBody,
+             mediaUrl: [userMessageImage],
+             from: fromNumber,
+             to: recipientNumber
 
-    }).then(message => console.log(message.sid));
+        }).then(message => console.log(message.sid + ' -> ' + currentMessageUID));
+    }
+    // Case 2: schedule send time is set
+    else if (scheduleSendTime != '') {
+        const twilioFormatScheduleSendTime = scheduleSendTime.slice(0,19) + 'Z';
+        // console.log('Scheduling message to send on ' + twilioFormatScheduleSendTime);
+
+        twilioClient.messages.create({
+             body: personalizeMessageBody,
+             mediaUrl: [userMessageImage],
+             messagingServiceSid: 'MG2e19a6179490f162a2075d8d1ed270e5',
+             to: recipientNumber,
+             sendAt: twilioFormatScheduleSendTime,
+             scheduleType: 'fixed'
+
+        }).then(message => console.log(message.sid + ' -> ' + currentMessageUID));
+    }
+
+}
+
+async function sendSMSWithTwilio(fromNumber, personalizeMessageBody, recipientNumber, scheduleSendTime, currentMessageUID) {
+    // Case 1: schedule send time is not set
+    if (scheduleSendTime == '') {
+        twilioClient.messages.create({
+             body: personalizeMessageBody,
+             from: fromNumber,
+             to: recipientNumber
+
+        }).then(message => console.log(message.sid + ' -> ' + currentMessageUID));
+    }
+    // Case 2: schedule send time is set
+    else if (scheduleSendTime != '') {
+        const twilioFormatScheduleSendTime = scheduleSendTime.slice(0,19) + 'Z';
+        // console.log('Scheduling message to send on ' + twilioFormatScheduleSendTime);
+
+        twilioClient.messages.create({
+             body: personalizeMessageBody,
+             messagingServiceSid: 'MG2e19a6179490f162a2075d8d1ed270e5',
+             to: recipientNumber,
+             sendAt: twilioFormatScheduleSendTime,
+             scheduleType: 'fixed'
+
+        }).then(message => console.log(message.sid + ' -> ' + currentMessageUID));
+    }
 }
 
 
@@ -288,11 +335,9 @@ expApp.post("/send-message", async(req, res) => {
             return;
         }
 
-        // If message has an image attached, save to cloud storage bucket
         let messageContainsImage = false;
         if (userMessageImage != null) {
             messageContainsImage = true;
-            await storage.bucket('sentimages').file(currentMessageUID).save(userMessageImage);
         }
 
         // Save message to db
@@ -310,6 +355,7 @@ expApp.post("/send-message", async(req, res) => {
             });
         }
 
+        const defaultTwilioSendFromNumber = '+18667986394';
 
         // Send each message using Twilio API
         for (let i = 0; i < recipientsData.length; i++) {
@@ -319,13 +365,51 @@ expApp.post("/send-message", async(req, res) => {
             // Format personalized messages
             const personalizeMessageBody = userMessage.replaceAll('_NAME_', recipientName);
 
-            // const defaultTwilioSendFromNumber = '+18669124067'; // @phs
-            const defaultTwilioSendFromNumber = '+18667986394';
-            sendMessageWithTwilio(defaultTwilioSendFromNumber, personalizeMessageBody, userMessageImage, recipientNumber, scheduleSendTime);
+            // If message has an image attached, save to cloud storage bucket
+            if (messageContainsImage) {
+               try {
+                    // Used for website image rendering (base64)
+                    await storage.bucket('sent-images').file(currentMessageUID).save(userMessageImage);
+
+                    // Used for image URL link for MMS messages (decoded base64)
+                    const mainChunk = userMessageImage.split(',')[1];
+                    const bufferObj = Buffer.from(mainChunk, 'base64');
+
+                    const fileRef = storage.bucket('sent-images').file(currentMessageUID + '_full');
+                    await fileRef.save(bufferObj);
+
+                    const config = {
+                        action: 'read',
+                        // expires: Date.now() + 15 * 60 * 1000, // 15 minutes
+                        expires: Date.now() + 7 * 24 * 60 * 60 * 1000, // 7 days: 7day * 24hr/day * 60min/hr * 60s/min * 1000ms/s
+                    };
+                     
+                    // Get the link to that file
+                    fileRef.getSignedUrl(config, function (err, url) {
+                        if (err) {
+                            console.error(err);
+                            res.end();
+                            return;
+                        }
+
+                        sendMMSWithTwilio(defaultTwilioSendFromNumber, personalizeMessageBody, url, recipientNumber, scheduleSendTime, currentMessageUID);
+                    });
+                } catch (error) {
+                    console.log('Error while saving image in send-message: ' + error);
+                }
+            }
+            else {
+                sendSMSWithTwilio(defaultTwilioSendFromNumber, personalizeMessageBody, recipientNumber, scheduleSendTime, currentMessageUID);
+            }
+        }
+
+        let successMessage = 'Message sent successfully';
+        if (scheduleSendTime != '') {
+            successMessage = 'Message scheduled successfully';
         }
 
         res.status(200);
-        res.send('Message sent successfully');
+        res.send(successMessage);
       })
       .catch((error) => {
         console.log('Error in send-message: ' + error);
@@ -344,7 +428,7 @@ expApp.post("/scheduled-messages", async(req, res) => {
           const uid = decodedToken.uid;
           console.log('scheduled-messages page accessed by ' + uid);
 
-          // @TODO: read scheduled messages from db
+          // @TODO: Limit read size
           const scheduledMessagesDocument = db.collection('scheduled-messages').doc(uid);
           let userItem = await scheduledMessagesDocument.get();
           const messages = userItem.data().messages;
@@ -444,7 +528,7 @@ expApp.post("/message-image", async(req, res) => {
         const messageUID = req.body.messageUID;
         let readableContents = '';
         try {
-            const contents = await storage.bucket('sentimages').file(messageUID).download();
+            const contents = await storage.bucket('sent-images').file(messageUID).download();
             readableContents = contents.toString();
         } catch (error) {
             console.log('Error reading message image from ' + uid);

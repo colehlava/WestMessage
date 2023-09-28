@@ -263,7 +263,7 @@
                         </div>
 
                         <div id="scheduled-message-recipients-div" class="sent-message-container-section">
-                            <h4 class="recipient-label">Delivered to:</h4>
+                            <h4 class="recipient-label">Recipients:</h4>
                             <ol id="scheduled-message-recipients"></ol>
                         </div>
                     </div>
@@ -543,13 +543,13 @@
 
             // Config
             const firebaseConfig = {
-                apiKey: "AIzaSyDK3f9wKaA6-FTPx9_1DyUPJgT0peHovMA",
-                authDomain: "textproject-91e54.firebaseapp.com",
-                projectId: "textproject-91e54",
-                storageBucket: "textproject-91e54.appspot.com",
-                messagingSenderId: "992522000735",
-                appId: "1:992522000735:web:bf2a10c5cd9103e8f43eea",
-                measurementId: "G-CGRCELQCN5"
+              apiKey: "AIzaSyCfDeVgtCzotjUFc87t4SEpAkoLxwZW610",
+              authDomain: "westmessage.firebaseapp.com",
+              projectId: "westmessage",
+              storageBucket: "westmessage.appspot.com",
+              messagingSenderId: "715277839228",
+              appId: "1:715277839228:web:3dcee29c90eb67c35e52f9",
+              measurementId: "G-Y6N4663WK2"
             };
 
             // Initialize Firebase
@@ -834,8 +834,6 @@
                 $("#message-status-div").css("color", "white");
                 $("#message-status-div").text('Sending...');
                 $(".popup").css("display", "block");
-                $(".progress-value").css("width", "0%");
-                $(".progress-value").animate({ width: "100%" }, 4000);
 
                 const user = auth.currentUser;
                 if (user) {
@@ -875,21 +873,71 @@
                             }
                         });
 
-                        const message = sanitize($("#message").val());
-                        const scheduleSendTime = $("#schedulemessagedatetimeinput").val();
+                        if (allRecipients.length == 0) {
+                            $("#message-status-div").text('There are no recipients selected. Please select recipients.');
+                            $("#message-status-div").css("color", "red");
+                            $("#sendmessagebutton").prop("disabled", false);
+                            return;
+                        }
 
                         // Don't send empty messages
-                        if (message == "" || allRecipients.length == 0) return;
+                        const message = sanitize($("#message").val());
+                        if (message == "") {
+                            $("#message-status-div").text('Message field is empty. Please enter a message to send.');
+                            $("#message-status-div").css("color", "red");
+                            $("#sendmessagebutton").prop("disabled", false);
+                            return;
+                        }
+
+                        // Validate schedule send time
+                        let formattedScheduleSendTime = '';
+                        const rawStringScheduleSendTime = $("#schedulemessagedatetimeinput").val();
+
+                        if (rawStringScheduleSendTime != '') {
+                            const currentDateTime = new Date();
+                            const scheduleSendTime = new Date(rawStringScheduleSendTime);
+                            const delta_ms = scheduleSendTime - currentDateTime;
+
+                            if (scheduleSendTime < currentDateTime) {
+                                $("#message-status-div").text('Scheduled send time has already passed. Please enter a later time.');
+                                $("#message-status-div").css("color", "red");
+                                $("#sendmessagebutton").prop("disabled", false);
+                                return;
+                            }
+                            if (delta_ms < (16 * 60 * 1000)) {
+                                console.log('ccc');
+                                $("#message-status-div").text('Scheduled send time must be at least 16 minutes from now.');
+                                $("#message-status-div").css("color", "red");
+                                $("#sendmessagebutton").prop("disabled", false);
+                                return;
+                            }
+                            if (delta_ms > 7 * 24 * 60 * 60 * 1000) {
+                                $("#message-status-div").text('Scheduled send time must be no more than 7 days from now.');
+                                $("#message-status-div").css("color", "red");
+                                $("#sendmessagebutton").prop("disabled", false);
+                                return;
+                            }
+
+                            // Format schedule send time
+                            formattedScheduleSendTime = scheduleSendTime.toISOString();
+                        }
+
+                        // Begin animation after all validation checks have passed
+                        $(".progress-value").css("width", "0%");
+                        $(".progress-value").animate({ width: "100%" }, 4000);
 
                         // Attach image if user uploaded one
                         if ($("#filetoupload").prop("files").length > 0) {
                             let reader = new FileReader();
                             reader.readAsDataURL($("#filetoupload").prop("files")[0]);
+                            // reader.readAsBinaryString($("#filetoupload").prop("files")[0]);
+                            // reader.readAsText($("#filetoupload").prop("files")[0]);
+                            // reader.readAsArrayBuffer($("#filetoupload").prop("files")[0]);
                             reader.onloadend = function() {
                                 const imageToAttach = reader.result;
                                 const sanitizedImage = sanitize(imageToAttach);
 
-                                const jsonToSend = JSON.stringify({userIdToken: idToken, userRecipients: allRecipients, userMessage: message, userMessageImage: sanitizedImage, messageRecipientClientGroups: messageRecipientClientGroups, scheduleSendTime: scheduleSendTime });
+                                const jsonToSend = JSON.stringify({userIdToken: idToken, userRecipients: allRecipients, userMessage: message, userMessageImage: sanitizedImage, messageRecipientClientGroups: messageRecipientClientGroups, scheduleSendTime: formattedScheduleSendTime});
 
                                 $.ajax({
                                   headers: {"Content-Type": "application/json"},
@@ -918,7 +966,7 @@
                             }
                         }
                         else {
-                            const jsonToSend = JSON.stringify({userIdToken: idToken, userRecipients: allRecipients, userMessage: message, userMessageImage: null, messageRecipientClientGroups: messageRecipientClientGroups, scheduleSendTime: scheduleSendTime});
+                            const jsonToSend = JSON.stringify({userIdToken: idToken, userRecipients: allRecipients, userMessage: message, userMessageImage: null, messageRecipientClientGroups: messageRecipientClientGroups, scheduleSendTime: formattedScheduleSendTime});
 
                             $.ajax({
                               headers: {"Content-Type": "application/json"},
@@ -1395,7 +1443,7 @@
 
 
             $("#editsubscriptionsbutton").click(function (event) {
-                const testMode = true;
+                const testMode = false;
                 let pricingTableID;
                 let pricingTablePublicKey;
                 if (testMode) {
@@ -1991,7 +2039,7 @@
                 result = result.replaceAll("}", " ");
                 result = result.replaceAll("\\", " ");
                 result = result.replaceAll("|", " ");
-                result = result.replaceAll(";", " ");
+                // result = result.replaceAll(";", " ");
                 result = result.replaceAll("\'", " ");
                 result = result.replaceAll("\"", " ");
                 result = result.replaceAll("<", " ");

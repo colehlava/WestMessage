@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 :root {
+    --backgroundcolor: #555555;
     --blue: #001EFF;
     --brightgreen: rgb(0, 225, 0);
     --green: #1DB924;
@@ -257,26 +258,7 @@ input[type="file"] {
     color: black;
 }
 
-/* @TODO: remove if not used */
-#logotext {
-    padding: 1px 0px;
-    font-size: 16px;
-    text-align: center;
-}
-
-/*
-#createmessagebutton {
-    background-color: rgb(0, 0, 200);
-}
- */
-
 #maincontainer {
-    /*
-    width: 90vw;
-    height: 90vh;
-    border: 10px orange solid;
-    background-color: rgb(0, 0, 200);
-     */
     width: 100%;
     height: 100vh;
     margin-bottom: 0px;
@@ -449,8 +431,9 @@ button:hover {
 }
 
 .hero-content {
-    background-color: white;
-    color: black;
+    background-color: var(--backgroundcolor);
+    color: white;
+    border: 2px solid black;
     border-radius: var(--bradius);
     max-width: 800px;
     margin: auto;
@@ -459,8 +442,8 @@ button:hover {
     padding-top: 1px;
 }
 
-.hero-content h3, h4 {
-    color: black;
+.hero-content h2, h3, h4 {
+    color: white;
     margin-bottom: 1em;
 }
 
@@ -472,11 +455,11 @@ button:hover {
     border-radius: var(--bradius);
     padding: 15px 30px;
     text-decoration: none;
-    font-size: 1em;
+    font-size: 1.3em;
     font-weight: bold;
     transition: background-color 0.3s ease;
     margin-top: 0.6em;
-    margin-bottom: 2.5em;
+    margin-bottom: 2.0em;
 }
 
 .cta-button:hover {
@@ -490,8 +473,8 @@ button:hover {
 }
 
 .features-label {
-    background-color: white;
-    color: black;
+    background-color: var(--backgroundcolor);
+    color: white;
     border-radius: var(--bradius);
     padding: 20px;
     width: 40vw;
@@ -502,37 +485,37 @@ button:hover {
 }
 
 .features-label h1 {
-    color: black;
+    color: white;
     font-size: 1.8em;
 }
 
 .features-label h2 {
-    color: black;
+    color: white;
 }
 
 .feature-card {
-    background-color: white;
+    background-color: var(--backgroundcolor);
     color: var(--blue);
     padding: 20px;
     border-radius: var(--bradius);
     margin: auto;
     margin-bottom: 20px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    width: 40vw;
-    height: 47vh;
+    width: 70vw;
+    height: 65vh;
 }
 
-.mobile-ss-container .feature-details {
-    width: 50%; !important
+.mobile-ss-container {
+    width: 50%;
 }
 
 .feature-details {
-    background-color: lightgrey;
+    background-color: white;
     border: 2px solid black;
     border-radius: var(--bradius);
     padding: 25px 4px 8px 4px;
     float: left;
-    width: 25%;
+    width: 35%;
     margin-top: 10%;
 }
 
@@ -585,7 +568,7 @@ button:hover {
 }
 
 .browser-screenshot {
-    max-width: 70%;
+    max-width: 60%;
     height: auto;
 }
 
@@ -1133,6 +1116,10 @@ header ul li:hover {
         text-align: center;
         margin: auto;
         margin-right: 0px;
+    }
+
+    .hero-content {
+        width: 90%;
     }
 
     .mobileformatspan {
