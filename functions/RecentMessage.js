@@ -1,4 +1,5 @@
-export class RecentMessage {
+// export class RecentMessage {
+class RecentMessage {
 
     constructor(messageUID, messagebody, containsImage, recipients, messageRecipientClientGroups, timestamp) {
         this.messageUID = messageUID;
@@ -9,4 +10,6 @@ export class RecentMessage {
         this.timestamp = timestamp;
     }
 }
+
+module.exports = RecentMessage;
 

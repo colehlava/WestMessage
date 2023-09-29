@@ -1,6 +1,11 @@
 node_modules
 notes.txt
 .sec
+functions/.sec
 .DS_Store
+package-lock.json
 public/.DS_Store
 public/images
+*.rules
+*.log
+.firebase/hosting.cHVibGlj.cache

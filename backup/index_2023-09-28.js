@@ -14,7 +14,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // Stripe config
 import { Stripe } from 'stripe';
-const rawStripeConfig = await readFile('./.sec/stripe.config', 'utf8');
+const rawStripeConfig = await readFile('./../.sec/stripe.config', 'utf8');
 const stripeConfig = rawStripeConfig.trim();
 const stripe = new Stripe(stripeConfig);
 // const stripe = new Stripe('sk_test_51NralMKF5W6IwfpPSMKwDqlxIQVvAbDNSlwK8L5INDdaZjcW7roOsrohtOshzGT7pghpTbOYtzoxvxhc5hrxtRCf00UTBAiuA5'); // TEST MODE secret key
@@ -26,10 +26,30 @@ const authToken = process.env.TWILIO_AUTH_TOKEN;
 const twilioClient = twilio(accountSid, authToken);
 
 // Firebase imports
-// import { initializeApp } from "firebase/app";
+// const {onRequest} = require("firebase-functions/v2/https");
+// import {onRequest} from "firebase-functions/v2/https";
+// import { default as https } from "firebase-functions/v2/https";
+// import functions from "firebase-functions";
+
+
+
+// import { getApp } from "firebase/app";
+import { getFunctions, connectFunctionsEmulator } from "firebase/functions";
+
+// const functions = getFunctions(getApp());
+// connectFunctionsEmulator(functions, "127.0.0.1", 5001);
+
+
+
+
+// require("firebase-functions/logger/compat");
+// import firebase from "firebase-functions/logger/compat";
+// const logger = require("firebase-functions/logger");
+
 import { initializeApp, applicationDefault, cert } from "firebase-admin/app";
 import { getAuth } from "firebase-admin/auth";
 import { getFirestore, Timestamp, FieldValue, Filter } from "firebase-admin/firestore";
+// import { initializeApp } from "firebase/app";
 // import { getStorage } from "firebase-admin/storage";
 // import { ref, uploadBytesResumable } from "firebase/storage";
 // import { getStorage, getDownloadURL } from "firebase-admin/storage";
@@ -37,7 +57,7 @@ import { Storage } from "@google-cloud/storage";
 
 // Initialize Firebase
 const serviceAccount = JSON.parse(
-    await readFile('./.sec/serviceAccountKey.json')
+    await readFile('./../.sec/serviceAccountKey.json')
 );
 
 initializeApp({
@@ -54,7 +74,7 @@ const storage = new Storage({
 });
 
 // Custom classes
-import { RecentMessage } from './RecentMessage.js';
+import { RecentMessage } from './../RecentMessage.js';
 
 // Constants
 const domainName = 'https://localhost:3000/';
@@ -1065,6 +1085,7 @@ expApp.listen(port, function(error) {
 })
  */
 
+/*
 // Start server with https
 const httpsKey = await readFile('./.sec/selfsigned.key');
 const httpsCert = await readFile('./.sec/selfsigned.crt');
@@ -1081,4 +1102,15 @@ https.createServer(httpsOptions, expApp).listen(port, function(error) {
     if (error) throw error;
     console.log('Server running on port ' + port);
 });
+ */
+
+/*
+exports.app = onRequest((request, response) => {
+  logger.info("Hello logs!", {structuredData: true});
+  response.send("Hello from Firebase!");
+});
+ */
+
+exports.app = getFunctions.https.onRequest(expApp);
+cosole.log('\n\n\n\n Testing logging \n\n\n\n\n');
 
