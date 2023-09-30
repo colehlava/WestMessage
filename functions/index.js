@@ -946,6 +946,36 @@ expApp.post("/create-clientgroup", async(req, res) => {
 })
 
 
+// Process chatbot request
+expApp.post("/chatbot-request", async(req, res) => {
+    const idToken = req.body.userIdToken;
+
+    getAuth()
+      .verifyIdToken(idToken)
+      .then( async (decodedToken) => {
+        const uid = decodedToken.uid;
+        console.log('chatbot-request submitted by ' + uid);
+
+        // Save chatbot request to db
+        const currentTime = new Date().getTime();
+        const cbrequestUID = 'cbrid-' + currentTime + Math.floor(Math.random() * 100000).toString();
+        const chatbotSelection = req.body.chatbotSelection;
+        const newChatbotRequest = {cbrequestUID: cbrequestUID, clientUID: uid, chatbotSelection: chatbotSelection};
+
+        const dbRef = db.collection('chatbot-requests').doc('requests');
+        const unionRes = await dbRef.update({
+            requests: FieldValue.arrayUnion(newChatbotRequest)
+        });
+
+        res.send('Chatbot request submitted successfully. Our team will reach out ASAP!');
+      })
+      .catch((error) => {
+        console.log('Error in chatbot request: ' + error);
+        res.send('Error while submitting chatbot request');
+      });
+})
+
+
 // Process support request
 expApp.post("/support-request", async(req, res) => {
     const idToken = req.body.userIdToken;

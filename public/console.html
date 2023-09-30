@@ -489,7 +489,24 @@
 
                 <!-- Chat Bots Section -->
                 <div id="chatbots-section-container" class="section-container">
-                    <h1 class="section-heading">Chat Bots</h1>
+                    <h1 class="section-heading">Chat Bots</h1><br><br>
+
+                    <div id="chatbotrequestsection">
+                        <h3>Which solution are you most interested in?</h3>
+
+                        <input type="radio" id="chatbot" name="chatbotpagechoice" class="chatbotpagechoice" value="chatbot" checked>
+                        <label for="chatbot">Chatbots</label><br><br>
+
+                        <input type="radio" id="textmessageordering" name="chatbotpagechoice" class="chatbotpagechoice" value="textmessageordering">
+                        <label for="textmessageordering">Text message ordering</label><br><br>
+
+                        <input type="radio" id="othercbchoice" name="chatbotpagechoice" class="chatbotpagechoice" value="othercbchoice">
+                        <label for="othercbchoice">Open to discussing other custom solutions</label><br><br><br>
+
+                        <button id="submitchatbotformbutton" style="background-color:#676767; color:black; border:2px solid black; font-weight:bold;">Submit</button>
+
+                        <div id="chatbot-form-status-div" class="status-class"></div>
+                    </div>
                 </div>
 
                 <!-- Support Section -->
@@ -1868,6 +1885,59 @@
                 event.preventDefault();
                 displayDiv("chatbots-section-container");
             });
+
+
+            $("#submitchatbotformbutton").click(function (event) {
+                event.preventDefault();
+
+                const user = auth.currentUser;
+                if (user) {
+                    user.getIdToken(true).then(function(idToken) {
+
+                        const chatbotSelection = sanitize($("#chatbotrequestsection input[type='radio']:checked").val());
+
+                        if (chatbotSelection == "") {
+                            $("#chatbot-form-status-div").empty();
+                            $("#chatbot-form-status-div").css("color", "red");
+                            $("#chatbot-form-status-div").text("Please select an option");
+                            return;
+                        }
+
+                        const jsonRequest = JSON.stringify({userIdToken: idToken, chatbotSelection: chatbotSelection});
+
+                        $.ajax({
+                          headers: {"Content-Type": "application/json"},
+                          type: "POST",
+                          url: "/chatbot-request",
+                          data: jsonRequest,
+                          success: function (data) {
+                                // const returnedData = JSON.parse(data);
+                                $("#chatbot-form-status-div").empty();
+                                $("#chatbot-form-status-div").css("color", "green");
+                                $("#chatbot-form-status-div").text(data);
+                          },
+                          error: function (errorMessage) { console.log("Error submitting chatbot request"); } // ,
+                          // dataType: "json"
+                        });
+                    }).catch(function(error) {
+                        console.log("Error submitting chatbot request");
+                    });
+                }
+                else {
+                    console.log("Error occurred during user authentication");
+                }
+            });
+
+
+
+
+
+
+
+
+
+
+
 
 
             $(".supportbutton").click(function (event) {

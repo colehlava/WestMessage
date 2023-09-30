@@ -37,9 +37,9 @@ section {
     margin-bottom: 30px;
 }
 
-h2 {
-    color: var(--blue);
-    font-size: 24px;
+.aboutsectiontitle {
+    color: black;
+    font-size: 22px;
     margin-bottom: 8px;
 }
 
