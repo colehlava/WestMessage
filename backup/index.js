@@ -2,96 +2,63 @@
 // Entry point for West Message web application
 
 // Libraries
-// import { default as fs } from 'fs';
-// import { readFile } from 'fs/promises';
-// const fs = require("fs").promises;
-const fs = require("fs");
-// import { default as express } from 'express';
-const express = require('express');
+import { default as fs } from 'fs';
+import { readFile } from 'fs/promises';
+import { default as express } from 'express';
 // import * as http from 'http';
-// import { default as https } from 'https';
+import { default as https } from 'https';
 
-// import { dirname } from 'path';
-// const { path } = require('path');
-// import { fileURLToPath } from 'url';
-// const { fileURLToPath } = require('url');
-// const __dirname = dirname(fileURLToPath(import.meta.url));
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // Stripe config
-// import { Stripe } from 'stripe';
-// const { Stripe } = require('stripe');
-// const rawStripeConfig = await readFile('./.sec/stripe.config', 'utf8');
-// const rawStripeConfig = await readFile('/Users/colehlava/Documents/Code/WestMessage/.sec/stripe.config', 'utf8');
-const rawStripeConfig = fs.readFileSync('./.sec/stripe.config', 'utf8');
+import { Stripe } from 'stripe';
+const rawStripeConfig = await readFile('./../.sec/stripe.config', 'utf8');
 const stripeConfig = rawStripeConfig.trim();
-// const stripe = new Stripe(stripeConfig);
+const stripe = new Stripe(stripeConfig);
 // const stripe = new Stripe('sk_test_51NralMKF5W6IwfpPSMKwDqlxIQVvAbDNSlwK8L5INDdaZjcW7roOsrohtOshzGT7pghpTbOYtzoxvxhc5hrxtRCf00UTBAiuA5'); // TEST MODE secret key
-const stripe = require('stripe')(stripeConfig);
 
 // Twilio config
-// import { default as twilio } from 'twilio';
-// const accountSid = process.env.TWILIO_ACCOUNT_SID;
-// const authToken = process.env.TWILIO_AUTH_TOKEN;
-// const twilioClient = twilio(accountSid, authToken);
-const twilio = require('twilio');
-const twilioConfigRaw = fs.readFileSync('./.sec/twilio.json');
-const twilioConfig = JSON.parse(twilioConfigRaw);
-const twilioClient = new twilio(twilioConfig['accountSID'], twilioConfig['authToken']);
+import { default as twilio } from 'twilio';
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const twilioClient = twilio(accountSid, authToken);
 
 // Firebase imports
 // const {onRequest} = require("firebase-functions/v2/https");
 // import {onRequest} from "firebase-functions/v2/https";
 // import { default as https } from "firebase-functions/v2/https";
-// import { onRequest } from "firebase-functions/v2/https";
-// import { onRequest } from "firebase-functions";
 // import functions from "firebase-functions";
-// import pkg from 'firebase-functions';
-// const { onRequest } = pkg;
-// import * as functions from 'firebase-functions';
-const functions = require('firebase-functions');
+
+
 
 // import { getApp } from "firebase/app";
-// import { getFunctions, connectFunctionsEmulator } from "firebase/functions";
+import { getFunctions, connectFunctionsEmulator } from "firebase/functions";
 
 // const functions = getFunctions(getApp());
 // connectFunctionsEmulator(functions, "127.0.0.1", 5001);
+
+
+
 
 // require("firebase-functions/logger/compat");
 // import firebase from "firebase-functions/logger/compat";
 // const logger = require("firebase-functions/logger");
 
-
-
-const { initializeApp, applicationDefault, cert } = require("firebase-admin/app");
-const { getAuth } = require( "firebase-admin/auth");
-const { getFirestore, Timestamp, FieldValue, Filter } = require( "firebase-admin/firestore");
-
-// import { initializeApp, applicationDefault, cert } from "firebase-admin/app";
-// import { getAuth } from "firebase-admin/auth";
-// import { getFirestore, Timestamp, FieldValue, Filter } from "firebase-admin/firestore";
-
+import { initializeApp, applicationDefault, cert } from "firebase-admin/app";
+import { getAuth } from "firebase-admin/auth";
+import { getFirestore, Timestamp, FieldValue, Filter } from "firebase-admin/firestore";
 // import { initializeApp } from "firebase/app";
 // import { getStorage } from "firebase-admin/storage";
 // import { ref, uploadBytesResumable } from "firebase/storage";
 // import { getStorage, getDownloadURL } from "firebase-admin/storage";
-// import { Storage } from "@google-cloud/storage";
-const { Storage } = require( "@google-cloud/storage");
+import { Storage } from "@google-cloud/storage";
 
 // Initialize Firebase
-/*
 const serviceAccount = JSON.parse(
-    // await readFile('./.sec/serviceAccountKey.json')
-    await fs.readFile('/Users/colehlava/Documents/Code/WestMessage/.sec/serviceAccountKey.json')
+    await readFile('./../.sec/serviceAccountKey.json')
 );
- */
-// const serviceAccountRaw = fs.readFileSync('/Users/colehlava/Documents/Code/WestMessage/.sec/serviceAccountKey.json');
-// const serviceAccountRaw = fs.readFileSync('./../.sec/serviceAccountKey.json');
-const serviceAccountRaw = fs.readFileSync('./.sec/serviceAccountKey.json');
-const serviceAccount = JSON.parse(
-    // await readFile('./.sec/serviceAccountKey.json')
-    serviceAccountRaw
-);
-
 
 initializeApp({
     credential: cert(serviceAccount) // ,
@@ -103,89 +70,30 @@ const db = getFirestore();
 
 // Initialize cloud storage bucket and save reference
 const storage = new Storage({
-    // keyFilename: './.sec/serviceAccountKey.json'
-    // keyFilename: '/Users/colehlava/Documents/Code/WestMessage/.sec/serviceAccountKey.json'
     keyFilename: './.sec/serviceAccountKey.json'
 });
 
 // Custom classes
-// import { RecentMessage } from './RecentMessage.js';
-// import { RecentMessage } from '/Users/colehlava/Documents/Code/WestMessage/RecentMessage.js';
-const RecentMessage = require('./RecentMessage.js');
+import { RecentMessage } from './../RecentMessage.js';
 
 // Constants
 const domainName = 'https://localhost:3000/';
 const port = 3000;
-// const port = 8080;
-// const port = process.env.PORT || 8080;
 
 // Express config
 // @TODO: Finalize request size limits
 const expApp = express();
 expApp.use(express.json({limit: '50mb'}));
 expApp.use(express.urlencoded({limit: '50mb', extended: true}));
-// expApp.use(express.static('../public')); // Firebase hosting handles this automatically with the public directory
+expApp.use(express.static('public'));
 
 
-
-
-
-
-
-/*
-// This works on http://127.0.0.1:3000/bigben
-exports.bigben = functions.https.onRequest((req, res) => {
-  const hours = (new Date().getHours() % 12) + 1  // London is UTC + 1hr;
-  res.status(200).send(`<!doctype html>
-    <head>
-      <title>Time</title>
-    </head>
-    <body>
-      ${'BONG '.repeat(hours)}
-    </body>
-  </html>`);
-});
- */
-
-
-/*
-expApp.get('/', (req, res) => {
-  const date = new Date();
-  const hours = (date.getHours() % 12) + 1;  // London is UTC + 1hr;
-    res.sendFile('/Users/colehlava/Documents/Code/WestMessage/public/landing.html');
-});
- */
-
-
-/*
-expApp.get('/api', (req, res) => {
-  const date = new Date();
-  const hours = (date.getHours() % 12) + 1;  // London is UTC + 1hr;
-  res.json({bongs: 'BONG '.repeat(hours)});
-});
- */
-
-
-/*
 // Home page
 expApp.get("/", function(req, res) {
     console.log("home page accessed");
     // fs.createReadStream('landing.html').pipe(res);
-    // res.sendFile(__dirname + '/landing.html');
-    // res.sendFile('/Users/colehlava/Documents/Code/WestMessage/public/landing.html');
-    // res.sendFile('./../public/landing.html');
-    // res.send('Temp home page');
-    // res.sendFile('./public/landing.html');
-    // res.sendFile('landing.html');
-    // res.sendFile(path.join(__dirname, '/../public/landing.html'));
-    // res.send(path.join(__dirname, '/../public/landing.html'));
-    // res.redirect('../public/landing.html');
-    // res.redirect('./../public/landing.html');
-    res.redirect('landing.html');
+    res.sendFile(__dirname + '/landing.html');
 })
- */
-
-
 
 
 // @TODO: maybe delete, also verify htmlResponse definition
@@ -220,7 +128,7 @@ expApp.post("/setup-user", async(req, res) => {
         console.log('setup-user page accessed by ' + uid);
 
         // Save initial settings to new user doc
-        const userData = {firstName: req.body.userFirstName, lastName: req.body.userLastName, phone: req.body.userPhone, email: req.body.userEmail, business: req.body.business, credits: 0, accountTier: 'Free Account'};
+        const userData = {firstName: req.body.userFirstName, lastName: req.body.userLastName, phone: req.body.userPhone, email: req.body.userEmail, business: req.body.business, credits: 0, accountTier: 'free'};
         const writeResult = await db.collection('users').doc(uid).set(userData);
 
         const temporaryUID = req.body.temporaryUID;
@@ -264,15 +172,8 @@ expApp.post("/setup-user", async(req, res) => {
             }
         }
 
-        // Add self to clients list
-        const selfClient = {firstname: req.body.userFirstName, lastname: req.body.userLastName, phone: req.body.userPhone, email: req.body.userEmail, company: req.body.business};
-        const currentTime = new Date().getTime();
-        const clientUID = 'cid-' + currentTime + Math.floor(Math.random() * 100000).toString();
-        let clients = {};
-        clients[clientUID] = selfClient;
-        const writeClientResult = await db.collection('user-clients').doc(uid).set({clients: clients});
-
-        // Create scheduled messages doc in db
+        // Create user-clients doc for new user
+        // const writeClientsResult = await db.collection('user-clients').doc(uid).set({clients: []});
         const createScheduledMessagesDocResult = await db.collection('scheduled-messages').doc(uid).set({messages: []});
 
         res.status(200);
@@ -765,30 +666,14 @@ expApp.post("/save-clients", async(req, res) => {
             clients = {};
         }
 
-        // Create set to eliminate double contact uploads
-        let existingClientsNumbersMap = {};
-        // for (const currentClient of clients) {
-        // for (const [key, val] of clients.entries()) {
-        for (const key in clients) {
-            existingClientsNumbersMap[clients[key]['phone']] = key;
-        }
-
         // Update clients dictionary
         const newClients = req.body.clients;
         let clientUIDsList = [];
         for (const newClient of newClients) {
-            let clientUID;
-            if (!existingClientsNumbersMap[newClient['phone']]) {
-                const currentTime = new Date().getTime();
-                clientUID = 'cid-' + currentTime + Math.floor(Math.random() * 100000).toString();
-                existingClientsNumbersMap[newClient['phone']] = clientUID;
-                clients[clientUID] = newClient;
-            }
-            else {
-                clientUID = existingClientsNumbersMap[newClient['phone']];
-            }
-
+            const currentTime = new Date().getTime();
+            const clientUID = 'cid-' + currentTime + Math.floor(Math.random() * 100000).toString();
             clientUIDsList.push(clientUID);
+            clients[clientUID] = newClient;
         }
 
         // Write new clients back to db
@@ -969,36 +854,6 @@ expApp.post("/create-clientgroup", async(req, res) => {
 })
 
 
-// Process chatbot request
-expApp.post("/chatbot-request", async(req, res) => {
-    const idToken = req.body.userIdToken;
-
-    getAuth()
-      .verifyIdToken(idToken)
-      .then( async (decodedToken) => {
-        const uid = decodedToken.uid;
-        console.log('chatbot-request submitted by ' + uid);
-
-        // Save chatbot request to db
-        const currentTime = new Date().getTime();
-        const cbrequestUID = 'cbrid-' + currentTime + Math.floor(Math.random() * 100000).toString();
-        const chatbotSelection = req.body.chatbotSelection;
-        const newChatbotRequest = {cbrequestUID: cbrequestUID, clientUID: uid, chatbotSelection: chatbotSelection};
-
-        const dbRef = db.collection('chatbot-requests').doc('requests');
-        const unionRes = await dbRef.update({
-            requests: FieldValue.arrayUnion(newChatbotRequest)
-        });
-
-        res.send('Chatbot request submitted successfully. Our team will reach out ASAP!');
-      })
-      .catch((error) => {
-        console.log('Error in chatbot request: ' + error);
-        res.send('Error while submitting chatbot request');
-      });
-})
-
-
 // Process support request
 expApp.post("/support-request", async(req, res) => {
     const idToken = req.body.userIdToken;
@@ -1051,7 +906,7 @@ expApp.post("/cancel-subscription", async(req, res) => {
           const deleted = await stripe.subscriptions.cancel(subscriptionID);
 
           // Update account status in db
-          const data = {credits: 0, accountTier: 'Free Account'};
+          const data = {credits: 0, accountTier: 'free'};
           const writeResult = await db.collection('users').doc(uid).set(data);
 
           res.send('Subscription has been canceled');
@@ -1222,8 +1077,8 @@ expApp.get('/success', async (req, res) => {
 });
 
 
-// Start server with http
 /*
+// Start server with http
 expApp.listen(port, function(error) {
     if (error) throw error;
     console.log('Server created successfully on port ' + port);
@@ -1256,25 +1111,6 @@ exports.app = onRequest((request, response) => {
 });
  */
 
-// export const app = functions.https.onRequest(expApp);
-// exports.app = getFunctions.https.onRequest(expApp);
-// const app = onRequest(expApp);
-// export { app };
-// console.log('\n\n\n\n Testing logging \n\n\n\n\n');
-
-const testMode = true;
-
-if (!testMode) {
-    exports.app = functions.https.onRequest(expApp);
-}
-else {
-    expApp.use(express.static('./../public'));
-
-    expApp.listen(port, function(error) {
-        if (error) throw error;
-        console.log('Server created successfully on port ' + port);
-    })
-}
-
-console.log('Application is now running');
+exports.app = getFunctions.https.onRequest(expApp);
+cosole.log('\n\n\n\n Testing logging \n\n\n\n\n');
 

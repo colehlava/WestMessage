@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
         <title>West Message</title>
+        <link rel="icon" href="./images/hero.jpeg">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -126,15 +127,10 @@
 
                         <span id="manualrecipientinputspan" style="display:none;">
                             <h3>New Client Info</h3>
-                            <label for="messageclientfname">First Name:</label>
-                            <input type="text" id="messageclientfname" name="messageclientfname" class="clients-input-class" placeholder="First Name*" required><br>
-                            <label for="messageclientlname">Last Name:</label>
-                            <input type="text" id="messageclientlname" name="messageclientlname" class="clients-input-class" placeholder="Last Name*" required><br>
-                            <label for="messageclientphone">Phone:</label>
-                            <input type="tel" id="messageclientphone" name="messageclientphone" class="clients-input-class" placeholder="Phone*" required><br>
-                            <label for="messageclientemail">Email:</label>
+                            <input type="text" id="messageclientfname" name="messageclientfname" class="clients-input-class" placeholder="First Name" required><br>
+                            <input type="text" id="messageclientlname" name="messageclientlname" class="clients-input-class" placeholder="Last Name" required><br>
+                            <input type="tel" id="messageclientphone" name="messageclientphone" class="clients-input-class" placeholder="Phone" required><br>
                             <input type="text" id="messageclientemail" name="messageclientemail" class="clients-input-class" placeholder="Email (optional)"><br>
-                            <label for="messageclientcompany">Company:</label>
                             <input type="text" id="messageclientcompany" name="messageclientcompany" class="clients-input-class" placeholder="Company (optional)"><br><br>
                             <!--
                             <label for="messageclientaddress">Address:</label>
@@ -155,7 +151,7 @@
                                 <button id="cancelsavetomyclientsandselectbutton" class="cancel-button-class">Cancel</button>
                                 <span class="mobileformatspan"><br></span>
                                 <input type="checkbox" id="savemessageclientcheckbox" style="width:20px;" checked>
-                                <label for="savemessageclientcheckbox">Save to My Clients</label>
+                                <label for="savemessageclientcheckbox" id="savemessageclientcheckboxlabel">Save to My Clients</label>
                                 <div id="new-message-status-div" class="status-class" style="font-size:1.2em;"></div>
                             </span>
                         </span>
@@ -324,14 +320,13 @@
                                 <h3>Select Client Group</h3>
                                 <span class="selectExistingClientGroupSpan">
                                     <input type="radio" id="existinggroup" name="clientgroupradiochoice" class="clientgroupradiochoice" value="existinggroup" checked>
-                                    <label for="existinggroup">Existing Group:</label>
+                                    <label for="existinggroup" class="uploadclientslabel">Existing Group:</label>
                                     <select name="clientgroupname" id="clientgroupname" class="clientgroupname"></select>
-                                </span><br>
-                                <span class="mobileformatspan"><br></span>
+                                </span><br><br>
 
                                 <span class="selectNewClientGroupSpan">
                                     <input type="radio" id="newgroup" name="clientgroupradiochoice" class="clientgroupradiochoice" value="newgroup">
-                                    <label for="newgroup">New Group:</label>
+                                    <label for="newgroup" class="uploadclientslabel">New Group:</label>
                                     <input type="text" id="newclientgroupname" placeholder="Group Name"><br><br>
                                 </span>
                             </div>
@@ -342,21 +337,21 @@
                             <div id="upload-clients-status-div" class="status-class" style="font-size:1.2em;"></div>
                         </div>
 
+                        <div id="uploadclientsseparatordiv">
+                            <h1>OR</h1>
+                        </div>
+
                         <!-- Manual input -->
                         <div id="uploadclientsmanuallydiv">
                             <h2>Input Clients Manually</h2>
 
                             <form id="clients-form" action="none">
-                                <label for="clientfname">First Name:</label>
                                 <input type="text" id="clientfname" name="clientfname" class="clients-input-class" placeholder="First Name*" required><br>
-                                <label for="clientlname">Last Name:</label>
                                 <input type="text" id="clientlname" name="clientlname" class="clients-input-class" placeholder="Last Name*" required><br>
-                                <label for="clientphone">Phone:</label>
                                 <input type="tel" id="clientphone" name="clientphone" class="clients-input-class" placeholder="Phone*" required><br>
-                                <label for="clientemail">Email:</label>
                                 <input type="text" id="clientemail" name="clientemail" class="clients-input-class" placeholder="Email (optional)"><br>
-                                <label for="clientcompany">Company:</label>
                                 <input type="text" id="clientcompany" name="clientcompany" class="clients-input-class" placeholder="Company (optional)"><br><br>
+
                                 <!--
                                 <label for="clientaddress">Address:</label>
                                 <input type="text" id="clientaddress" name="clientaddress" class="clients-input-class" placeholder="Address (optional)"><br>
@@ -610,7 +605,7 @@
                                        $("#profileIcon").addClass(profileIconCharacter);
 
                                        // Redirect to account subscription page if not subscribed
-                                       if (returnedData['accountTier'] == 'free') {
+                                       if (returnedData['accountTier'] == 'Free Account') {
                                            $(".accountbutton").click();
                                            $("#add-account-credits-div").hide();
                                            $("#editsubscriptionsbutton").click();

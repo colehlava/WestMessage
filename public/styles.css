@@ -224,6 +224,27 @@ header h3 {
   color:#4834d4
 }
 
+.clients-input-class {
+    width: 76%;
+    height: 1.2em;
+    color: rgb(38, 50, 56);
+    font-weight: 600;
+    font-size: 0.7em;
+    letter-spacing: 1px;
+    /* background: rgba(136, 126, 126, 0.04); */
+    background-color: lightgrey;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    box-sizing: border-box;
+    border: 2px solid rgba(0, 0, 0, 0.02);
+    text-align: center;
+    margin-bottom: 20px;
+    align-content: center;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 1.0em;
+}
 
 
 
@@ -383,15 +404,15 @@ input[type="file"] {
 #uploadclientsfilediv input {
     padding-right: 0px;
     margin-right: 0px;
-    width: 300px;
+    /* width: 300px; */
 }
 
 .selectclientgroupdiv {
     width: 60%;
     margin: auto;
+    padding: 5px 10px;
     float: center;
     align-content: left;
-    text-align: left;
 }
 
 .selectclientgroupdiv h3 {
@@ -409,8 +430,16 @@ input[type="file"] {
     margin: 0px 0px 0px 0px;
 }
 
+.uploadclientslabel {
+    color: black;
+}
+
+#newclientgroupname {
+    width: 205px;
+}
+
 .clientgroupradiochoice {
-    width: 10px;
+    width: 30px;
     padding: 0px 0px 0px 0px;
     margin: 0px 0px 0px 0px;
 }
@@ -424,12 +453,21 @@ input[type="file"] {
     width: 15em;
 }
 
+#uploadclientsseparatordiv {
+    background-color: black;
+    width: 100%;
+    height: 3em;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
 #uploadclientsmanuallydiv {
     padding: 30px 30px 30px 30px;
     float: bottom;
     justify-content: center;
     text-align: center;
-    background-color: rgb(0, 0, 0);
+    background-color: white;
 }
 
 #uploadclientsmanuallydiv form {
@@ -438,9 +476,14 @@ input[type="file"] {
     text-align: center;
 }
 
+#uploadclientsmanuallydiv form input {
+    width: 40%;
+    height: 1.2em;
+}
+
 #uploadclientsmanuallydiv h2,
 #uploadclientsmanuallydiv label {
-    color: white;
+    color: black;
 }
 
 .displayclientsdiv, .displayclientgroupsdiv {
@@ -488,6 +531,7 @@ input[type="file"] {
 #canceluploadnewclientsbutton {
     padding: 20px 30px; 
     background-color: rgb(220, 0, 0);
+    width: 10em;
 }
 
 #cancelsubscriptionsbutton, 
@@ -857,6 +901,16 @@ button:hover {
     border: 1px solid lightgrey;
 }
 
+#savemessageclientcheckbox {
+    margin-right: 0.0em;
+}
+
+#savemessageclientcheckboxlabel {
+    color: black;
+    font-size: 1.0em;
+    margin-left: 0.0em;
+}
+
 #sendmessagebutton {
     width: 100px;
     padding: 15px 20px 15px 20px;
@@ -902,6 +956,13 @@ button:hover {
     height: 100%;
     display: none;
     overflow-y: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+}
+
+.section-container::-webkit-scrollbar { /* WebKit */
+    width: 0;
+    height: 0;
 }
 
 .section-heading {
@@ -1597,7 +1658,9 @@ ul li:hover {
     }
 
     input[type=checkbox] {
-        transform: scale(3.0);
+        /* transform: scale(3.0); */
+        min-width: 20px;
+        min-height: 20px;
         padding: 0px 0px 0px 0px;
         margin: 0px 0px 0px 0px;
     }
@@ -1633,7 +1696,8 @@ ul li:hover {
     #existinggroup,
     #existinggroupAddClients {
         float: left;
-        margin-left: 0px;
+        padding: 0;
+        margin: 0;
     }
 
     .clientgroupname {
@@ -1728,6 +1792,14 @@ ul li:hover {
         margin-right: 2em;
     }
 
+    #clientgroupname {
+        width: 160px;
+    }
+
+    #newclientgroupname {
+        height: 1.3em;
+    }
+
     #clientGroupNameInput {
         width: 10em;
         height: 1.2em;
@@ -1801,6 +1873,14 @@ ul li:hover {
 
     .clientsearchboxdiv {
         height: 4em;
+    }
+
+    .selectclientgroupdiv {
+        width: 100%;
+    }
+
+    #uploadclientsmanuallydiv form input {
+        width: 95%;
     }
 
     .recipienttypeselectiondiv {
