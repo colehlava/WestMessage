@@ -37,6 +37,11 @@ section {
     margin-bottom: 30px;
 }
 
+.embedded-doc {
+    width: 80vh;
+    height: 100vh;
+}
+
 .aboutsectiontitle {
     color: black;
     font-size: 22px;

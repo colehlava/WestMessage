@@ -1262,7 +1262,7 @@ exports.app = onRequest((request, response) => {
 // export { app };
 // console.log('\n\n\n\n Testing logging \n\n\n\n\n');
 
-const testMode = true;
+const testMode = false;
 
 if (!testMode) {
     exports.app = functions.https.onRequest(expApp);

@@ -499,10 +499,10 @@ button:hover {
     padding: 20px;
     border-radius: var(--bradius);
     margin: auto;
-    margin-bottom: 20px;
+    margin-bottom: 60px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     width: 70vw;
-    height: 65vh;
+    height: 70vh;
 }
 
 .mobile-ss-container {
@@ -517,6 +517,10 @@ button:hover {
     float: left;
     width: 35%;
     margin-top: 10%;
+}
+
+.mobile-ss-container .feature-details {
+    width: 50%;
 }
 
 .feature-details ul {
@@ -575,7 +579,7 @@ button:hover {
 .mobile-screenshot {
     max-height: 100%;
     width: auto;
-    margin-right: 13%;
+    margin-right: 5%;
 }
 
 .services {
@@ -1181,5 +1185,15 @@ header ul li:hover {
         width: auto;
         margin-left: 18%;
         margin-right: auto;
+    }
+
+    footer a {
+        padding: 0px 10px 0px 10px;
+        font-size: 0.9em;
+    }
+
+    footer p {
+        padding: 50px 0px;
+        font-size: 0.9em;
     }
 }
