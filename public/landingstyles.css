@@ -1,9 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 :root {
-    --backgroundcolor: #555555;
-    --blue: #001EFF;
+    --backgroundcolor: #FFFFFF;
+    --deepblue: #001EFF;
+    --blue: rgba(0, 40, 245, 1.0);
     --brightgreen: rgb(0, 225, 0);
+    --landingmaincolor: #00F2EA;
     --green: #1DB924;
     --altgreen: #0A5C36;
     --bradius: 30px;
@@ -37,6 +39,10 @@ header a {
 
 nav a {
     cursor: pointer;
+}
+
+ol, ol li, ol li p {
+    color: black;
 }
 
 li a {
@@ -442,13 +448,14 @@ button:hover {
     padding-top: 1px;
 }
 
-.hero-content h2, h3, h4 {
-    color: white;
+.hero-content h2, h2, h3, h4 {
+    color: black;
+    font-weight: 500;
     margin-bottom: 1em;
 }
 
 .get-started-button {
-    background-color: var(--brightgreen);
+    background-color: var(--landingmaincolor);
     color: black;
     display: inline;
     border: 2px solid black;
@@ -460,6 +467,10 @@ button:hover {
     transition: background-color 0.3s ease;
     margin-top: 0.6em;
     margin-bottom: 2.0em;
+}
+
+#getstartedbutton2 {
+    margin-top: 2.5em;
 }
 
 .cta-button:hover {
@@ -493,6 +504,18 @@ button:hover {
     color: white;
 }
 
+.headline-card {
+    background-color: var(--backgroundcolor);
+    color: var(--blue);
+    padding: 20px 0px;
+    border-radius: var(--bradius);
+    margin: auto;
+    margin-bottom: 60px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 60vw;
+    max-width: 800px;
+}
+
 .feature-card {
     background-color: var(--backgroundcolor);
     color: var(--blue);
@@ -509,11 +532,27 @@ button:hover {
     width: 50%;
 }
 
+#howitworksdiv {
+    padding: 40px 10px 0px 10px;
+}
+
+#howitworkslist {
+    margin-top: 10px;
+    margin-left: 40px;
+    font-size: 1.3em;
+    font-weight: 350;
+}
+
+#howitworkslist li span p {
+    padding: 0;
+    margin-left: 10px;
+}
+
 .feature-details {
     background-color: white;
     border: 2px solid black;
     border-radius: var(--bradius);
-    padding: 25px 4px 8px 4px;
+    padding: 40px 4px 20px 4px;
     float: left;
     width: 35%;
     margin-top: 10%;
@@ -1035,7 +1074,7 @@ header ul li:hover {
 #hamburger-icon div {
   width: 35px;
   height: 3px;
-  background-color: var(--brightgreen);
+  background-color: var(--landingmaincolor);
   margin: 6px 0px;
   transition: 0.4s;
 }
@@ -1122,7 +1161,7 @@ header ul li:hover {
         margin-right: 0px;
     }
 
-    .hero-content {
+    .hero-content, .headline-card {
         width: 90%;
     }
 

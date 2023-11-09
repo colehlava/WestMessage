@@ -1,9 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 :root {
-    --blue: #001EFF;
+    --deepblue: #001EFF;
+    --blue: rgba(0, 40, 245, 1.0);
     --green: #1DB924;
     --altgreen: #0A5C36;
+    --altcolor: #1DB924;
     --messageSectionBackgroundColor: white;
     --messageSectionBorderColor: black;
     --messageTextColor: black;
@@ -21,6 +23,7 @@
 
 button {
     font-size: 1.0em;
+    border-radius: var(--bradius);
 }
 
 input[type=checkbox] {
@@ -62,7 +65,7 @@ header h3 {
 }
 
 #header-title {
-    color: var(--green);
+    color: var(--blue);
     width: auto;
     display: inline;
     float: left;
@@ -304,7 +307,7 @@ input[type="file"] {
 }
 
 .cancel-button-class {
-    background-color: rgba(230, 29, 43, 0.9);
+    background-color: #666666;
     color: white;
     border: 1px solid white;
     font-weight: bold;
@@ -313,14 +316,15 @@ input[type="file"] {
 }
 
 .custom-file-upload {
-    background-color: var(--green);
+    background-color: var(--altcolor);
     color: white;
     border: 1px solid white;
-    border-radius: 4px;
-    font-weight: bold;
+    border-radius: var(--bradius);
+    font-size: 1.3em;
+    font-weight: 700;
     cursor: pointer;
     display: inline-block;
-    padding: 6px 12px;
+    padding: 10px 20px;
 }
 
 .custom-file-upload:hover {
@@ -354,9 +358,12 @@ input[type="file"] {
 
 #message {
     width: 100%;
-    padding: 2px 0px 2px 0px;
+    padding: 0.4em 0.4em;
     color: black;
     font-size: 1.2em;
+    border: 1px solid black;
+    border-radius: 30px 30px 30px 30px;
+    resize: none;
 }
 
 /* @TODO: remove if not used */
@@ -601,7 +608,7 @@ button {
     color: #fff;
     padding: 0.5rem 1rem;
     border: none;
-    border-radius: 4px;
+    border-radius: var(--bradius);
     cursor: pointer;
 }
 
@@ -809,7 +816,8 @@ button:hover {
     margin-top: 30px;
     border: 1px solid black;
     background-color: white;
-    padding: 10px 0px 10px 0px;
+    padding: 0.4em 0.4em;
+    border-radius: 30px 30px 30px 30px;
 }
 
 #recipientmanualinputdiv p {
@@ -914,7 +922,7 @@ button:hover {
 #sendmessagebutton {
     width: 100px;
     padding: 15px 20px 15px 20px;
-    background-color: var(--green);
+    background-color: var(--blue);
     color: white;
     border: 1px solid white;
     font-weight: bold;
@@ -933,6 +941,12 @@ button:hover {
 
 #cancelmessagebutton:hover {
     background-color: #555;
+}
+
+#schedulemessagebutton {
+    border: 1px solid white;
+    font-weight: 500;
+    padding: 20px 20px;
 }
 
 #schedulemessagedatetimeinput {
@@ -1235,7 +1249,6 @@ button:hover {
     padding: 0px 0px 0px 0px;
     height: 100%;
     flex-grow: 1;
-    border-radius: 0px;
     font-size: 1.6em;
     font-weight: bold;
 }
@@ -1247,6 +1260,11 @@ button:hover {
 .showclientscontactsbutton {
     background-color: lightgrey;
     color: black;
+    border-radius: 30px 0px 0px 0px;
+}
+
+.showclientsgroupsbutton {
+    border-radius: 0px 30px 0px 0px;
 }
 
 .clientsearchboxdiv {
@@ -1266,6 +1284,8 @@ button:hover {
     float: center;
     margin: auto;
     display: block;
+    padding-left: 0.5em;
+    border-radius: var(--bradius);
 }
 
 .popup {

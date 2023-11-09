@@ -62,7 +62,7 @@ label, input {
 
 .main {
     display: block;
-    background-color: lightgrey;
+    background-color: white;
     width: 500px;
     height: 550px;
     margin: auto;
@@ -87,11 +87,11 @@ label, input {
 
 .un {
     width: 76%;
-    color: rgb(38, 50, 56);
+    color: #000000;
     font-weight: 600;
     font-size: 0.7em;
     letter-spacing: 1px;
-    background: rgba(136, 126, 126, 0.20);
+    background: lightgrey;
     padding: 10px 20px;
     border: none;
     border-radius: 20px;
@@ -114,11 +114,11 @@ form.form1 {
 
 .pass {
     width: 76%;
-    color: rgb(38, 50, 56);
+    color: #000000;
     font-weight: 600;
     font-size: 0.7em;
     letter-spacing: 1px;
-    background: rgba(136, 126, 126, 0.20);
+    background: lightgrey;
     padding: 10px 20px;
     border: none;
     border-radius: 20px;
@@ -138,18 +138,17 @@ form.form1 {
 
 .submit {
     cursor: pointer;
+    border: 1px solid black;
     border-radius: 5em;
     color: #fff;
-    /* background: linear-gradient(to right, #9C27B0, #E040FB); */
-    background-image: linear-gradient(black 0%, lightblue 100%);
-    border: 0;
+    background: var(--green);
     padding-left: 40px;
     padding-right: 40px;
     padding-bottom: 10px;
     padding-top: 10px;
-    font-family: 'Ubuntu', sans-serif;
     margin-left: 35%;
     font-size: 1.0em;
+    font-weight: 600;
     box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
 }
 
