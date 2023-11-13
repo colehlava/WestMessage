@@ -544,17 +544,23 @@ button:hover {
     width: 50%;
 }
 
-#howitworksdiv {
+#solutionsdiv h1 {
+    color: black;
+    font-size: 2.0em;
+}
+
+#howitworksdiv, #solutionsdiv {
     padding: 10px 10px 0px 10px;
 }
 
-#howitworkslist {
+.howitworkslist {
     margin-top: 2px;
     margin-left: 40px;
-    font-size: 1.6em;
+    font-size: 1.2em;
 }
 
-#howitworkslist li span p {
+.howitworkslist li span p {
+    color: black;
     padding: 0;
     margin-left: 10px;
 }
@@ -571,6 +577,30 @@ button:hover {
 
 .mobile-ss-container .feature-details {
     width: 50%;
+}
+
+.styled-ul {
+    list-style: none;
+    text-align: left;
+}
+
+.styled-ul li {
+    color: black;
+    font-size: 1.2em;
+    margin-bottom: 0.6em;
+}
+
+.styled-ul li::before {
+    content: "\2022";
+    color: black;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+}
+
+.indented-li li {
+    font-size: 0.85em;
+    margin-top: 0.3em;
 }
 
 .feature-details ul {
@@ -1199,7 +1229,7 @@ header ul li:hover {
         margin-top: 1.3em;
     }
 
-    #howitworkslist {
+    .howitworkslist {
         font-size: 1.3em;
     }
 

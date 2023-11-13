@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="landingstyles.css">
+    <link rel="stylesheet" href="aboutstyles.css">
+    <title>West Message</title>
+    <link rel="icon" href="./images/hero.jpeg">
+</head>
+
+<body>
+    <header>
+        <div id="brand"><a href="/">West Message</a></div>
+
+        <nav>
+            <ul>
+                <li><a href="/contact.html">Contact</a></li>
+                <li><a href="/pricing.html">Pricing</a></li>
+                <li><a href="/about.html">About</a></li>
+                <li><a href="/contact.html">Support</a></li>
+                <li id="login"><a href="/signin.html" >Login</a></li>
+                <li id="signup"><a href="/signup.html">Sign Up</a></li>
+            </ul>
+        </nav>
+
+        <div id="hamburger-icon" onclick="toggleMobileMenu(this)">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+            <ul class="mobile-menu">
+                <li><a href="/contact.html">Contact</a></li>
+                <li><a href="/pricing.html">Pricing</a></li>
+                <li><a href="/about.html">About</a></li>
+                <li><a href="/contact.html">Support</a></li>
+                <li id="login"><a href="/signin.html" >Login</a></li>
+                <li id="signup"><a href="/signup.html">Sign Up</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div><br><br>
+    <main>
+        <div style="float:center; justify-content:center; text-align:center; margin:auto;">
+            <h1>Opt-in Process</h1>
+            <br>
+            <h4>To opt-in to a messaging list, simply text "join" to +18667986394. By sending this message, you agree to receive text messages from West Message.</h4>
+        </div>
+
+    </main>
+
+    <div id="contactinfodiv">
+        <h4>For questions or concerns, feel free to contact us using any of the following methods:</h4>
+        <h2><a class="contactInfoItem phoneitem" href="tel:+13102103823">310-210-3823</a></h2>
+        <h2><a class="contactInfoItem emailitem" href="mailto:contact@westmessage.com">contact@westmessage.com</a></h2>
+    </div>
+        
+    </div>
+
+    <script>
+        function toggleMobileMenu(menu) {
+            menu.classList.toggle('open');
+        }
+    </script>
+
+    <footer>
+        <a href="/contact.html">Contact</a>
+        <a href="/legal.html">Legal</a>
+        <a href="/privacy-policy.html">Privacy Policy</a>
+        <a href="/contact.html">Support</a>
+        <p>&copy; 2023 West Message. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
