@@ -64,6 +64,7 @@ const functions = require('firebase-functions');
 
 const { initializeApp, applicationDefault, cert } = require("firebase-admin/app");
 const { getAuth } = require( "firebase-admin/auth");
+// const { getFirestore, Timestamp, FieldValue, Filter, connectFirestoreEmulator } = require( "firebase-admin/firestore");
 const { getFirestore, Timestamp, FieldValue, Filter } = require( "firebase-admin/firestore");
 
 // import { initializeApp, applicationDefault, cert } from "firebase-admin/app";
@@ -100,6 +101,7 @@ initializeApp({
 
 // Initialize Firestore db and save reference
 const db = getFirestore();
+// connectFirestoreEmulator(db, '127.0.0.1', 8080);
 
 // Initialize cloud storage bucket and save reference
 const storage = new Storage({
@@ -114,7 +116,7 @@ const storage = new Storage({
 const RecentMessage = require('./RecentMessage.js');
 
 // Constants
-const domainName = 'https://localhost:3000/';
+const domainName = 'https://westmessage.com/';
 const port = 3000;
 // const port = 8080;
 // const port = process.env.PORT || 8080;
@@ -395,6 +397,21 @@ async function sendSMSWithTwilio(fromNumber, personalizeMessageBody, recipientNu
 }
 
 
+// Read user's send from phone number from db
+async function getSendFromNumber(uid) {
+    const phoneNumbersDocument = db.collection('phone-numbers').doc('phone-numbers');
+    let dbItem = await phoneNumbersDocument.get();
+    const numbersMap = dbItem.data().numbersmap;
+
+    if (numbersMap[uid]) {
+        return numbersMap[uid];
+    }
+    else {
+        return numbersMap['default'];
+    }
+}
+
+
 // Send message to user's clients
 expApp.post("/send-message", async(req, res) => {
     const idToken = req.body.userIdToken;
@@ -474,7 +491,7 @@ expApp.post("/send-message", async(req, res) => {
             });
         }
 
-        const defaultTwilioSendFromNumber = '+18667986394';
+        const sendFromNumber = await getSendFromNumber(uid);
 
         // Send each message using Twilio API
         for (let i = 0; i < recipientsData.length; i++) {
@@ -511,14 +528,14 @@ expApp.post("/send-message", async(req, res) => {
                             return;
                         }
 
-                        sendMMSWithTwilio(defaultTwilioSendFromNumber, personalizeMessageBody, url, recipientNumber, scheduleSendTime, currentMessageUID);
+                        sendMMSWithTwilio(sendFromNumber, personalizeMessageBody, url, recipientNumber, scheduleSendTime, currentMessageUID);
                     });
                 } catch (error) {
                     console.log('Error while saving image in send-message: ' + error);
                 }
             }
             else {
-                sendSMSWithTwilio(defaultTwilioSendFromNumber, personalizeMessageBody, recipientNumber, scheduleSendTime, currentMessageUID);
+                sendSMSWithTwilio(sendFromNumber, personalizeMessageBody, recipientNumber, scheduleSendTime, currentMessageUID);
             }
         }
 
