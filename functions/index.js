@@ -34,6 +34,9 @@ const stripe = require('stripe')(stripeConfig);
 // const authToken = process.env.TWILIO_AUTH_TOKEN;
 // const twilioClient = twilio(accountSid, authToken);
 const twilio = require('twilio');
+// const MessagingResponse = require('twilio').twiml;
+// const MessagingResponse = twilio.twiml;
+const MessagingResponse = twilio.twiml.MessagingResponse;
 const twilioConfigRaw = fs.readFileSync('./.sec/twilio.json');
 const twilioConfig = JSON.parse(twilioConfigRaw);
 const twilioClient = new twilio(twilioConfig['accountSID'], twilioConfig['authToken']);
@@ -338,6 +341,51 @@ expApp.post('/contact-form', async (req, res) => {
     });
 
     res.end();
+});
+
+
+// Log incoming errors from Twilio webhook
+expApp.post('/twerrors', async (req, res) => {
+    let errorPayload = req.body.Payload;
+    let errorTimestamp = req.body.Timestamp;
+
+    if (!errorPayload || errorPayload == '') errorPayload = 'Empty error payload';
+    if (!errorTimestamp || errorTimestamp == '') errorTimestamp = new Date().getTime();
+
+    const newErrorObject = { error: errorPayload, timestamp: errorTimestamp };
+    const dbRef = db.collection('errors').doc('twilio-errors');
+    const unionRes = await dbRef.update({
+        errors: FieldValue.arrayUnion(newErrorObject)
+    });
+
+    res.end();
+});
+
+
+// Receive incoming message from Twilio webhook
+expApp.post('/wmincoming', async (req, res) => {
+    let fromNumber = req.body.From;
+    let destinationNumber = req.body.To;
+    let messageBody = req.body.Body;
+
+    if (!fromNumber || fromNumber == '') fromNumber = '1';
+    if (!destinationNumber || destinationNumber == '') destinationNumber = '2';
+    if (!messageBody || messageBody == '') messageBody = 'Default message body';
+
+    const currentTime = new Date().getTime();
+    const newMessageObject = { from: fromNumber, to: destinationNumber, message: messageBody, timestamp: currentTime };
+    // const newMessageObject = { timestamp: currentTime };
+    const dbRef = db.collection('incoming-messages').doc('incoming-messages');
+    const unionRes = await dbRef.update({
+        messages: FieldValue.arrayUnion(newMessageObject)
+    });
+
+    const twiml = new MessagingResponse();
+    twiml.message('Welcome to West Message');
+
+    res.type('text/xml').send(twiml.toString());
+
+    // res.end();
 });
 
 
@@ -1279,7 +1327,15 @@ exports.app = onRequest((request, response) => {
 // export { app };
 // console.log('\n\n\n\n Testing logging \n\n\n\n\n');
 
-const testMode = false;
+let testMode = false;
+for (let i = 0; i < process.argv.length; ++i) {
+    // console.log(`index ${i} argument -> ${process.argv[i]}`);
+    const currentArg = process.argv[i];
+    if (currentArg == '--testmode' || currentArg == '-t') {
+        testMode = true;
+        break;
+    }
+}
 
 if (!testMode) {
     exports.app = functions.https.onRequest(expApp);

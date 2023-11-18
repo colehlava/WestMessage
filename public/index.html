@@ -17,10 +17,10 @@
 
         <nav>
             <ul>
-                <li><a href="/contact.html">Contact</a></li>
-                <li><a href="/pricing.html">Pricing</a></li>
-                <li><a href="/about.html">About</a></li>
-                <li><a href="/contact.html">Support</a></li>
+                <li><a class="navoption" href="/contact.html">Contact <span class="downarrowsymbol">&#9660</span></a></li>
+                <li><a class="navoption" href="/pricing.html">Pricing <span class="downarrowsymbol">&#9660</span></a></li>
+                <li><a class="navoption" href="/about.html">About <span class="downarrowsymbol">&#9660</span></a></li>
+                <li><a class="navoption" href="/contact.html">Support <span class="downarrowsymbol">&#9660</span></a></li>
                 <li id="login"><a href="/signin.html" >Login</a></li>
                 <li id="signup"><a href="/signup.html">Sign Up</a></li>
             </ul>
@@ -43,7 +43,7 @@
 
     <main>
         <section class="hero">
-            <div class="hero-content">
+            <div id="browser-hero-content" class="hero-content">
                 <h1 class="westmessagelogo logocontainer">West Message</h1>
 
                 <!--
@@ -62,12 +62,26 @@
                 <h2>Connect with your audience through simple, scalable texting.</h2>
                 -->
 
-                <h2>Amplify audience engagement with a simple text message.</h2>
-                <h3>Reach thousands of customers or followers effortlessly with just a few clicks.</h3>
+                <h2>Reach your audience with a text message.</h2>
+                <h3>Text thousands of customers or followers with a few simple clicks.</h3>
 
-                <button id="start-button-new-user" class="get-started-button">Get Started</button>
+                <button id="start-button-new-user" class="get-started-button">Start for Free</button>
             </div>
         </section>
+
+        <div id="mobile-hero-content" class="hero-content">
+            <img id="mobile-hero-image" src="/images/hero01-mobile.png">
+            <br><br>
+
+            <div class="headline-card mobile-headline-card">
+                <h1 class="westmessagelogo logocontainer">West Message</h1>
+
+                <h2>Reach your audience with a text message.</h2>
+                <h3>Text thousands of customers or followers with a few simple clicks.</h3>
+
+                <button id="start-button-new-user" class="get-started-button">Start for Free</button>
+            </div>
+        </div>
 
         <section id="features" class="features">
             <!--
@@ -88,7 +102,7 @@
                         <li><span><p>You log in, type a message, and send to your audience.</p></span></li>
                     </ol>
                     <br>
-                    <button id="reservebutton1" class="get-started-button">Reserve a number</button>
+                    <button id="reservebutton1" class="get-started-button">Reserve a Number</button>
                 </div>
                 <span class="mobileformatspan"><br></span>
             </div>
@@ -98,13 +112,13 @@
                     <div class="feature-icon"><i class="fa fa-solid fa-bullseye fa-icon-generic fa-2xl"></i></div>
                     <h3>Targeted Communication</h3>
                     <ul>
+                        <li><span><p>Schedule messages to send at a specific time.</p></span></li>
                         <li><span><p>Client grouping features let you send targeted messages to specific audiences.</p></span></li>
-                        <li><span><p>Schedule messages to send at a specific time and day.</p></span></li>
                         <li><span><p>Upload new clients manually or let them opt-in by texting your number.</p></span></li>
                     </ul>
                 </div>
                 <span class="mobileformatspan"><br></span>
-                <img class="browser-screenshot" src="/images/targeted-sale-notification-zoom.png">
+                <img class="browser-screenshot" src="/images/targeted-communication-checked.png">
             </div>
 
             <div class="headline-card">
@@ -113,12 +127,12 @@
                     <h1>Our Solutions</h1>
                     <br>
                     <ul class="howitworkslist styled-ul">
-                        <li>Increase audience engagement with a free messaging list.
+                        <li>Drive audience engagement with a free messaging list.
                             <ul class="howitworkslist styled-ul indented-li">
                                 <li>Or, generate revenue with a paid messaging list.</li>
                             </ul>
                         </li>
-                        <li>Import customers from Shopify or CRM to text all of your audience.</li>
+                        <li>Import customers from Shopify or CRM.</li>
                         <li>Send thousands of texts with a few simple clicks.</li>
                     </ul>
                 </div>
@@ -134,11 +148,11 @@
                     <h3>Seamless Integration</h3>
                     <ul>
                         <li><span><p>Integrate directly with your Shopify store or CRM.</p></span></li>
-                        <li><span><p>Effortlessly send a text message to all of your customers.</p></span></li>
+                        <li><span><p>Text your entire audience effortlessly.</p></span></li>
                     </ul>
                 </div>
-                <img class="browser-screenshot" src="/images/text-all-clients.png">
-                <button id="getstartedbutton2" class="get-started-button">Get Started</button>
+                <img class="browser-screenshot" src="/images/west-message-user.png">
+                <button id="getstartedbutton2" class="get-started-button">Start for Free</button>
             </div>
 
             <!--
