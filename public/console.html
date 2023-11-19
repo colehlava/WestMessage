@@ -916,7 +916,6 @@
                                 return;
                             }
                             if (delta_ms < (16 * 60 * 1000)) {
-                                console.log('ccc');
                                 $("#message-status-div").text('Scheduled send time must be at least 16 minutes from now.');
                                 $("#message-status-div").css("color", "red");
                                 $("#sendmessagebutton").prop("disabled", false);
@@ -1007,12 +1006,13 @@
 
                     }).catch(function(error) {
                         console.log("Error occurred during user authentication");
+                        $("#sendmessagebutton").prop("disabled", false);
                     });
                 }
                 else {
                     console.log("Error occurred during user authentication");
+                    $("#sendmessagebutton").prop("disabled", false);
                 }
-
             });
 
 

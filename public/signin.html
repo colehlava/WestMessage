@@ -95,6 +95,8 @@
             // Sign in
             $("#signinbutton").click(function (event) {
                 event.preventDefault();
+                $("#signinbutton").prop("disabled", true);
+
                 const email = $("#signinemail").val();
                 const password = $("#signinpassword").val();
 
@@ -103,25 +105,30 @@
                     const user = userCredential.user;
                     if (user) {
                         user.getIdToken(true).then(function(idToken) {
+                            $("#signinbutton").prop("disabled", false);
                             document.location.href = "/console.html";
                         }).catch(function(error) {
                             $("#errormessage").text("Incorrect username or password");
+                            $("#signinbutton").prop("disabled", false);
                         });
                     }
                     else {
                         console.log("Error occurred during user authentication");
                         $("#errormessage").text("Error occurred during user authentication");
+                        $("#signinbutton").prop("disabled", false);
                     }
                   }).catch((error) => {
                         $("#signinsection").height(650);
                         console.log("Error occurred during user authentication");
                         $("#errormessage").text("Error occurred during user authentication");
+                        $("#signinbutton").prop("disabled", false);
                   });
             });
 
 
             // Forgot password
             $("#forgotbutton").click(function (event) {
+                event.preventDefault();
                 $("#signinsection").hide();
                 $("#forgotpasswordsection").show();
             });
@@ -129,18 +136,24 @@
 
             // Reset password
             $("#resetpasswordbutton").click(function (event) {
+                event.preventDefault();
+                $("#signinbutton").prop("disabled", true);
+
                 const email = $("#useremail").val();
 
                 sendPasswordResetEmail(auth, email).then(() => {
                         $("#forgotpasswordmessage").text("Password reset email has been sent");
+                        $("#signinbutton").prop("disabled", false);
                     }).catch((error) => {
                         $("#forgotpasswordmessage").text("Error occurred while resetting password");
+                        $("#signinbutton").prop("disabled", false);
                     });
             });
 
 
             // Cancel reset password
             $("#cancelpasswordresetbutton").click(function (event) {
+                event.preventDefault();
                 $("#forgotpasswordsection").hide();
                 $("#signinsection").show();
             });

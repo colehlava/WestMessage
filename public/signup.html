@@ -135,6 +135,8 @@
             // Sign up
             $("#signupbutton").click(function (event) {
                 event.preventDefault();
+                $("#signupbutton").prop("disabled", true);
+
                 const email = $("#signupemail").val();
                 const password = $("#signuppassword").val();
 
@@ -153,6 +155,8 @@
                         $("#errormessage").text("Error while creating account");
                         $("#errormessage").show();
                     }
+
+                    $("#signupbutton").prop("disabled", false);
                   })
                   .catch((error) => {
                     const errorCode = error.code;
@@ -171,6 +175,8 @@
                     }
                     $(".main").height( $(".main").height() + 50 );
                     $("#errormessage").show();
+
+                    $("#signupbutton").prop("disabled", false);
                   });
             });
 
@@ -178,6 +184,8 @@
             // Submit account settings
             $("#submitsettingsbutton").click(function (event) {
                 event.preventDefault();
+                $("#submitsettingsbutton").prop("disabled", true);
+
                 const user = auth.currentUser;
 
                 if (user) {
@@ -229,16 +237,19 @@
                                            // Redirect to console if user has already subscribed from pricing page
                                            document.location.href = "/console.html";
                                        }
+
+                                       $("#submitsettingsbutton").prop("disabled", false);
                                    },
                           error: function (errorMessage) {
                                      alert("Error while creating user profile");
+                                     $("#submitsettingsbutton").prop("disabled", false);
                                  }
                           // dataType: "json"
                         });
 
                     }).catch(function(error) {
-                        // Handle error
                         console.log("Error submitting account settings request");
+                        $("#submitsettingsbutton").prop("disabled", false);
                     });
                 }
                 else {
@@ -246,6 +257,7 @@
                     $(".main").height( $(".main").height() + 50 );
                     $("#errormessage").text("Error while creating account");
                     $("#errormessage").show();
+                    $("#submitsettingsbutton").prop("disabled", false);
                 }
             });
 
