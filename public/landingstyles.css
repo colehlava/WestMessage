@@ -4,13 +4,15 @@
     --backgroundcolor: #CCCCCC;
     --secondarycolor: #FFFFFF;
     --headercolor: #333333;
+    --maintextcolor: #000000;
     --blue: #0029F5;
     --deepblue: #001EFF;
+    --lightbluecustom: rgba(0, 242, 255, 0.6);
     --loginblue: #00EE33;
     --brightgreen: #00E100;
     --green: #1DB924;
     --altgreen: #0A5C36;
-    --landingmaincolor: #00F2EA;
+    --landingmaincolor: #00F2FF;
     --bradius: 30px;
     --border-thin: 0.1rem;
     --arrow-translate: 0,-50%;
@@ -586,9 +588,37 @@ button:hover {
     width: 50%;
 }
 
+#solutionsdiv {
+    background-color: var(--secondarycolor);
+    border-radius: var(--bradius);
+    width: 50vw;
+    min-width: 1300px;
+    margin: auto;
+    margin-bottom: 60px;
+}
+
 #solutionsdiv h1 {
-    color: black;
+    color: var(--maintextcolor);
     font-size: 2.0em;
+    font-weight: 500;
+    margin-top: 8px;
+    margin-bottom: 20px;
+}
+
+.solutionbox {
+    background-color: var(--lightbluecustom);
+    border-radius: var(--bradius);
+    box-shadow: 10px 5px 10px rgba(0, 0, 0, 0.3);
+    display: inline-block;
+    width: 350px;
+    height: 160px;
+    padding: 50px 8px;
+    margin: 10px 20px;
+}
+
+.solutionbox p {
+    color: var(--maintextcolor);
+    margin-top: 10px;
 }
 
 #howitworksdiv, #solutionsdiv {
@@ -1310,6 +1340,20 @@ header ul li:hover {
 
     #getstartedbutton2 {
         margin-top: 1.3em;
+    }
+
+    #solutionsdiv {
+        width: 90%;
+        min-width: 90%;
+    }
+
+    .solutionbox {
+        margin: auto;
+        width: 90%;
+    }
+
+    .solutionbox p {
+        font-size: 21px;
     }
 
     .howitworkslist * {
