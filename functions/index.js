@@ -234,10 +234,10 @@ expApp.post("/setup-user", async(req, res) => {
             const transactionResultIsSuccessful = await db.runTransaction(async (t) => {
                 try {
                     // Lookup transaction in db
-                    const paymentsDocument = db.collection('payment-transactions').doc('unredeemed');
+                    const paymentsDocument = db.collection('stripe-transactions').doc('unredeemed');
                     const paymentsData = await t.get(paymentsDocument);
-                    const unredeemedPayments = paymentsData.data().unredeemedPayments;
-                    const unredeemedPaymentsTempUIDMap = paymentsData.data().unredeemedPaymentsTempUIDMap;
+                    let unredeemedPayments = paymentsData.data().unredeemedPayments;
+                    let unredeemedPaymentsTempUIDMap = paymentsData.data().unredeemedPaymentsTempUIDMap;
                     const stripeSessionID = unredeemedPaymentsTempUIDMap[temporaryUID];
 
                     // Delete entries now that this subscription is redeemed
@@ -487,11 +487,15 @@ expApp.post("/send-message", async(req, res) => {
             }
         }
 
-        const currentMessageCredits = userRecipients.length; // @TODO: calculate message credits value
-        let accountCredits;
+        let currentMessageCredits = userRecipients.length;
+        if (userMessageImage != null) {
+            currentMessageCredits = currentMessageCredits * 5;
+        }
 
         // Atomically update account credits after subtracting credits for this message
         try {
+            let accountCredits = 0;
+
             const transactionResultIsSuccessful = await db.runTransaction(async (t) => {
                 // Verify user has enough credits in account to send the message
                 const userInfoDocument = db.collection('users').doc(uid);
@@ -1163,7 +1167,7 @@ expApp.post('/create-checkout-session-add-credits', async (req, res) => {
 
 
 // Dictionary to map product name to its value in account credits
-const productCreditsMap = {'Add 1,000 Credits': 1000, 'Add 10,000 Credits': 10000, 'Test Product 1': 100, 'Alternate Test Product': 1000, '1kcredits': 1000, '10kcredits': 10000};
+const productCreditsMap = {'Classic Plan': 1000, 'Premium Plan': 10000, 'Add 1,000 Credits': 1000, 'Add 10,000 Credits': 10000, 'Test Product 1': 100, 'Alternate Test Product': 1000, '1kcredits': 1000, '10kcredits': 10000};
 
 // Successful Stripe checkout reached
 expApp.get('/success', async (req, res) => {
@@ -1194,9 +1198,9 @@ expApp.get('/success', async (req, res) => {
         // Atomically read historical payments, verify payment is valid, save payment, and update user account credits
         try {
             const transactionResultIsSuccessful = await db.runTransaction(async (t) => {
-                const paymentDocRef = db.collection('payment-transactions').doc('payment-transactions');
-                const doc = await t.get(paymentDocRef);
-                const payments = doc.data().payments;
+                const paymentDocRef = db.collection('stripe-transactions').doc('all-transactions');
+                const paymentsDoc = await t.get(paymentDocRef);
+                let payments = paymentsDoc.data().payments;
 
                 // Check if payment is valid
                 if (!payments[sessionID]) {
@@ -1218,9 +1222,9 @@ expApp.get('/success', async (req, res) => {
                         }
                     }
                     else {
-                        whereToSaveCreditsDocRef = db.collection('payment-transactions').doc('unredeemed');
+                        whereToSaveCreditsDocRef = db.collection('stripe-transactions').doc('unredeemed');
                         const undredeemedPaymentsDoc = await t.get(whereToSaveCreditsDocRef);
-                        const unredeemedPayments = undredeemedPaymentsDoc.data().unredeemedPayments;
+                        let unredeemedPayments = undredeemedPaymentsDoc.data().unredeemedPayments;
 
                         if (unredeemedPayments[sessionID]) {
                             return false;
@@ -1230,7 +1234,7 @@ expApp.get('/success', async (req, res) => {
 
                             const currentTime = new Date().getTime();
                             tempUID = 'tuid-' + currentTime + Math.floor(Math.random() * 100000).toString();
-                            const unredeemedPaymentsTempUIDMap = undredeemedPaymentsDoc.data().unredeemedPaymentsTempUIDMap;
+                            let unredeemedPaymentsTempUIDMap = undredeemedPaymentsDoc.data().unredeemedPaymentsTempUIDMap;
                             unredeemedPaymentsTempUIDMap[tempUID] = sessionID;
 
                             updatedUserInfo = {unredeemedPayments: unredeemedPayments, unredeemedPaymentsTempUIDMap: unredeemedPaymentsTempUIDMap};
@@ -1278,10 +1282,26 @@ expApp.get('/success', async (req, res) => {
             }
         } catch (e) {
             console.log('Transaction failure: ' + e);
+
+            const errorTimestamp = new Date().getTime();
+            const newErrorObject = { error: e.toString(), timestamp: errorTimestamp };
+            const dbRef = db.collection('errors').doc('stripe-errors');
+            const unionRes = await dbRef.update({
+                errors: FieldValue.arrayUnion(newErrorObject)
+            });
+
             res.send(`<html><body><h1>Error occurred during transaction</h1></body></html>`);
         }
     } catch (error) {
         console.log('Session error: ' + error);
+
+        const errorTimestamp = new Date().getTime();
+        const newErrorObject = { error: error.toString(), timestamp: errorTimestamp };
+        const dbRef = db.collection('errors').doc('stripe-errors');
+        const unionRes = await dbRef.update({
+            errors: FieldValue.arrayUnion(newErrorObject)
+        });
+
         res.send(`<html><body><h1>Session error</h1></body></html>`);
     }
 });
