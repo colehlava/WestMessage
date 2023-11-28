@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <header>
+    <header id="headerid">
         <button id="login-button">Login</button>
         <div id="brand"><a href="/">West Message</a></div>
 
@@ -31,10 +31,11 @@
             <div class="bar2"></div>
             <div class="bar3"></div>
             <ul class="mobile-menu">
-                <li><a href="/contact.html">Contact</a></li>
-                <li><a href="/pricing.html">Pricing</a></li>
+                <li><a href="/">Home</a></li>
                 <li><a href="/about.html">About</a></li>
-                <li><a href="/contact.html">Support</a></li>
+                <li><a href="/pricing.html">Pricing</a></li>
+                <li><a href="/contact.html">Contact</a></li>
+                <br>
                 <li id="login"><a href="/signin.html" >Login</a></li>
                 <li id="signup"><a href="/signup.html">Sign Up</a></li>
             </ul>
@@ -63,7 +64,7 @@
                 -->
 
                 <h2>Reach your audience with a text message.</h2>
-                <h3>Text thousands of customers or followers with a few simple clicks.</h3>
+                <h3>Text thousands of followers with a few simple clicks.</h3>
 
                 <button id="start-button-new-user" class="get-started-button">Start for Free</button>
             </div>
@@ -77,36 +78,13 @@
                 <h1 class="westmessagelogo logocontainer">West Message</h1>
 
                 <h2>Reach your audience with a text message.</h2>
-                <h3>Text thousands of customers or followers with a few simple clicks.</h3>
+                <h3>Text thousands of followers with a few simple clicks.</h3>
 
                 <button id="start-button-new-user" class="get-started-button">Start for Free</button>
             </div>
         </div>
 
         <section id="features" class="features">
-            <!--
-            <div class="features-label">
-                <h1>West Message</h1>
-                <h2>Where communication meets innovation.</h2>
-            </div>
-            -->
-
-            <div class="headline-card">
-                <div id="howitworksdiv">
-                    <div class="feature-icon"><i class="fa fa-solid fa-circle-play fa-icon-generic fa-2xl"></i></div>
-                    <h2>How does it work?</h2>
-                    <br>
-                    <ol class="howitworkslist">
-                        <li><span><p>We give you a phone number.</p></span></li>
-                        <li><span><p>Anyone can opt-in to your messaging list by texting that number.</p></span></li>
-                        <li><span><p>You log in, type a message, and send to your audience.</p></span></li>
-                    </ol>
-                    <br>
-                    <button id="reservebutton1" class="get-started-button">Reserve a Number</button>
-                </div>
-                <span class="mobileformatspan"><br></span>
-            </div>
-
             <div id="solutionsdiv">
                 <h1>Why West Message?</h1>
 
@@ -132,29 +110,47 @@
                 <br><br>
             </div>
 
+            <div class="headline-card">
+                <div id="howitworksdiv">
+                    <div class="feature-icon"><i class="fa fa-solid fa-circle-play fa-icon-generic fa-2xl"></i></div>
+                    <h2>How does it work?</h2>
+                    <br>
+                    <ol class="howitworkslist">
+                        <li><span><p>We give you a phone number.</p></span></li>
+                        <li><span><p>Fans opt-in to your messaging list by texting that number.</p></span></li>
+                        <li><span><p>You log in, type a message, and send to your audience.</p></span></li>
+                    </ol>
+                    <br>
+                    <button id="reservebutton1" class="get-started-button">Reserve a Number</button>
+                </div>
+                <span class="mobileformatspan"><br></span>
+            </div>
+
+            <!--
             <div class="feature-card browser-ss-container">
                 <div class="feature-details">
                     <div class="feature-icon"><i class="fa fa-solid fa-bullseye fa-icon-generic fa-2xl"></i></div>
                     <h3>Targeted Communication</h3>
                     <ul>
                         <li><span><p>Schedule messages to send at a specific time.</p></span></li>
-                        <li><span><p>Client grouping features let you send targeted messages to specific audiences.</p></span></li>
+                        <li><span><p>Send targeted messages to specific audiences with our grouping features.</p></span></li>
                         <li><span><p>Upload new clients manually or let them opt-in by texting your number.</p></span></li>
                     </ul>
                 </div>
                 <span class="mobileformatspan"><br></span>
                 <img class="browser-screenshot" src="/images/targeted-communication-checked.png">
             </div>
+            -->
 
-            <div class="feature-card browser-ss-container">
+            <div id="bottomfeaturecard" class="feature-card browser-ss-container">
                 <div class="feature-details">
                     <div class="feature-icon">
-                        <i class="fa fa-brands fa-shopify fa-icon-generic fa-2xl" style="margin-right:0.4em;"></i>
-                        <i class="fa fa-brands fa-salesforce fa-icon-generic fa-2xl"></i>
+                        <i class="fa fa-solid fa-bullseye fa-icon-generic fa-2xl"></i>
                     </div>
-                    <h3>Seamless Integration</h3>
+                    <h3>Targeted Communication</h3>
                     <ul>
-                        <li><span><p>Integrate directly with your Shopify store or CRM.</p></span></li>
+                        <li><span><p>Send targeted messages to specific audiences.</p></span></li>
+                        <li><span><p>Schedule messages to send at a specific time.</p></span></li>
                         <li><span><p>Text your entire audience effortlessly.</p></span></li>
                     </ul>
                 </div>
@@ -189,6 +185,16 @@
             </div>
             -->
         </section>
+
+        <div id="getstartedpopup">
+            <div id="getstartedpopup-content">
+                <i id="closePopup-faIcon" class="fa fa-regular fa-rectangle-xmark fa-icon-generic fa-2xl"></i>
+                <h1>Try It For Free</h1>
+                <img id="popup-image" src="/images/hero01-mobile.png">
+                <br>
+                <button id="start-button-new-user" class="get-started-button">Start for Free</button>
+            </div>
+        </div>
     </main>
 
     <footer>
@@ -254,11 +260,59 @@
             document.location.href = "/signin.html";
         });
 
+
+        $("#closePopup-faIcon").click(function (event) {
+            $("#getstartedpopup").hide();
+        });
+
     </script>
 
     <script>
         function toggleMobileMenu(menu) {
             menu.classList.toggle('open');
+        }
+
+        const scrollDelta = 100;
+        var header = document.getElementById("headerid");
+        var didScroll = false;
+        var prevTopScreenVal = 0;
+        var popUpHasBeenShown = false;
+
+        window.onscroll = function() { 
+            didScroll = true;
+        };
+
+        setInterval(function() {
+            if (didScroll) {
+                didScroll = false;
+                setStickyHeader();
+            }
+        }, 150);
+
+        function setStickyHeader() {
+            // Get started popup
+            // if (!popUpHasBeenShown && window.pageYOffset > (document.getElementById("howitworksdiv").offsetTop + 100)) {
+            if (!popUpHasBeenShown && window.pageYOffset > (document.getElementById("bottomfeaturecard").offsetTop - 500)) {
+                popUpHasBeenShown = true;
+                document.getElementById("getstartedpopup").style.display = "flex";
+            }
+
+            // Sticky header
+            if (window.pageYOffset < 50) {
+                header.classList.remove("sticky");
+            }
+            else if (window.pageYOffset < prevTopScreenVal) {
+                header.classList.add("sticky");
+            }
+            else if (window.pageYOffset >= prevTopScreenVal && (window.pageYOffset - prevTopScreenVal) < scrollDelta) {
+                prevTopScreenVal = window.pageYOffset;
+                return;
+            }
+            else {
+                header.classList.remove("sticky");
+            }
+
+            prevTopScreenVal = window.pageYOffset;
         }
     </script>
 

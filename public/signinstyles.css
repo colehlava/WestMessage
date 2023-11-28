@@ -1,9 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 :root {
-    --blue: #001EFF;
-    --green: #1DB924;
+    --blue: #1919FF;
+    --green: #19C337;
     --altgreen: #0A5C36;
+    --landingmaincolor: #00F2FF;
     --bradius: 30px;
 }
 
@@ -79,8 +80,8 @@ label, input {
 .sign {
     margin-top: 30px;
     color: black;
-    font-weight: bold;
-    font-size: 23px;
+    font-size: 21px;
+    font-weight: 600;
     margin-bottom: 2px;
     display: block;
 }
@@ -138,9 +139,9 @@ form.form1 {
 
 .submit {
     cursor: pointer;
-    border: 1px solid black;
+    border: 2px solid lightgrey;
     border-radius: 5em;
-    color: #fff;
+    color: #FFFFFF;
     background: var(--green);
     padding-left: 40px;
     padding-right: 40px;
@@ -246,6 +247,7 @@ ul {
 
 ul a {
   color: white;
+  font-weight: 600;
 }
 
 ul li {
@@ -270,11 +272,11 @@ ul li:hover {
 }
 
 #signup {
-  border: 1px solid red;
+  border: 1px solid var(--green);
 }
 
 #signup a {
-  color: red;
+  color: var(--green);
   text-decoration: none;
 }
 
@@ -294,7 +296,7 @@ ul li:hover {
 #hamburger-icon div {
   width: 35px;
   height: 3px;
-  background-color: var(--green);
+  background-color: var(--landingmaincolor);
   margin: 6px 10px;
   transition: 0.4s;
 }
@@ -341,7 +343,8 @@ ul li:hover {
 }
 
 .mobile-menu a {
-  color: var(--green);
+  color: var(--landingmaincolor);
+  text-decoration: underline;
 }
 
 

@@ -2,10 +2,11 @@
 
 :root {
     --deepblue: #001EFF;
-    --blue: rgba(0, 40, 245, 1.0);
+    --blue: #1919FF;
     --green: #1DB924;
     --altgreen: #0A5C36;
     --altcolor: #1DB924;
+    --landingmaincolor: #00F2FF;
     --messageSectionBackgroundColor: white;
     --messageSectionBorderColor: black;
     --messageTextColor: black;
@@ -65,12 +66,15 @@ header h3 {
 }
 
 #header-title {
-    color: var(--blue);
+    color: white;
+    background-color: var(--blue);
+    border-radius: var(--bradius);
     width: auto;
     display: inline;
     float: left;
-    font-size: 2em;
-    padding: 0px 0px 0px 0px;
+    font-size: 28px;
+    font-weight: bold;
+    padding: 10px 20px;
     margin-top: 0.4em;
     margin-left: 2.0em;
 }
@@ -825,50 +829,65 @@ button:hover {
     padding: 0;
 }
 
-#info-icon-newmessage {
+#info-icon-newmessage, #info-icon-howcreditswork {
     cursor: pointer;
-    margin-right: 3em;
-    padding: 1em 2em;
+    padding: 1em 1em;
 }
 
-#info-icon-newmessage:hover {
+#info-icon-newmessage {
+    margin-right: 3em;
+}
+
+#info-icon-newmessage:hover, #info-icon-howcreditswork:hover {
     transform: scale(1.4);
 }
 
-#newmessageInfoPopup {
-    background-color: lightgrey;
+.expand-info-span i {
+    display: inline;
+}
+
+.info-popup {
+    background-color: white;
     color: black;
-    border: 1px solid black;
+    border: 3px solid black;
     padding: 1em;
     display: none;
     width: 15em;
     height: 15em;
     position: fixed;
     z-index: 3;
-    left: 50%;
-    top: 50%;
 }
 
-#newmessageInfoPopup ol {
+.info-popup ol {
     list-style: none;
 }
 
-#newmessageInfoPopup h4 {
+.info-popup h4 {
     margin-top: 2em;
     color: black;
 }
 
-#newmessageInfoPopup p {
+.info-popup p {
     color: black;
 }
 
-#closeNewMessageInfo-faIcon {
+#newmessageInfoPopup {
+    left: 49%;
+    top: 50%;
+}
+
+#howCreditsWorkInfoPopup {
+    left: 66%;
+    top: 10%;
+}
+
+#closeNewMessageInfo-faIcon, #closeHowCreditsWorkInfo-faIcon {
     margin-top: 4px;
     float: right;
     cursor: pointer;
 }
 
-#closeNewMessageInfo-faIcon:hover {
+#closeNewMessageInfo-faIcon:hover, #closeHowCreditsWorkInfo-faIcon:hover {
     transform: scale(1.1);
 }
 
@@ -1615,7 +1634,7 @@ ul li:hover {
 #hamburger-icon div {
   width: 40px;
   height: 6px;
-  background-color: var(--green);
+  background-color: var(--landingmaincolor);
   margin: 6px 6px 6px 6px;
   transition: 0.4s;
 }
@@ -1747,7 +1766,8 @@ ul li:hover {
     #header-title {
         color: white;
         font-size: 1.5em;
-        margin-top: 6px;
+        margin-top: 0px;
+        margin-left: 20px;
     }
 
     .headerbutton {
@@ -1842,8 +1862,14 @@ ul li:hover {
         margin-right: 0.0em;
         padding: 1em 1em;
     }
-    #newmessageInfoPopup {
+
+    .info-popup {
         left: 23%;
+    }
+
+    #newmessageInfoPopup, #howCreditsWorkInfoPopup {
+        left: 15%;
+        top: 40%;
     }
 
     .popup-content {

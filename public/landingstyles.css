@@ -5,7 +5,7 @@
     --secondarycolor: #FFFFFF;
     --headercolor: #333333;
     --maintextcolor: #000000;
-    --blue: #0029F5;
+    --blue: #1919FF;
     --deepblue: #001EFF;
     --lightbluecustom: rgba(0, 242, 255, 0.6);
     --loginblue: #00EE33;
@@ -47,11 +47,17 @@ header a {
 nav a {
     cursor: pointer;
     font-size: 1.2rem;
-    font-weight: 300;
+    font-weight: 600;
     text-decoration: none;
 }
 
-.navoption {
+.sticky {
+    position: fixed;
+    top: 0;
+    left: -20px;
+    z-index: 3;
+    margin-left: 0;
+    padding-left: 0;
 }
 
 .downarrowsymbol {
@@ -197,11 +203,57 @@ strong {
   color:#4834d4
 }
 
+#getstartedpopup {
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    z-index: 4;
+    position: fixed;
+    top: 0px;
+}
 
+#getstartedpopup-content {
+    background-color: #DDDDDD;
+    border: 3px solid black;
+    border-radius: var(--bradius);
+    width: 30vw;
+    height: 40vh;
+    float: center;
+    margin: auto;
+    padding: 10px 10px 10px 10px;
+    text-align: center;
+    position: fixed;
+    top: 20vh;
+    left: 35vw;
+}
 
+#getstartedpopup-content h1 {
+    color: black;
+    font-size: 1.8em;
+    font-weight: 750;
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
 
+#getstartedpopup-content img {
+    border: 2px solid black;
+    border-radius: var(--bradius);
+    max-width: 20vw;
+    height: auto;
+    margin: auto;
+}
 
+#closePopup-faIcon {
+    cursor: pointer;
+    margin-top: 25px;
+    margin-right: 10px;
+    float: right;
+}
 
+#closePopup-faIcon:hover {
+    transform: scale(1.1);
+}
 
 footer {
     background-color: black;
@@ -408,8 +460,8 @@ button:hover {
 
 #login-button {
     background-color: rgb(0, 0, 0);
-    color: var(--loginblue);
-    border: 1px solid var(--loginblue);
+    color: var(--landingmaincolor);
+    border: 1px solid var(--landingmaincolor);
     font-size: 1em;
     vertical-align: middle;
     float: right;
@@ -581,7 +633,7 @@ button:hover {
     margin-bottom: 60px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     width: 50vw;
-    height: 61vh;
+    height: 50vh;
 }
 
 .mobile-ss-container {
@@ -599,9 +651,9 @@ button:hover {
 
 #solutionsdiv h1 {
     color: var(--maintextcolor);
-    font-size: 2.0em;
-    font-weight: 500;
-    margin-top: 8px;
+    font-size: 1.9em;
+    font-weight: 700;
+    margin-top: 4px;
     margin-bottom: 20px;
 }
 
@@ -646,7 +698,7 @@ button:hover {
     border-radius: var(--bradius);
     padding: 40px 4px 2px 4px;
     float: left;
-    width: 35%;
+    width: 50%;
     margin-top: 10px;
     margin-left: 10px;
 }
@@ -726,7 +778,7 @@ button:hover {
 }
 
 .browser-screenshot {
-    max-width: 55%;
+    max-width: 45%;
     height: auto;
     margin-top: 10px;
 }
@@ -1190,7 +1242,7 @@ header ul li:hover {
 #hamburger-icon div {
   width: 35px;
   height: 3px;
-  background-color: var(--loginblue);
+  background-color: var(--landingmaincolor);
   margin: 6px 0px;
   transition: 0.4s;
 }
@@ -1236,7 +1288,7 @@ header ul li:hover {
 }
 
 .mobile-menu a {
-  color: var(--green);
+  color: var(--landingmaincolor);
 }
 
 
@@ -1298,14 +1350,14 @@ header ul li:hover {
     }
 
     .hero-content h2 {
-        font-size: 1.0em;
+        font-size: 1.2em;
         font-weight: 800;
         margin-bottom: 20px;
     }
 
     .hero-content h3 {
-        font-size: 0.9em;
-        font-weight: 500;
+        font-size: 1.1em;
+        font-weight: 600;
     }
 
     #browser-hero-content {
@@ -1404,9 +1456,9 @@ header ul li:hover {
     }
 
     .browser-screenshot {
-        max-width: 100%;
+        max-width: 90%;
         height: auto;
-        margin: auto;
+        margin: 17px;
     }
 
     .mobile-screenshot {
@@ -1414,6 +1466,17 @@ header ul li:hover {
         width: auto;
         margin-left: 18%;
         margin-right: auto;
+    }
+
+    #getstartedpopup-content {
+        width: 90vw;
+        height: 55vh;
+        top: 10vh;
+        left: 2vw;
+    }
+
+    #getstartedpopup-content img {
+        max-width: 90vw;
     }
 
     footer a {

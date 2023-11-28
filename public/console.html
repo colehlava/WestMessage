@@ -105,12 +105,12 @@
                         </div>
                     </div><br>
 
-                    <div id="newmessageInfoPopup">
+                    <div id="newmessageInfoPopup" class="info-popup">
                         <i id="closeNewMessageInfo-faIcon" class="fa fa-regular fa-rectangle-xmark fa-icon-generic fa-2xl"></i>
                         <ol>
                             <li>
-                                <h4>Personalized messages</h4>
-                                <p>Use keyword "_NAME_" to send personalized messages.</p>
+                                <h4>Personalized Messages</h4><br>
+                                <p>Use keyword "_NAME_" to send personalized messages.</p><br>
                                 <p>All occurrences of _NAME_ will be replaced with the client's first name.</p>
                             </li>
                         </ol>
@@ -411,7 +411,23 @@
                         <h3 id="account-info-profile-name"></h3>
                         <h3 id="account-info-profile-tier"></h3>
                         <h3 id="account-info-profile-credits"></h3>
-                    </div><br><br>
+
+                        <h4>
+                            How do credits work?
+                            <i id="info-icon-howcreditswork" class="fa fa-solid fa-circle-info fa-lg fa-icon-generic"></i>
+                        </h4>
+                        <div id="howCreditsWorkInfoPopup" class="info-popup">
+                            <i id="closeHowCreditsWorkInfo-faIcon" class="fa fa-regular fa-rectangle-xmark fa-icon-generic fa-2xl"></i>
+                            <ol>
+                                <li>
+                                    <h4>Message Credits</h4><br>
+                                    <p>Text messages require 1 credit per message. Picture messages require 5 credits per message.</p><br>
+                                    <p>Add more credits any time by clicking one of the options below.</p>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                    <br><br>
 
                     <h2 id="addCreditsHeading">Add Credits</h2>
 
@@ -1450,6 +1466,16 @@
                 setTimeout(function() {
                      readClientsFromDb("saved-client-list-table");
                 }, 3000);
+            });
+
+
+            $("#info-icon-howcreditswork").click(function (event) {
+                $("#howCreditsWorkInfoPopup").toggle();
+            });
+
+
+            $("#closeHowCreditsWorkInfo-faIcon").click(function (event) {
+                $("#howCreditsWorkInfoPopup").hide();
             });
 
 
