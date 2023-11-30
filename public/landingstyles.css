@@ -28,7 +28,7 @@
 
 header {
     background-color: var(--headercolor);
-    height: 55px;
+    height: 45px;
     display: inline-block;
     width: 100%;
     justify-content: right;
@@ -46,7 +46,7 @@ header a {
 
 nav a {
     cursor: pointer;
-    font-size: 1.2rem;
+    font-size: 0.6em;
     font-weight: 600;
     text-decoration: none;
 }
@@ -65,7 +65,7 @@ nav a {
 }
 
 p {
-    font-size: 24px;
+    font-size: 1.0em;
 }
 
 ol, ol li, ol li p {
@@ -87,8 +87,8 @@ strong {
     text-align: center;
     float: center;
     margin: auto;
-    margin-top: 0.9em;
-    margin-bottom: 0.9em;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 .westmessagelogo {
@@ -215,16 +215,16 @@ strong {
 
 #getstartedpopup-content {
     background-color: #DDDDDD;
-    border: 3px solid black;
+    border: 2px solid black;
     border-radius: var(--bradius);
-    width: 30vw;
-    height: 40vh;
+    width: 35vw;
+    height: 69vh;
     float: center;
     margin: auto;
     padding: 10px 10px 10px 10px;
     text-align: center;
     position: fixed;
-    top: 20vh;
+    top: 10vh;
     left: 35vw;
 }
 
@@ -239,7 +239,7 @@ strong {
 #getstartedpopup-content img {
     border: 2px solid black;
     border-radius: var(--bradius);
-    max-width: 20vw;
+    width: 90%;
     height: auto;
     margin: auto;
 }
@@ -518,11 +518,10 @@ button:hover {
     color: white;
     border: 2px solid black;
     border-radius: var(--bradius);
-    max-width: 700px;
+    max-width: 500px;
     margin: auto;
     margin-top: 6em;
     margin-bottom: 0.5em;
-    padding-top: 1px;
 }
 
 .hero-content h2, h2, h3, h4 {
@@ -530,12 +529,13 @@ button:hover {
 }
 
 .hero-content h2 {
-    font-size: 1.5em;
+    font-size: 1.2em;
     margin-bottom: 0.5em;
 }
 
 .hero-content h3 {
-    font-size: 1.2em;
+    font-size: 1.0em;
+    font-weight: 500;
 }
 
 #mobile-hero-content {
@@ -544,6 +544,17 @@ button:hover {
     text-align: center;
     padding: 0;
     margin: 0;
+}
+
+#mobile-hero-content h2 {
+    font-size: 1.2em;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+#mobile-hero-content h3 {
+    font-size: 1.0em;
+    font-weight: 600;
 }
 
 #mobile-hero-image {
@@ -577,8 +588,32 @@ button:hover {
     margin-bottom: 10px;
 }
 
+.learn-more-button {
+    background-color: var(--green);
+    color: black;
+    display: inline;
+    border: 2px solid black;
+    border-radius: var(--bradius);
+    padding: 15px 30px 15px 30px;
+    text-decoration: none;
+    font-size: 1.0em;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
 #getstartedbutton2 {
+    float: center;;
+    margin: auto;
+    margin-top: 0.8em;
+    margin-bottom: 0.8em;
+}
+
+#getstartedbuttonlast {
+    display: none;
     margin-top: 2.5em;
+    margin-bottom: 0em;
 }
 
 .cta-button:hover {
@@ -615,13 +650,13 @@ button:hover {
 .headline-card {
     background-color: var(--secondarycolor);
     color: var(--blue);
-    padding: 20px 0px;
+    padding: 20px;
     border-radius: var(--bradius);
     margin: auto;
     margin-bottom: 60px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    width: 60vw;
-    max-width: 800px;
+    width: 50vw;
+    max-width: 300px;
 }
 
 .feature-card {
@@ -632,8 +667,8 @@ button:hover {
     margin: auto;
     margin-bottom: 60px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    width: 50vw;
-    height: 55vh;
+    width: 60vw;
+    height: 70vh;
 }
 
 .mobile-ss-container {
@@ -644,14 +679,14 @@ button:hover {
     background-color: var(--secondarycolor);
     border-radius: var(--bradius);
     width: 50vw;
-    min-width: 1300px;
+    min-width: 950px;
     margin: auto;
     margin-bottom: 60px;
 }
 
 #solutionsdiv h1 {
     color: var(--maintextcolor);
-    font-size: 1.9em;
+    font-size: 1.7em;
     font-weight: 700;
     margin-top: 4px;
     margin-bottom: 20px;
@@ -662,7 +697,7 @@ button:hover {
     border-radius: var(--bradius);
     box-shadow: 10px 5px 10px rgba(0, 0, 0, 0.3);
     display: inline-block;
-    width: 350px;
+    width: 250px;
     height: 160px;
     padding: 50px 8px;
     margin: 10px 20px;
@@ -683,7 +718,7 @@ button:hover {
 }
 
 .howitworkslist * {
-    font-size: 24px;
+    font-size: 1.0em;
 }
 
 .howitworkslist li span p {
@@ -738,7 +773,7 @@ button:hover {
     color: black;
     padding: 0;
     margin: 0;
-    margin-bottom: 1em;
+    margin-bottom: 8px;
     position: relative;
     left: -10px;
 }
@@ -761,13 +796,13 @@ button:hover {
 
 .feature-card h3 {
     color: black;
-    font-size: 24px;
     text-align: center;
     margin-bottom: 10px;
 }
 
 .feature-card p {
     color: black;
+    font-size: 0.9em;
     text-align: left;
 }
 
@@ -1390,8 +1425,17 @@ header ul li:hover {
         margin-bottom: 0.1em;
     }
 
+    .learn-more-button {
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+
     #getstartedbutton2 {
-        margin-top: 1.3em;
+        display: none;
+    }
+
+    #getstartedbuttonlast {
+        display: inline;
     }
 
     #solutionsdiv {

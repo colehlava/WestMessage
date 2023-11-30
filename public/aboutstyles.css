@@ -67,6 +67,11 @@ section {
     margin-bottom: 20px;
 }
 
+#what-sets-us-apart a {
+    color: #0000EE;
+    font-size: 0.9em;
+}
+
 #aboutpagegetstartedbutton {
     display: block;
     float: center;

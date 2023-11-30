@@ -47,22 +47,6 @@
             <div id="browser-hero-content" class="hero-content">
                 <h1 class="westmessagelogo logocontainer">West Message</h1>
 
-                <!--
-                <h3>Send a text message to thousands of clients with a few simple clicks.</h3>
-                <h2>A practical communications tool for businesses.</h2>
-
-                <h2>Influence Beyond the Feed. Your Community Awaits.</h2>
-                <h3>Connect with your audience through text message.</h3>
-
-                <h2>Influence outside the Feed. Text your community with West Message.</h2>
-                <h3>Send a text message to thousands of fans with a few simple clicks.</h3>
-
-                <h2>Connect personally with a text message.</h2>
-                <h3>Text thousands of followers with a few simple clicks.</h3>
-
-                <h2>Connect with your audience through simple, scalable texting.</h2>
-                -->
-
                 <h2>Reach your audience with a text message.</h2>
                 <h3>Text thousands of followers with a few simple clicks.</h3>
 
@@ -70,7 +54,7 @@
             </div>
         </section>
 
-        <div id="mobile-hero-content" class="hero-content">
+        <div id="mobile-hero-content" class="hero-contentalt">
             <img id="mobile-hero-image" src="/images/hero01-mobile.png">
             <br><br>
 
@@ -107,7 +91,8 @@
                     <h2>Scalability</h2>
                     <p>Send thousands of texts with a few simple clicks.</p>
                 </div>
-                <br><br>
+
+                <button class="learn-more-button">Learn More</button>
             </div>
 
             <div class="headline-card">
@@ -150,12 +135,14 @@
                     <h3>Targeted Communication</h3>
                     <ul>
                         <li><span><p>Send targeted messages to specific audiences.</p></span></li>
-                        <li><span><p>Schedule messages to send at a specific time.</p></span></li>
+                        <li><span><p>Schedule messages to send at a designated time.</p></span></li>
                         <li><span><p>Text your entire audience effortlessly.</p></span></li>
+                        <span class="mobileformatspan"><br></span>
                     </ul>
+                    <button id="getstartedbutton2" class="get-started-button">Start for Free</button>
                 </div>
                 <img class="browser-screenshot" src="/images/west-message-user.png">
-                <button id="getstartedbutton2" class="get-started-button">Start for Free</button>
+                <button id="getstartedbuttonlast" class="get-started-button">Start for Free</button>
             </div>
 
             <!--
@@ -252,6 +239,12 @@
         $(".get-started-button").click(function (event) {
             event.preventDefault();
             document.location.href = "/signup.html";
+        });
+
+
+        $(".learn-more-button").click(function (event) {
+            event.preventDefault();
+            document.location.href = "/about.html";
         });
 
 
