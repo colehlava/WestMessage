@@ -53,6 +53,10 @@ section {
     margin-bottom: 10px;
 }
 
+#mission {
+    padding-top: 2px;
+}
+
 #mission p {
     font-size: 1.0em;
     margin-bottom: 40px;
@@ -64,9 +68,10 @@ section {
 }
 
 #aboutpagegetstartedbutton {
+    display: block;
     float: center;
     text-align: center;
-    margin-left: 40%;
+    margin: auto;
     margin-bottom: 0.5em;
 }
 
@@ -173,8 +178,8 @@ footer p {
         padding: 10px;
     }
 
-    #aboutpagegetstartedbutton {
-        margin-left: 29%;
+    #mission {
+        padding-top: 10px;
     }
 
     .formfield {
