@@ -410,6 +410,7 @@
                         <h2 id="account-info-business-name"></h2>
                         <h3 id="account-info-profile-name"></h3>
                         <h3 id="account-info-profile-tier"></h3>
+                        <h3 id="account-info-profile-sendfrom-number"></h3>
                         <h3 id="account-info-profile-credits"></h3>
 
                         <h4>
@@ -1879,7 +1880,8 @@
                                        $("#account-info-business-name").text(returnedData['business']);
                                        $("#account-info-profile-name").text(returnedData['firstname'] + ' ' + returnedData['lastname']);
                                        $("#account-info-profile-tier").text(returnedData['accountTier']);
-                                       $("#account-info-profile-credits").text('Account credits: ' + returnedData['credits']);
+                                       $("#account-info-profile-sendfrom-number").text('Account Phone: ' + returnedData['sendFromNumber']);
+                                       $("#account-info-profile-credits").text('Account Credits: ' + returnedData['credits']);
                                        $(".accountinfoclientUID").val(user.uid);
                           },
                           error: function (errorMessage) { console.log("Error retrieving user profile info"); } // ,

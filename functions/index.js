@@ -353,7 +353,9 @@ expApp.post("/user-info", async(req, res) => {
           const accountTier = userItem.data().accountTier;
           const credits = userItem.data().credits;
 
-          const dataToSend = JSON.stringify({firstname: firstname, lastname: lastname, business: business, accountTier: accountTier, credits: credits});
+          const sendFromNumber = await getSendFromNumber(uid);
+
+          const dataToSend = JSON.stringify({firstname: firstname, lastname: lastname, business: business, accountTier: accountTier, credits: credits, sendFromNumber: sendFromNumber});
           res.send(dataToSend);
       })
       .catch((error) => {
@@ -439,7 +441,7 @@ expApp.post('/wmincoming', async (req, res) => {
     });
 
     const twiml = new MessagingResponse();
-    twiml.message('Welcome to West Message');
+    twiml.message('Thanks for signing up!');
 
     res.type('text/xml').send(twiml.toString());
 });
@@ -799,12 +801,29 @@ expApp.post("/saved-clients", async(req, res) => {
           const uid = decodedToken.uid;
           console.log('saved-clients page accessed by ' + uid);
 
-          // Read user's clients from db
+          // Read user's saved clients from db
           const userClientsDocument = db.collection('user-clients').doc(uid);
           let userItem = await userClientsDocument.get();
           const clients = userItem.data().clients;
 
-          // Read user's client groups from db
+          // Read user's clients that opted in via text
+          let opted_in_clients;
+          try {
+              const messagingListsDocument = db.collection('user-messaginglists').doc(uid);
+              let dbItem = await messagingListsDocument.get();
+              opted_in_clients = dbItem.data().members;
+          } catch (e) {
+              opted_in_clients = [];
+          }
+
+          // Merge text optins with saved clients list
+          for (let i = 0; i < opted_in_clients.length; i++) {
+              const currentTime = new Date().getTime();
+              const tempClientUID = 'cid-' + currentTime + Math.floor(Math.random() * 100000).toString();
+              clients[tempClientUID] = {firstname: 'Text', lastname: 'OptIn', phone: opted_in_clients[i]};
+          }
+
+          // Read user's saved client groups from db
           let groups;
           try {
               const userClientGroupsDocument = db.collection('user-clientgroups').doc(uid);
