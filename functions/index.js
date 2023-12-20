@@ -228,6 +228,49 @@ expApp.post("/setup-user", async(req, res) => {
         const userData = {firstName: req.body.userFirstName, lastName: req.body.userLastName, phone: req.body.userPhone, email: req.body.userEmail, business: req.body.business, credits: 0, accountTier: 'Free Account'};
         const writeResult = await db.collection('users').doc(uid).set(userData);
 
+        // Atomically assign new user a sendfrom number and save to db
+        const assignPhoneNumberTransactionResultIsSuccessful = await db.runTransaction(async (t) => {
+            try {
+                const phoneNumbersDocument = db.collection('phone-numbers').doc('available-numbers-pool');
+                const phoneNumbersDocRef = await t.get(phoneNumbersDocument);
+                let availableNumbers = phoneNumbersDocRef.data().availableNumbers;
+
+                let newUsersSendfromNumber;
+                if (availableNumbers.length > 0) {
+                    newUsersSendfromNumber = availableNumbers.shift();
+                }
+                else {
+                    newUsersSendfromNumber = phoneNumbersDocRef.data().defaultNumber;
+                }
+
+                const savedPhoneNumbersDocument = db.collection('phone-numbers').doc('phone-numbers');
+                const savedPhoneNumbersDocRef = await t.get(savedPhoneNumbersDocument);
+                let numberToUID = savedPhoneNumbersDocRef.data().numberToUID;
+                let numbersmap = savedPhoneNumbersDocRef.data().numbersmap;
+                numberToUID[newUsersSendfromNumber] = uid;
+                numbersmap[uid] = newUsersSendfromNumber;
+
+                const updatedSavedPhoneNumbersData = {numberToUID: numberToUID, numbersmap: numbersmap};
+                t.update(savedPhoneNumbersDocument, updatedSavedPhoneNumbersData);
+
+                const updatedPhoneNumbersData = {availableNumbers: availableNumbers};
+                t.update(phoneNumbersDocument, updatedPhoneNumbersData);
+
+                return true;
+
+            } catch (error) {
+                console.log('Error during setup-user assign phone number: ' + error);
+                return false;
+            }
+        });
+
+        if (!assignPhoneNumberTransactionResultIsSuccessful) {
+            res.status(400);
+            res.end();
+            return;
+        }
+
+        // Handle case where user paid for subscription before creating account
         const temporaryUID = req.body.temporaryUID;
         if (temporaryUID != '') {
             // Atomically lookup unredeemed transaction, mark it as redeemed by deleting the entries, and update user account credits and subscription info
@@ -368,13 +411,28 @@ expApp.post('/wmincoming', async (req, res) => {
     let destinationNumber = req.body.To;
     let messageBody = req.body.Body;
 
-    if (!fromNumber || fromNumber == '') fromNumber = '1';
-    if (!destinationNumber || destinationNumber == '') destinationNumber = '2';
-    if (!messageBody || messageBody == '') messageBody = 'Default message body';
+    if (!fromNumber || fromNumber == '') fromNumber = 'Error';
+    if (!destinationNumber || destinationNumber == '') destinationNumber = 'Error';
+    if (!messageBody || messageBody == '') messageBody = 'Error';
+
+    // Add user to messaging list
+    if (messageBody.toLowerCase() == 'join') {
+        const phoneNumbersDocument = db.collection('phone-numbers').doc('phone-numbers');
+        let dbItem = await phoneNumbersDocument.get();
+        const numberToUID = dbItem.data().numberToUID;
+
+        if (numberToUID[destinationNumber]) {
+            const listOwnerUID = numberToUID[destinationNumber];
+
+            const dbRef = db.collection('user-messaginglists').doc(listOwnerUID);
+            const unionRes = await dbRef.update({
+                members: FieldValue.arrayUnion(fromNumber)
+            });
+        }
+    }
 
     const currentTime = new Date().getTime();
     const newMessageObject = { from: fromNumber, to: destinationNumber, message: messageBody, timestamp: currentTime };
-    // const newMessageObject = { timestamp: currentTime };
     const dbRef = db.collection('incoming-messages').doc('incoming-messages');
     const unionRes = await dbRef.update({
         messages: FieldValue.arrayUnion(newMessageObject)
@@ -384,8 +442,6 @@ expApp.post('/wmincoming', async (req, res) => {
     twiml.message('Welcome to West Message');
 
     res.type('text/xml').send(twiml.toString());
-
-    // res.end();
 });
 
 

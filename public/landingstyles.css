@@ -230,8 +230,8 @@ strong {
 
 #getstartedpopup-content h1 {
     color: black;
-    font-size: 1.8em;
-    font-weight: 750;
+    font-size: 1.6em;
+    font-weight: 650;
     margin-top: 50px;
     margin-bottom: 10px;
 }
@@ -501,12 +501,11 @@ button:hover {
 
 /* Hero Section */
 .hero {
-    background-image: url('images/hero01-large.png');
-    background-size: cover;
-    background-position: 10% 100%;
+    background-image: url('images/hero01-large.png'), url('images/hero01-large.png');
+    background-size: contain;
+    background-position: -130px 100%;
     color: #FFFFFF;
-    max-width: 1900px;
-    height: 65vh;
+    height: 450px;
     text-align: center;
     float: center;
     margin: auto;
@@ -699,13 +698,18 @@ button:hover {
     display: inline-block;
     width: 250px;
     height: 160px;
-    padding: 50px 8px;
+    padding: 50px 8px 25px 8px;
     margin: 10px 20px;
 }
 
 .solutionbox p {
     color: var(--maintextcolor);
     margin-top: 10px;
+    margin-left: 6px;
+    margin-right: 2px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 500;
 }
 
 #howitworksdiv, #solutionsdiv {
