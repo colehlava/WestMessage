@@ -5,7 +5,7 @@
     --secondarycolor: #FFFFFF;
     --headercolor: #333333;
     --maintextcolor: #000000;
-    --blue: #1919FF;
+    --blue: #0000FF;
     --deepblue: #001EFF;
     --lightbluecustom: rgba(0, 242, 255, 0.6);
     --loginblue: #00EE33;
@@ -96,9 +96,10 @@ strong {
 }
 
 .westmessagelogo {
+    border: 2px solid black;
     background: var(--blue);
     color: white;
-    font-size: 2em;
+    font-size: 1.9em;
     padding: 10px 5px;
 }
 
@@ -584,7 +585,7 @@ button:hover {
     border-radius: var(--bradius);
     padding: 15px 30px 15px 30px;
     text-decoration: none;
-    font-size: 1.3em;
+    font-size: 1.2em;
     font-weight: bold;
     transition: background-color 0.3s ease;
     margin-top: 15px;
@@ -652,6 +653,7 @@ button:hover {
 
 .headline-card {
     background-color: var(--secondarycolor);
+    border: 1px solid black;
     color: var(--blue);
     padding: 20px;
     border-radius: var(--bradius);
@@ -664,9 +666,10 @@ button:hover {
 
 .feature-card {
     background-color: var(--secondarycolor);
+    border: 1px solid black;
+    border-radius: var(--bradius);
     color: var(--blue);
     padding: 20px;
-    border-radius: var(--bradius);
     margin: auto;
     margin-bottom: 60px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -680,6 +683,7 @@ button:hover {
 
 #solutionsdiv {
     background-color: var(--secondarycolor);
+    border: 1px solid black;
     border-radius: var(--bradius);
     width: 50vw;
     min-width: 950px;
@@ -697,6 +701,7 @@ button:hover {
 
 .solutionbox {
     background-color: var(--lightbluecustom);
+    border: 2px solid black;
     border-radius: var(--bradius);
     box-shadow: 10px 5px 10px rgba(0, 0, 0, 0.3);
     display: inline-block;
@@ -737,7 +742,7 @@ button:hover {
 
 .feature-details {
     background-color: white;
-    border: 2px solid black;
+    border: 1px solid black;
     border-radius: var(--bradius);
     padding: 40px 4px 2px 4px;
     float: left;
@@ -1211,9 +1216,10 @@ button:hover {
 /* ================================== */
 #brand {
   background-color: var(--blue);
+  border: 2px solid black;
   border-radius: var(--bradius);
   font-weight: bold;
-  font-size: 28px;
+  font-size: 23px;
   display: inline;
   float: left;
   margin-left: 60px;
@@ -1256,12 +1262,12 @@ header ul li:hover {
 }
 
 #login {
-  border: 1px solid var(--loginblue);
+  border: 2px solid var(--loginblue);
   margin-left: 30px;
 }
 
 #signup {
-  border: 1px solid var(--landingmaincolor);
+  border: 2px solid var(--landingmaincolor);
 }
 
 #signup a {
