@@ -353,7 +353,7 @@ input[type="file"] {
 }
 
 #newmessagelowerdiv {
-    width: 60%; /* MOBILE */
+    width: 70%; /* MOBILE */
 }
 
 #newmessagelowerdiv input {
@@ -816,7 +816,7 @@ button:hover {
 }
 
 #recipientmanualinputdiv {
-    width: 60%;
+    width: 70%;
     margin-top: 30px;
     border: 1px solid black;
     background-color: white;
@@ -835,7 +835,7 @@ button:hover {
 }
 
 #info-icon-newmessage {
-    margin-right: 3em;
+    margin-right: 1.0em;
 }
 
 #info-icon-newmessage:hover, #info-icon-howcreditswork:hover {
@@ -1186,7 +1186,7 @@ button:hover {
 /* Clients */
 /* ================================== */
 .client-selection-div {
-    width: 60%; /* MOBILE */
+    width: 70%; /* MOBILE */
     height: 40%;
     margin: auto;
     margin-top: 0px;
@@ -1253,8 +1253,8 @@ button:hover {
  */
 
 .recipienttypeselectiondiv {
-    width: 60%; /* MOBILE */
-    height: 5%;
+    width: 70%; /* MOBILE */
+    height: 50px;
     float: center;
     justify-content: center;
     margin: auto;
@@ -1288,7 +1288,7 @@ button:hover {
 
 .clientsearchboxdiv {
     background-color: grey;
-    width: 60%; /* MOBILE */
+    width: 70%; /* MOBILE */
     height: 3em;
     float: center;
     margin: auto;
@@ -1691,7 +1691,7 @@ ul li:hover {
 
 /* MOBILE */
 /* Mobile browser Responsive Styles */
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 799px) {
     button {
         font-size: 1.0em;
     }
