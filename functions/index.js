@@ -2,94 +2,30 @@
 // Entry point for West Message web application
 
 // Libraries
-// import { default as fs } from 'fs';
-// import { readFile } from 'fs/promises';
-// const fs = require("fs").promises;
 const fs = require("fs");
-// import { default as express } from 'express';
 const express = require('express');
-// import * as http from 'http';
-// import { default as https } from 'https';
-
-// import { dirname } from 'path';
-// const { path } = require('path');
-// import { fileURLToPath } from 'url';
-// const { fileURLToPath } = require('url');
-// const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // Stripe config
-// import { Stripe } from 'stripe';
-// const { Stripe } = require('stripe');
-// const rawStripeConfig = await readFile('./.sec/stripe.config', 'utf8');
-// const rawStripeConfig = await readFile('/Users/colehlava/Documents/Code/WestMessage/.sec/stripe.config', 'utf8');
 const rawStripeConfig = fs.readFileSync('./.sec/stripe.config', 'utf8');
 const stripeConfig = rawStripeConfig.trim();
-// const stripe = new Stripe(stripeConfig);
-// const stripe = new Stripe('sk_test_51NralMKF5W6IwfpPSMKwDqlxIQVvAbDNSlwK8L5INDdaZjcW7roOsrohtOshzGT7pghpTbOYtzoxvxhc5hrxtRCf00UTBAiuA5'); // TEST MODE secret key
 const stripe = require('stripe')(stripeConfig);
 
 // Twilio config
-// import { default as twilio } from 'twilio';
-// const accountSid = process.env.TWILIO_ACCOUNT_SID;
-// const authToken = process.env.TWILIO_AUTH_TOKEN;
-// const twilioClient = twilio(accountSid, authToken);
 const twilio = require('twilio');
-// const MessagingResponse = require('twilio').twiml;
-// const MessagingResponse = twilio.twiml;
 const MessagingResponse = twilio.twiml.MessagingResponse;
 const twilioConfigRaw = fs.readFileSync('./.sec/twilio.json');
 const twilioConfig = JSON.parse(twilioConfigRaw);
 const twilioClient = new twilio(twilioConfig['accountSID'], twilioConfig['authToken']);
 
 // Firebase imports
-// const {onRequest} = require("firebase-functions/v2/https");
-// import {onRequest} from "firebase-functions/v2/https";
-// import { default as https } from "firebase-functions/v2/https";
-// import { onRequest } from "firebase-functions/v2/https";
-// import { onRequest } from "firebase-functions";
-// import functions from "firebase-functions";
-// import pkg from 'firebase-functions';
-// const { onRequest } = pkg;
-// import * as functions from 'firebase-functions';
 const functions = require('firebase-functions');
-
-// import { getApp } from "firebase/app";
-// import { getFunctions, connectFunctionsEmulator } from "firebase/functions";
-
-// const functions = getFunctions(getApp());
-// connectFunctionsEmulator(functions, "127.0.0.1", 5001);
-
-// require("firebase-functions/logger/compat");
-// import firebase from "firebase-functions/logger/compat";
-// const logger = require("firebase-functions/logger");
-
-
-
 const { initializeApp, applicationDefault, cert } = require("firebase-admin/app");
 const { getAuth } = require( "firebase-admin/auth");
-// const { getFirestore, Timestamp, FieldValue, Filter, connectFirestoreEmulator } = require( "firebase-admin/firestore");
 const { getFirestore, Timestamp, FieldValue, Filter } = require( "firebase-admin/firestore");
 
-// import { initializeApp, applicationDefault, cert } from "firebase-admin/app";
-// import { getAuth } from "firebase-admin/auth";
-// import { getFirestore, Timestamp, FieldValue, Filter } from "firebase-admin/firestore";
-
-// import { initializeApp } from "firebase/app";
-// import { getStorage } from "firebase-admin/storage";
-// import { ref, uploadBytesResumable } from "firebase/storage";
-// import { getStorage, getDownloadURL } from "firebase-admin/storage";
-// import { Storage } from "@google-cloud/storage";
 const { Storage } = require( "@google-cloud/storage");
 
 // Initialize Firebase
-/*
-const serviceAccount = JSON.parse(
-    // await readFile('./.sec/serviceAccountKey.json')
-    await fs.readFile('/Users/colehlava/Documents/Code/WestMessage/.sec/serviceAccountKey.json')
-);
- */
-// const serviceAccountRaw = fs.readFileSync('/Users/colehlava/Documents/Code/WestMessage/.sec/serviceAccountKey.json');
-// const serviceAccountRaw = fs.readFileSync('./../.sec/serviceAccountKey.json');
 const serviceAccountRaw = fs.readFileSync('./.sec/serviceAccountKey.json');
 const serviceAccount = JSON.parse(
     // await readFile('./.sec/serviceAccountKey.json')
@@ -98,8 +34,7 @@ const serviceAccount = JSON.parse(
 
 
 initializeApp({
-    credential: cert(serviceAccount) // ,
-    // storageBucket: 'https://console.firebase.google.com/project/textproject-91e54/storage/textproject-91e54.appspot.com/files'
+    credential: cert(serviceAccount)
 });
 
 // Initialize Firestore db and save reference
@@ -108,92 +43,23 @@ const db = getFirestore();
 
 // Initialize cloud storage bucket and save reference
 const storage = new Storage({
-    // keyFilename: './.sec/serviceAccountKey.json'
-    // keyFilename: '/Users/colehlava/Documents/Code/WestMessage/.sec/serviceAccountKey.json'
     keyFilename: './.sec/serviceAccountKey.json'
 });
 
 // Custom classes
-// import { RecentMessage } from './RecentMessage.js';
-// import { RecentMessage } from '/Users/colehlava/Documents/Code/WestMessage/RecentMessage.js';
 const RecentMessage = require('./RecentMessage.js');
 
 // Constants
 const domainName = 'https://westmessage.com/';
 const port = 3000;
-// const port = 8080;
-// const port = process.env.PORT || 8080;
 
 // Express config
-// @TODO: Finalize request size limits
 const expApp = express();
 expApp.use(express.json({limit: '50mb'}));
 expApp.use(express.urlencoded({limit: '50mb', extended: true}));
 // expApp.use(express.static('../public')); // Firebase hosting handles this automatically with the public directory
 
 
-
-
-
-
-
-/*
-// This works on http://127.0.0.1:3000/bigben
-exports.bigben = functions.https.onRequest((req, res) => {
-  const hours = (new Date().getHours() % 12) + 1  // London is UTC + 1hr;
-  res.status(200).send(`<!doctype html>
-    <head>
-      <title>Time</title>
-    </head>
-    <body>
-      ${'BONG '.repeat(hours)}
-    </body>
-  </html>`);
-});
- */
-
-
-/*
-expApp.get('/', (req, res) => {
-  const date = new Date();
-  const hours = (date.getHours() % 12) + 1;  // London is UTC + 1hr;
-    res.sendFile('/Users/colehlava/Documents/Code/WestMessage/public/landing.html');
-});
- */
-
-
-/*
-expApp.get('/api', (req, res) => {
-  const date = new Date();
-  const hours = (date.getHours() % 12) + 1;  // London is UTC + 1hr;
-  res.json({bongs: 'BONG '.repeat(hours)});
-});
- */
-
-
-/*
-// Home page
-expApp.get("/", function(req, res) {
-    console.log("home page accessed");
-    // fs.createReadStream('landing.html').pipe(res);
-    // res.sendFile(__dirname + '/landing.html');
-    // res.sendFile('/Users/colehlava/Documents/Code/WestMessage/public/landing.html');
-    // res.sendFile('./../public/landing.html');
-    // res.send('Temp home page');
-    // res.sendFile('./public/landing.html');
-    // res.sendFile('landing.html');
-    // res.sendFile(path.join(__dirname, '/../public/landing.html'));
-    // res.send(path.join(__dirname, '/../public/landing.html'));
-    // res.redirect('../public/landing.html');
-    // res.redirect('./../public/landing.html');
-    res.redirect('landing.html');
-})
- */
-
-
-
-
-// @TODO: maybe delete, also verify htmlResponse definition
 // New user (first sign in immediately after account create / sign up)
 expApp.post("/new-user", async(req, res) => {
     const idToken = req.body.userIdToken;
