@@ -85,7 +85,8 @@ strong {
 }
 
 .logocontainer {
-    background: var(--blue);
+    /* background: var(--blue); */
+    background: var(--secondarycolor);
     border-radius: var(--bradius);
     width: 8em;
     text-align: center;
@@ -96,10 +97,12 @@ strong {
 }
 
 .westmessagelogo {
-    border: 2px solid black;
-    background: var(--blue);
-    color: white;
-    font-size: 1.9em;
+    /* border: 2px solid black; */
+    /* background: var(--blue); */
+    background: var(--secondarycolor);
+    color: #254458;
+    font-size: 2.1em;
+    font-family: Georgia, serif;
     padding: 10px 5px;
 }
 
@@ -521,7 +524,8 @@ button:hover {
     background-color: var(--secondarycolor);
     color: white;
     border: 2px solid black;
-    border-radius: var(--bradius);
+    /* border-radius: var(--bradius); */
+    border-radius: 5px;
     max-width: 500px;
     margin: auto;
     margin-top: 6em;
@@ -534,6 +538,8 @@ button:hover {
 
 .hero-content h2 {
     font-size: 1.2em;
+    font-family: Georgia, serif;
+    color: #254458;
     margin-bottom: 0.5em;
 }
 
@@ -582,7 +588,8 @@ button:hover {
     color: black;
     display: inline;
     border: 2px solid black;
-    border-radius: var(--bradius);
+    /* border-radius: var(--bradius); */
+    border-radius: 5px;
     padding: 15px 30px 15px 30px;
     text-decoration: none;
     font-size: 1.2em;
@@ -1215,11 +1222,14 @@ button:hover {
 /* Mobile */
 /* ================================== */
 #brand {
-  background-color: var(--blue);
+  /* background-color: var(--blue); */
+  background-color: #254458;
   border: 2px solid black;
-  border-radius: var(--bradius);
+  /* border-radius: var(--bradius); */
+  border-radius: 5px;
   font-weight: bold;
   font-size: 23px;
+  font-family: Georgia, serif;
   display: inline;
   float: left;
   margin-left: 60px;
